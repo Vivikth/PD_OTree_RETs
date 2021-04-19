@@ -13,8 +13,9 @@ class start(Page):
         return self.round_number == 1
 
     def before_next_page(self):
+        pass
         # user has ret_timer seconds to complete as many pages as possible
-        self.participant.vars['expiry_timestamp'] = time.time() + self.player.task_timer
+        #self.participant.vars['expiry_timestamp'] = time.time() + self.player.task_timer
 
     def vars_for_template(self):
         return {
@@ -28,11 +29,11 @@ class task(Page):
 
     # timeout_seconds = self.player.ret_timer # time? no, only works on specific pages
 
-    def get_timeout_seconds(self):
-        return self.participant.vars['expiry_timestamp'] - time.time()
-
-    def is_displayed(self):
-        return self.participant.vars['expiry_timestamp'] - time.time() > 3
+    # def get_timeout_seconds(self):
+    #     return self.participant.vars['expiry_timestamp'] - time.time()
+    #
+    # def is_displayed(self):
+    #     return self.participant.vars['expiry_timestamp'] - time.time() > 3
 
     def vars_for_template(self):
 

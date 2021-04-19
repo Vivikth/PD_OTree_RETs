@@ -7,8 +7,9 @@ class Start(Page):
         return self.round_number == 1
 
     def before_next_page(self):
+        pass
         # user has 2 minutes to complete as many pages as possible
-        self.participant.vars['expiry'] = time.time() + 2 * 60
+        # self.participant.vars['expiry'] = time.time() + 2 * 60
 
 
 import time
@@ -17,13 +18,13 @@ class zeroCount(Page):
     form_model = 'player'
     form_fields = ['count']
 
-    timer_text = 'Time left to complete the Counting Zeros game:'
-
-    def get_timeout_seconds(self):
-        return self.participant.vars['expiry'] - time.time()
-
-    def is_displayed(self):
-        return self.get_timeout_seconds() > 3
+    # timer_text = 'Time left to complete the Counting Zeros game:'
+    #
+    # def get_timeout_seconds(self):
+    #     return self.participant.vars['expiry'] - time.time()
+    #
+    # def is_displayed(self):
+    #     return self.get_timeout_seconds() > 3
 
     def vars_for_template(self):
         if self.round_number < 11:
