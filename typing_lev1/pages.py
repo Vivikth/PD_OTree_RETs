@@ -34,6 +34,9 @@ class task(Page):
     #
     # def is_displayed(self):
     #     return self.participant.vars['expiry_timestamp'] - time.time() > 3
+    def user_text_error_message(self, value):
+        if not value == self.player.correct_text:
+            return 'Answer is Incorrect'
 
     def vars_for_template(self):
 

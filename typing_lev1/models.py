@@ -163,7 +163,8 @@ class Constants(BaseConstants):
         '3wdvp9cQMEKU',
         'V4x7BM8oqpMN',
     ]
-
+    #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
+    rand = random.sample(range(num_rounds), num_rounds)
 class Subsession(BaseSubsession):
 
     def creating_session(self):
@@ -176,7 +177,7 @@ class Subsession(BaseSubsession):
 
         for p in self.get_players():
             p.task_timer = task_timer
-            p.correct_text = Constants.reference_texts[self.round_number - 1]
+            p.correct_text = Constants.reference_texts[Constants.rand[self.round_number - 1]]
 
 class Group(BaseGroup):
 	pass
