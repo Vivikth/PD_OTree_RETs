@@ -1,1 +1,0 @@
-Need .png to prevent ctrl+F of character. - Therefore need pre-designed templates. This means that blurring is quite easy.
