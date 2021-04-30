@@ -1,12 +1,12 @@
 from os import environ
 
 SESSION_CONFIGS = [
-    dict(
-       name='counting_zeroes_lev1',
-       display_name="counting_zeroes_lev1",
-       num_demo_participants=1,
-       app_sequence=['counting_zeroes_lev1']
-    ),
+    # dict(
+    #    name='counting_zeroes_lev1',
+    #    display_name="counting_zeroes_lev1",
+    #    num_demo_participants=1,
+    #    app_sequence=['counting_zeroes_lev1']
+    # ),
     dict(
         name='typing_lev1',
         display_name="typing_lev1",

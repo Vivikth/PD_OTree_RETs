@@ -1,0 +1,104 @@
+{% extends "global/BaseMotherhood.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Task 
+{% endblock %}
+
+
+
+{% block content %}
+ 
+     <p>
+                <center><h2>Type the text below into the box and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
+                <br>
+                <center>
+                    <img src="{{ STATIC_URL }}{{image_path}}"/>
+                </center>
+                <br><br>
+    </p>
+
+
+
+    <table class="table">
+            <tr>
+            <h3>
+                <th style="vertical-align:middle">
+                    <br><br>
+                    {% formfield player.user_text with label="" %}
+                    <br><br>
+                </th>
+                <th style="vertical-align:middle; text-align: left">
+                    <br><br>
+                    {% next_button %}
+                    <br><br            
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    <h2>{% autoescape off %}  {{correct_last_round}}   {% endautoescape %}
+                    <h2> Number of correct words: {{ round_count }}
+                    <h2> Points earned: {{ total_payoff }}
+                </th>
+                <th style="vertical-align:top; text-align: left">
+                    <h2><br></h2>
+                </th>
+            </h3>    
+            </tr>
+
+
+        </table>
+
+    {% if debug %}
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+
+            <h4><br>Cheater Mode Activated (Debug Mode Only)  - <a href="#" id="prefill">Click Here to Autofill Text</a></h4>
+            <p>You are playing in debug mode, so you can skip the manual
+                transcription by clicking <a href="#" id="prefill">this link</a>
+                and clicking "next".
+            </p>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('a#prefill').click(function () {
+                    $('#id_user_text').val('{{ player.correct_text }}');
+                    $('#id_user_text').focus();
+
+                })
+            });
+        </script>
+    {% endif %}
+
+
+<script>
+    $(document).ready(function () {
+        $('#id_user_text').focus();
+    });
+</script>
+<!-- Text to png Image -->
+<!--<script>-->
+
+<!--    var c=document.getElementById("myCanvas");-->
+<!--    var ctx=c.getContext("2d");-->
+<!--    make_base();-->
+
+<!--    function make_base()-->
+<!--    {-->
+<!--      base_image = new Image();-->
+<!--      base_image.src = "{{ STATIC_URL }}{{image_path}}";-->
+<!--      base_image.onload = function(){-->
+<!--        context.drawImage(base_image, 0, 0);-->
+<!--      }-->
+<!--    }-->
+
+<!--</script>-->
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}
