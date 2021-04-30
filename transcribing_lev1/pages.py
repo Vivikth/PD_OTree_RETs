@@ -5,6 +5,7 @@ from .models import Constants
 from django.conf import settings
 import time
 import random
+import unicodedata
 
 
 class start(Page):
@@ -38,6 +39,9 @@ class task(Page):
         if not value == self.player.correct_text:
             return 'Answer is Incorrect'
 
+
+
+
     def vars_for_template(self):
 
         # current number of correctly done tasks
@@ -60,7 +64,7 @@ class task(Page):
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
             'correct_last_round': correct_last_round,
-            'image_path': 'transcribing_lev1/{}.png'.format(self.player.correct_text)
+            'image_path': 'transcribing_lev1/{}blur-intensifies.gif'.format(Constants.greek_to_name(self.player.correct_text))
         }
 
     def before_next_page(self):

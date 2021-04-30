@@ -14,7 +14,7 @@ from otree.api import (
     Currency as c, currency_range
 )
 import random
-
+import unicodedata
 
 
 
@@ -42,6 +42,11 @@ class Constants(BaseConstants):
 
     #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     rand = random.sample(range(num_rounds), num_rounds)
+
+    def greek_to_name(symbol):
+        greek, size, letter, what, *with_tonos = unicodedata.name(symbol).split()
+        assert greek, letter == ("GREEK", "LETTER")
+        return what.lower() if size == "SMALL" else what.title()
 class Subsession(BaseSubsession):
 
     def creating_session(self):
