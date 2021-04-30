@@ -60,6 +60,7 @@ class task(Page):
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
             'correct_last_round': correct_last_round,
+            'rounds_remaining': (Constants.num_rounds - self.round_number + 1)
         }
 
     def before_next_page(self):

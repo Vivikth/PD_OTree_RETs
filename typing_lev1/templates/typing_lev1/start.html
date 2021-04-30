@@ -20,31 +20,21 @@
           href="{% static 'global/matrix.css' %}"/>
 
     <p>
-      In this part of the experiment you will be presented with a series of randomly selected letters and numbers. <br>You will have {{ player.task_timer}} seconds to type as many sequences as possible. Note that each character has to be correct.
+      In this part of the experiment you will be presented with a series of randomly selected letters and numbers.
+        <br>You must type all {{Constants.num_rounds}} sequences correctly to move on to the next task. There is <b>no</b> time limit.
+        Note that each character has to be correct for you to proceed the next sequence.
     </p>
     <p>
       Once you have entered your summation, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br> 
     </p>
-    <p>
-        You will get <b>1 point for each correct answer</b>. 
-          Your score will not decrease if you provide an incorrect answer.
-    </p>
-
-        <p><br></p>
      <p>
-           After {{ player.task_timer}} seconds, the task will stop and you will receive a summary of the results.<br><br>
+           After you have typed all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
     </p>
     <p>
-           Please raise your hand and alert an experimenter if you have any questions.<br>
+           Otherwise, if you are ready, please click "Next" below to start this task. The instructions will be repeated on every page.<br>
     </p>
-    <p>
-           Otherwise, if you are ready, please click "Next" below to start the time and this {{ player.task_timer}} second task.<br>
-    </p>
-	
-
 
 </div>
-
       {% next_button %}<br><br><br>
 
 
