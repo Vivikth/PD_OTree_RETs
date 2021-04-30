@@ -64,7 +64,8 @@ class task(Page):
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
             'correct_last_round': correct_last_round,
-            'image_path': 'transcribing_lev1/{}blur-intensifies.gif'.format(Constants.greek_to_name(self.player.correct_text))
+            'image_path': 'transcribing_lev1/{}blur-intensifies.gif'.format(Constants.greek_to_name(self.player.correct_text)),
+            'rounds_remaining': (Constants.num_rounds - self.round_number + 1)
         }
 
     def before_next_page(self):

@@ -19,26 +19,19 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'global/matrix.css' %}"/>
 
-    <p>
-      In this part of the experiment you will be presented with a series of randomly selected letters and numbers. <br>You will have {{ player.task_timer}} seconds to type as many sequences as possible. Note that each character has to be correct.
-    </p>
-    <p>
-      Once you have entered your summation, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br> 
-    </p>
-    <p>
-        You will get <b>1 point for each correct answer</b>. 
-          Your score will not decrease if you provide an incorrect answer.
-    </p>
-
-        <p><br></p>
      <p>
-           After {{ player.task_timer}} seconds, the task will stop and you will receive a summary of the results.<br><br>
+      In this part of the experiment you will be presented with a random series of blurry and moving Greek letters.
+        <br>You must select the Greek letters correctly to move on to the next task. There is <b>no</b> time limit.
+        Note that each character has to be correct for you to proceed the next character.
     </p>
     <p>
-           Please raise your hand and alert an experimenter if you have any questions.<br>
+      Once you have selected the letter, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
+    </p>
+     <p>
+           After you have selected all {{Constants.num_rounds}} Greek letters correctly, you may move on to the next task.
     </p>
     <p>
-           Otherwise, if you are ready, please click "Next" below to start the time and this {{ player.task_timer}} second task.<br>
+           Otherwise, if you are ready, please click "Next" below to start this task. The instructions will be repeated on every page.<br>
     </p>
 	
 
