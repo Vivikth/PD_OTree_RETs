@@ -33,6 +33,7 @@
                 <br><br>
     </p>
 
+        <img src="{{ STATIC_URL }}{{tab_img}}"/>
 
 
     <table class="table">
@@ -98,7 +99,7 @@
     var c=document.getElementById("myCanvas");
     var ctx=c.getContext("2d");
     ctx.font="30px Courier";
-    ctx.fillText('{{ player.correct_text }}',60,50);
+    ctx.fillText('{{ display_text }}',60,50);
 
     // save img
     Canvas2Image.saveAsImage(c, 300, 100, 'png');

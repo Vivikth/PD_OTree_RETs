@@ -34,7 +34,9 @@ class task(Page):
         return {
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
-            'rounds_remaining': (Constants.num_rounds - self.round_number + 1)
+            'rounds_remaining': (Constants.num_rounds - self.round_number + 1),
+            'display_text': Constants.decrypt(self.player.correct_text, Constants.key, Constants.alphabet),
+            'tab_img': 'encoding_lev1/table.png'
         }
 
     def before_next_page(self):
