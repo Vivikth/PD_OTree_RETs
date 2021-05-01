@@ -52,6 +52,10 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+    level = models.IntegerField(
+        doc = "Task_Level"
+    )
+
     correct_text = models.CharField(
         doc="user's transcribed text")
 

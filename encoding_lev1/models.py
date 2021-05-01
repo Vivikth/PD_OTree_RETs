@@ -70,8 +70,6 @@ class Subsession(BaseSubsession):
     def creating_session(self):
 
         players = self.get_players()
-
-
         for p in self.get_players():
             p.correct_text = Constants.encrypt(Constants.reference_texts[Constants.rand[self.round_number - 1]],Constants.key, Constants.alphabet)
 
