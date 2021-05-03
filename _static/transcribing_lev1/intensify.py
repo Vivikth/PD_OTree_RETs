@@ -33,7 +33,7 @@ def main(parsed_args):
         animation_loops = animation_loops if animation_loops > 2 else 10
     shift_range = range(shift_amount * -1, shift_amount)
 
-    print(frame_duration)
+    #print(frame_duration)
     out_frames = []
     for loop in range(0, animation_loops):
         for frame in range(0, frames):
@@ -44,8 +44,8 @@ def main(parsed_args):
                 zoomed = ImageChops.offset(im, x, y)
                 out_frames.append(zoomed)
 
-    out = os.path.splitext(parsed_args.file)[0] + "-intensifies.gif"
-    print(out)
+    out = os.path.splitext(parsed_args.file)[0] + ".gif"
+    #print(out)
     out_frames[-1].save(out, format='GIF', append_images=out_frames[0:-1], save_all=True,
                         duration=frame_duration, transparency=1, loop=0)
 

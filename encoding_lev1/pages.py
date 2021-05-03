@@ -43,14 +43,6 @@ class task(Page):
         pass
 
 
-class ResultsWaitPage(WaitPage):
-    def is_displayed(self):
-        return self.round_number == Constants.num_rounds
-
-    def after_all_players_arrive(self):
-        pass
-
-
 class Results(Page):
 
     def is_displayed(self):
@@ -81,7 +73,6 @@ class Results(Page):
 page_sequence = [
     start,
     task,
-    ResultsWaitPage,
     Results
 ]
 

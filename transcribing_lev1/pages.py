@@ -7,6 +7,19 @@ import time
 import random
 import unicodedata
 
+class Level_Selection(Page):
+    form_model = models.Player
+    form_fields = ['level']
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def before_next_page(self):
+        pass
+
+    def vars_for_template(self):
+        return {
+            'debug': settings.DEBUG,
+        }
 
 class start(Page):
 
@@ -14,7 +27,7 @@ class start(Page):
         return self.round_number == 1
 
     def before_next_page(self):
-        pass
+        self.player.getting_text(Call_Loc="Start")
 
     def vars_for_template(self):
         return {
@@ -31,28 +44,18 @@ class task(Page):
             return 'Answer is Incorrect'
 
 
-
-
     def vars_for_template(self):
-
 
         return {
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
-            'image_path': 'transcribing_lev1/{}blur-intensifies.gif'.format(Constants.greek_to_name(self.player.correct_text)),
+            'image_path': self.player.image_path,
             'rounds_remaining': (Constants.num_rounds - self.round_number + 1)
         }
 
     def before_next_page(self):
-        pass
-
-
-class ResultsWaitPage(WaitPage):
-    def is_displayed(self):
-        return self.round_number == Constants.num_rounds
-
-    def after_all_players_arrive(self):
-        pass
+        if self.round_number < Constants.num_rounds:
+            self.player.getting_text()
 
 
 class Results(Page):
@@ -80,10 +83,9 @@ class Results(Page):
         }
 
 
-page_sequence = [
+page_sequence = [Level_Selection,
     start,
     task,
-    ResultsWaitPage,
     Results
 ]
 

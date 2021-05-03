@@ -28,7 +28,6 @@ class start(Page):
         return self.round_number == 1
 
     def before_next_page(self):
-        print('Start Page is calling getting_text')
         self.player.getting_text(Call_Loc="Start")
 
     def vars_for_template(self):
@@ -44,7 +43,6 @@ class task(Page):
 
     def before_next_page(self):
         if self.round_number < Constants.num_rounds:
-            print('Task Page is calling getting_text')
             self.player.getting_text()
 
     def user_text_error_message(self, value):
@@ -60,12 +58,6 @@ class task(Page):
         }
 
 
-class ResultsWaitPage(WaitPage):
-    def is_displayed(self):
-        return self.round_number == Constants.num_rounds
-
-    def after_all_players_arrive(self):
-        pass
 
 
 class Results(Page):
@@ -98,7 +90,6 @@ class Results(Page):
 page_sequence = [ Level_Selection,
     start,
     task,
-    ResultsWaitPage,
     Results
 ]
 
