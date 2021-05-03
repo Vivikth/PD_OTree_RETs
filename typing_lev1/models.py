@@ -29,8 +29,6 @@ class Constants(BaseConstants):
 
     string_length = 4
     num_rounds = 10
-    rand = random.sample(range(num_rounds), num_rounds)
-
 
     characters_lev1 = "ab" #Characters to create strings from.
     characters_lev2 = "cd" #Characters to create strings from.
@@ -47,34 +45,29 @@ class Subsession(BaseSubsession):
 
     #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     def creating_session(self):
-        pass
+        if self.round_number == 1:
+            for p in self.session.get_participants():
+                rand = random.sample(range(Constants.num_rounds), Constants.num_rounds)
+                p.vars['rand'] = rand
 
 class Group(BaseGroup):
     pass
 
 class Player(BasePlayer):
-
     def getting_text(self, Call_Loc = "Task"):
+        if Call_Loc == "Start":
+            dummy_sub = 1
+        else:
+            dummy_sub = 0
         if self.in_round(1).level == 1:
-            if Call_Loc == "Start":
-                self.correct_text = Constants.reference_texts_lev1[Constants.rand[self.round_number - 1]]
-            if Call_Loc == "Task":
-                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev1[Constants.rand[self.round_number]]
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[self.participant.vars['rand'][self.round_number - dummy_sub]]
         elif self.in_round(1).level == 2:
-            if Call_Loc == "Start":
-                self.correct_text = Constants.reference_texts_lev2[Constants.rand[self.round_number - 1]]
-            if Call_Loc == "Task":
-                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev2[Constants.rand[self.round_number]]
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev2[self.participant.vars['rand'][self.round_number - dummy_sub]]
         elif self.in_round(1).level == 3:
-            if Call_Loc == "Start":
-                self.correct_text = Constants.reference_texts_lev3[Constants.rand[self.round_number - 1]]
-            if Call_Loc == "Task":
-                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev3[Constants.rand[self.round_number]]
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev3[self.participant.vars['rand'][self.round_number - dummy_sub]]
         elif self.in_round(1).level == 4:
-            if Call_Loc == "Start":
-                self.correct_text = Constants.reference_texts_lev4[Constants.rand[self.round_number - 1]]
-            if Call_Loc == "Task":
-                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev4[Constants.rand[self.round_number]]
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev4[self.participant.vars['rand'][self.round_number - dummy_sub]]
+
 
     level = models.IntegerField(
         doc = "Task_Level", choices=[1, 2, 3, 4], widget=widgets.RadioSelect
