@@ -7,13 +7,28 @@ from django.conf import settings
 import random
 
 
+class Level_Selection(Page):
+    form_model = models.Player
+    form_fields = ['level']
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def before_next_page(self):
+        pass
+
+    def vars_for_template(self):
+        return {
+            'debug': settings.DEBUG,
+        }
+
+
 class start(Page):
 
     def is_displayed(self):
         return self.round_number == 1
 
     def before_next_page(self):
-        pass
+        self.player.getting_text(Call_Loc="Start")
 
     def vars_for_template(self):
         return {
@@ -35,12 +50,13 @@ class task(Page):
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
             'rounds_remaining': (Constants.num_rounds - self.round_number + 1),
-            'display_text': Constants.decrypt(self.player.correct_text, Constants.key, Constants.alphabet),
-            'tab_img': 'encoding_lev1/table.png'
+            'display_text': Constants.decrypt(self.player.correct_text, Constants.key_lev1, Constants.alphabet_lev1),
+            'tab_img': self.player.image_path
         }
 
     def before_next_page(self):
-        pass
+        if self.round_number < Constants.num_rounds:
+            self.player.getting_text()
 
 
 class Results(Page):
@@ -70,7 +86,7 @@ class Results(Page):
 
 
 
-page_sequence = [
+page_sequence = [ Level_Selection,
     start,
     task,
     Results

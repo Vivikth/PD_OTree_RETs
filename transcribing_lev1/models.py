@@ -89,15 +89,6 @@ class Player(BasePlayer):
             self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing_lev1/Punctuation/{}.gif'.format(Constants.punctuation_to_name(self.in_round(self.round_number + 1 - dummy_sub).correct_text))
 
 
-        # if self.player.level == 1:
-        #     self.player.image_path = 'transcribing_lev1/Digits/{}.gif'.format(self.player.correct_text)
-        # elif self.player.level == 2:
-        #     self.player.image_path = 'transcribing_lev1/Capital_Letters/{}.gif'.format(self.player.correct_text)
-        # elif self.player.level == 3:
-        #     self.player.image_path = 'transcribing_lev1/Greek/{}.gif'.format(Constants.greek_to_name(self.player.correct_text))
-        # elif self.player.level == 4:
-        #     self.player.image_path = 'transcribing_lev1/Punctuation/{}.gif'.format(Constants.punctuation_to_name(self.player.correct_text))
-
 
     level = models.IntegerField(
         doc = "Task_Level", choices=[1, 2, 3, 4], widget=widgets.RadioSelect

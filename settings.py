@@ -10,7 +10,7 @@ SESSION_CONFIGS = [
     dict(
         name='typing_lev1',
         display_name="typing_lev1",
-        num_demo_participants=3,
+        num_demo_participants=1,
         app_sequence=['typing_lev1']
     ),
     dict(
