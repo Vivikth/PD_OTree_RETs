@@ -28,34 +28,57 @@ class Constants(BaseConstants):
     players_per_group = None
 
     string_length = 4
-    characters = "ab" #Characters to create strings from.
-
-    num_rounds = len(characters) ** string_length # must be more than the max one person can do in task_timer seconds
-
-    reference_texts = ["".join(p) for p in itertools.product(characters, repeat=string_length)] #List of strings.
-
-    #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
+    num_rounds = 10
     rand = random.sample(range(num_rounds), num_rounds)
+
+
+    characters_lev1 = "ab" #Characters to create strings from.
+    characters_lev2 = "cd" #Characters to create strings from.
+    characters_lev3 = "ef" #Characters to create strings from.
+    characters_lev4 = "gh" #Characters to create strings from.
+
+    reference_texts_lev1 = ["".join(p) for p in itertools.product(characters_lev1, repeat=string_length)] #List of strings.
+    reference_texts_lev2 = ["".join(p) for p in itertools.product(characters_lev2, repeat=string_length)] #List of strings.
+    reference_texts_lev3 = ["".join(p) for p in itertools.product(characters_lev3, repeat=string_length)] #List of strings.
+    reference_texts_lev4 = ["".join(p) for p in itertools.product(characters_lev4, repeat=string_length)] #List of strings.
+
 
 class Subsession(BaseSubsession):
 
+    #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     def creating_session(self):
-
-        players = self.get_players()
-
-
-        for p in self.get_players():
-            p.correct_text = Constants.reference_texts[Constants.rand[self.round_number - 1]]
+        pass
 
 class Group(BaseGroup):
     pass
 
 class Player(BasePlayer):
 
-    level = models.IntegerField(
-        doc = "Task_Level"
-    )
+    def getting_text(self, Call_Loc = "Task"):
+        if self.in_round(1).level == 1:
+            if Call_Loc == "Start":
+                self.correct_text = Constants.reference_texts_lev1[Constants.rand[self.round_number - 1]]
+            if Call_Loc == "Task":
+                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev1[Constants.rand[self.round_number]]
+        elif self.in_round(1).level == 2:
+            if Call_Loc == "Start":
+                self.correct_text = Constants.reference_texts_lev2[Constants.rand[self.round_number - 1]]
+            if Call_Loc == "Task":
+                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev2[Constants.rand[self.round_number]]
+        elif self.in_round(1).level == 3:
+            if Call_Loc == "Start":
+                self.correct_text = Constants.reference_texts_lev3[Constants.rand[self.round_number - 1]]
+            if Call_Loc == "Task":
+                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev3[Constants.rand[self.round_number]]
+        elif self.in_round(1).level == 4:
+            if Call_Loc == "Start":
+                self.correct_text = Constants.reference_texts_lev4[Constants.rand[self.round_number - 1]]
+            if Call_Loc == "Task":
+                self.in_round(self.round_number + 1).correct_text = Constants.reference_texts_lev4[Constants.rand[self.round_number]]
 
+    level = models.IntegerField(
+        doc = "Task_Level", choices=[1, 2, 3, 4], widget=widgets.RadioSelect
+    )
     correct_text = models.CharField(
         doc="user's transcribed text")
 

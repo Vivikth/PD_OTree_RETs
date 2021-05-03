@@ -6,9 +6,9 @@ from django.conf import settings
 # import time
 import random
 
-
-class start(Page):
-
+class Level_Selection(Page):
+    form_model = models.Player
+    form_fields = ['level']
     def is_displayed(self):
         return self.round_number == 1
 
@@ -21,9 +21,31 @@ class start(Page):
         }
 
 
+
+class start(Page):
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def before_next_page(self):
+        print('Start Page is calling getting_text')
+        self.player.getting_text(Call_Loc="Start")
+
+    def vars_for_template(self):
+        return {
+            'debug': settings.DEBUG,
+        }
+
+
+
 class task(Page):
     form_model = models.Player
     form_fields = ['user_text']
+
+    def before_next_page(self):
+        if self.round_number < Constants.num_rounds:
+            print('Task Page is calling getting_text')
+            self.player.getting_text()
 
     def user_text_error_message(self, value):
         if not value == self.player.correct_text:
@@ -36,9 +58,6 @@ class task(Page):
             'debug': settings.DEBUG,
             'rounds_remaining': (Constants.num_rounds - self.round_number + 1)
         }
-
-    def before_next_page(self):
-        pass
 
 
 class ResultsWaitPage(WaitPage):
@@ -76,7 +95,7 @@ class Results(Page):
 
 
 
-page_sequence = [
+page_sequence = [ Level_Selection,
     start,
     task,
     ResultsWaitPage,
