@@ -18,7 +18,9 @@ import prettytable
 import imgkit
 # </standard imports>
 author = 'Vivikth Narayanan'
-
+import string
+import imgkit
+import numpy as np
 doc = """
 Real Effort Task. Type as many strings as possible.  
 """
@@ -27,10 +29,7 @@ class Constants(BaseConstants):
     name_in_url = 'task_counting'
     players_per_group = None
     num_rounds = 10 # must be more than the max one person can do in task_timer seconds
-    string_length = 4
-
-    characters = "ab" #Characters to create strings from.
-    reference_texts = ["".join(p) for p in itertools.product(characters, repeat=string_length)] #List of strings to encrypt.
+    grid_size = 8
 
     #encrypts text given key and alphabet.
     def encrypt(plaintext, key, alphabet):
@@ -41,58 +40,66 @@ class Constants(BaseConstants):
         keyIndices = [key.index(k) for k in cipher]
         return ''.join(alphabet[keyIndex] for keyIndex in keyIndices)
 
-    characters_lev1 = "ab" #Characters to create strings from.
-    characters_lev2 = "cd" #Characters to create strings from.
-    characters_lev3 = "ef" #Characters to create strings from.
-    characters_lev4 = "gh" #Characters to create strings from.
+    characters_lev1 = list("1") #Non-zero Characters to create grid
+    characters_lev2 = list("123456789") #Non-zero Characters to create grid
+    characters_lev3 = list(string.ascii_lowercase) + characters_lev2 #Non-zero Characters to create grid
+    characters_lev4 = ['α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ', 'μ', 'ν', 'ξ', 'ο', 'π', 'ρ', 'ς', 'σ', 'τ', 'υ', 'φ', 'χ', 'ψ', 'ω']
 
-    reference_texts_lev1 = ["".join(p) for p in itertools.product(characters_lev1, repeat=string_length)] #List of strings.
-    reference_texts_lev2 = ["".join(p) for p in itertools.product(characters_lev2, repeat=string_length)] #List of strings.
-    reference_texts_lev3 = ["".join(p) for p in itertools.product(characters_lev3, repeat=string_length)] #List of strings.
-    reference_texts_lev4 = ["".join(p) for p in itertools.product(characters_lev4, repeat=string_length)] #List of strings.
+    reference_texts_lev1 = list(range(10, 20))#Correct number of zeros
+    reference_texts_lev2 = list(range(10, 20)) #Correct number of zeros
+    reference_texts_lev3 = list(range(10, 20)) #Correct number of zeros
+    reference_texts_lev4 = list(range(10, 20)) #Correct number of zeros
 
-    alphabet_lev1 = 'abcdefghijklmnopqrstuvwxyz.,! '
-    alphabet_lev2 = 'abcdefghijklmnopqrstuvwxyz.,! '
-    alphabet_lev3 = 'abcdefghijklmnopqrstuvwxyz.,! '
-    alphabet_lev4 = 'abcdefghijklmnopqrstuvwxyz.,! '
+    def count_array_pretty(dim, num_zeros, characters, outpath):
+        def random_sum_to(n, num_terms=None):
+            num_terms = (num_terms or random.randint(2, n)) - 1
+            a = random.sample(range(1, n), num_terms) + [0, n]
+            list.sort(a)
+            return [a[i + 1] - a[i] for i in range(len(a) - 1)]
 
-    key_lev1 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
-    key_lev2 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
-    key_lev3 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
-    key_lev4 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
+        def prettify(array):
+            pt = prettytable.PrettyTable()
+            for x in array:
+                pt.add_row(x)
+            pt.header = False
+            pt.hrules = prettytable.ALL
+            return pt.get_html_string(format=True)
 
-    alphabet_list_lev1 = list(alphabet_lev1)
-    key_list_lev1 = list(key_lev1)
+        distn = random_sum_to(dim ** 2 - num_zeros, num_terms=len(characters))
+        dummy = []
+        for dist, character in zip(distn, characters):
+            dummy += [character] * dist
+        arr = np.array(['0'] * num_zeros + dummy)  # Create array
+        np.random.shuffle(arr)
+        table_string = prettify(arr.reshape((dim, dim)))
 
-    alphabet_list_lev2 = list(alphabet_lev2)
-    key_list_lev2 = list(key_lev2)
-
-    alphabet_list_lev3 = list(alphabet_lev3)
-    key_list_lev3 = list(key_lev3)
-
-    alphabet_list_lev4 = list(alphabet_lev4)
-    key_list_lev4 = list(key_lev4)
-
-
-    def pretty_table_generator(alphabet_list, key_list, outpath):
         path_wkthmltoimage = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe'
         config = imgkit.config(wkhtmltoimage=path_wkthmltoimage)
 
-        pt = prettytable.PrettyTable()
-        pt.field_names = ["Original Character"] + alphabet_list
-        pt.add_row(["Encoded Character"] + key_list)
-        pt.hrules = prettytable.ALL
-
-        table_string = pt.get_html_string(format=True)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
-    pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding_lev1/table_lev1.png')
-    pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding_lev1/table_lev2.png')
-    pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding_lev1/table_lev3.png')
-    pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding_lev1/table_lev4.png')
+    def level_description(level):
+        if level == 1:
+            return "0s and 1s"
+        elif level == 2:
+            return "digits from 0 to 9"
+        elif level == 3:
+            return "English letters and numbers"
+        elif level == 4:
+            return "Greek letters, English letters and numbers"
 
-    #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
-    rand = random.sample(range(num_rounds), num_rounds)
+#Below is the code that actually generates images, no need to run it every time.
+    # for i, num in enumerate(reference_texts_lev1):
+    #     count_array_pretty(grid_size, num, characters_lev1, '/grid_counting/lev1/%i.png'%(i))
+    #
+    # for i, num in enumerate(reference_texts_lev2):
+    #     count_array_pretty(grid_size, num, characters_lev2, '/grid_counting/lev2/%i.png'%(i))
+    #
+    # for i, num in enumerate(reference_texts_lev3):
+    #     count_array_pretty(grid_size, num, characters_lev3, '/grid_counting/lev3/%i.png'%(i))
+    #
+    # for i, num in enumerate(reference_texts_lev4):
+    #     count_array_pretty(grid_size, num, characters_lev4, '/grid_counting/lev4/%i.png'%(i))
 
 
 class Subsession(BaseSubsession):
@@ -114,28 +121,27 @@ class Player(BasePlayer):
         else:
             dummy_sub = 0
         if self.in_round(1).level == 1:
-            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev1[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev1, Constants.alphabet_lev1)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding_lev1/table_lev1.png'
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[self.participant.vars['rand'][self.round_number - dummy_sub]]
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/grid_counting/lev1/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
         elif self.in_round(1).level == 2:
-            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev2[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev2, Constants.alphabet_lev2)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding_lev1/table_lev2.png'
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev2[self.participant.vars['rand'][self.round_number - dummy_sub]]
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/grid_counting/lev2/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
         elif self.in_round(1).level == 3:
-            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev3[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev3, Constants.alphabet_lev3)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding_lev1/table_lev3.png'
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev3[self.participant.vars['rand'][self.round_number - dummy_sub]]
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/grid_counting/lev3/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
         elif self.in_round(1).level == 4:
-            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev4[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev4, Constants.alphabet_lev4)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding_lev1/table_lev4.png'
+            self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev4[self.participant.vars['rand'][self.round_number - dummy_sub]]
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/grid_counting/lev4/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
 
 
     level = models.IntegerField(
         doc = "Task_Level", choices=[1, 2, 3, 4], widget=widgets.RadioSelect
     )
 
-
-    correct_text = models.CharField(
+    correct_text = models.IntegerField(
         doc="user's transcribed text")
 
-    user_text = models.CharField(
+    user_text = models.IntegerField(
         doc="user's transcribed text",
         widget=widgets.TextInput(attrs={'autocomplete':'off'}))
 

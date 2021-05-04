@@ -33,6 +33,7 @@ class start(Page):
     def vars_for_template(self):
         return {
             'debug': settings.DEBUG,
+            'level_description': Constants.level_description(self.player.in_round(1).level)
         }
 
 
@@ -50,8 +51,8 @@ class task(Page):
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
             'rounds_remaining': (Constants.num_rounds - self.round_number + 1),
-            'display_text': Constants.decrypt(self.player.correct_text, Constants.key_lev1, Constants.alphabet_lev1),
-            'tab_img': self.player.image_path
+            'tab_img': self.player.image_path,
+            'level_description': Constants.level_description(self.player.in_round(1).level)
         }
 
     def before_next_page(self):
