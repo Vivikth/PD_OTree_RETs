@@ -86,10 +86,10 @@ class Constants(BaseConstants):
         table_string = pt.get_html_string(format=True)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
-    pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding_lev1/table_lev1.png')
-    pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding_lev1/table_lev2.png')
-    pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding_lev1/table_lev3.png')
-    pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding_lev1/table_lev4.png')
+    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding_lev1/table_lev1.png')
+    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding_lev1/table_lev2.png')
+    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding_lev1/table_lev3.png')
+    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding_lev1/table_lev4.png')
 
     #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     rand = random.sample(range(num_rounds), num_rounds)
