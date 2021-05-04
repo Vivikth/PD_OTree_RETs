@@ -84,8 +84,6 @@ class Results(Page):
             'table_rows': table_rows,
         }
 
-
-
 page_sequence = [ Level_Selection,
     start,
     task,

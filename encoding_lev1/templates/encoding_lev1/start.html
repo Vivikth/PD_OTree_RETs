@@ -19,16 +19,17 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'global/matrix.css' %}"/>
 
-    <p>
-      In this part of the experiment you will be presented with a series of randomly selected letters and numbers.
-        <br>You must type all {{Constants.num_rounds}} sequences correctly to move on to the next task. There is <b>no</b> time limit.
-        Note that each character has to be correct for you to proceed the next sequence.
+     <p>
+      In this part of the experiment you will be presented with a series of strings.
+        <br>You must use the given table to encode the strings. Simply convert each character in the "Character" section to the corresponding character in the "Key" section
+         There is <b>no</b> time limit.
+        Note that each encoded string must be correct for you to proceed the next string.
     </p>
     <p>
       Once you have entered your text, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
     </p>
      <p>
-           After you have typed all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
+           After you have encoded all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
     </p>
     <p>
            Otherwise, if you are ready, please click "Next" below to start this task. The instructions will be repeated on every page.<br>
