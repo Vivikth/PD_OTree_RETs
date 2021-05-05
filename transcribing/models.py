@@ -77,16 +77,16 @@ class Player(BasePlayer):
             dummy_sub = 0
         if self.in_round(1).level == 1:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing_lev1/Digits/{}.gif'.format(self.in_round(self.round_number + 1 - dummy_sub).correct_text)
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing/Digits/{}.gif'.format(self.in_round(self.round_number + 1 - dummy_sub).correct_text)
         elif self.in_round(1).level == 2:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev2[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing_lev1/Capital_Letters/{}.gif'.format(self.in_round(self.round_number + 1 - dummy_sub).correct_text)
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing/Capital_Letters/{}.gif'.format(self.in_round(self.round_number + 1 - dummy_sub).correct_text)
         elif self.in_round(1).level == 3:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev3[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing_lev1/Greek/{}.gif'.format(Constants.greek_to_name(self.in_round(self.round_number + 1 - dummy_sub).correct_text))
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing/Greek/{}.gif'.format(Constants.greek_to_name(self.in_round(self.round_number + 1 - dummy_sub).correct_text))
         elif self.in_round(1).level == 4:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev4[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing_lev1/Punctuation/{}.gif'.format(Constants.punctuation_to_name(self.in_round(self.round_number + 1 - dummy_sub).correct_text))
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = 'transcribing/Punctuation/{}.gif'.format(Constants.punctuation_to_name(self.in_round(self.round_number + 1 - dummy_sub).correct_text))
 
 
 

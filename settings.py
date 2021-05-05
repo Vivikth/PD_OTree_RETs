@@ -14,16 +14,16 @@ SESSION_CONFIGS = [
         app_sequence=['typing_lev1']
     ),
     dict(
-        name='transcribing_lev1',
-        display_name="transcribing_lev1",
+        name='transcribing',
+        display_name="transcribing",
         num_demo_participants=1,
-        app_sequence=['transcribing_lev1']
+        app_sequence=['transcribing']
     ),
     dict(
-        name='encoding_lev1',
-        display_name="encoding_lev1",
+        name='encoding',
+        display_name="encoding",
         num_demo_participants=1,
-        app_sequence=['encoding_lev1']
+        app_sequence=['encoding']
     ),
     dict(
         name='grid_counting',
