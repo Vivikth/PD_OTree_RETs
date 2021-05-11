@@ -20,7 +20,12 @@ class Level_Selection(Page):
             'debug': settings.DEBUG,
         }
 
-
+    def app_after_this_page(self, upcoming_apps):
+        print(self.session.config['app_sequence'], upcoming_apps)
+        self.session.config['app_sequence'] = ['typing_lev1', 'encoding', 'transcribing']
+        upcoming_apps.append('transcribing')
+        print(self.session.config['app_sequence'], upcoming_apps)
+        print(self.session.config)
 
 class start(Page):
 
@@ -34,6 +39,12 @@ class start(Page):
         return {
             'debug': settings.DEBUG,
         }
+
+    def app_after_this_page(self, upcoming_apps):
+        print(self.session.config)
+  #      print(self.session.config['app_sequence'], upcoming_apps)
+        # self.session.config['app_sequence'] =
+        # print(self.session.config['app_sequence'], upcoming_apps)
 
 
 

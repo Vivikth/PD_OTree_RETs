@@ -31,6 +31,12 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['grid_counting']
     ),
+    dict(
+        name='test',
+        display_name="test",
+        num_demo_participants=1,
+        app_sequence=['typing_lev1', 'encoding']
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

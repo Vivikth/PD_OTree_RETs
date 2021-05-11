@@ -40,7 +40,6 @@ class Constants(BaseConstants):
     reference_texts_lev3 = ["".join(p) for p in itertools.product(characters_lev3, repeat=string_length)] #List of strings.
     reference_texts_lev4 = ["".join(p) for p in itertools.product(characters_lev4, repeat=string_length)] #List of strings.
 
-
 class Subsession(BaseSubsession):
 
     #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.

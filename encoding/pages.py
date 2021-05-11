@@ -21,7 +21,8 @@ class Level_Selection(Page):
             'debug': settings.DEBUG,
         }
 
-
+    def app_after_this_page(self, upcoming_apps):
+        pass
 class start(Page):
 
     def is_displayed(self):
