@@ -1,5 +1,7 @@
 from os import environ
 
+RET_LIST= ["typing_lev1", "transcribing", "grid_counting", "encoding"]
+
 SESSION_CONFIGS = [
     # dict(
     #    name='counting_zeroes_lev1',
@@ -36,6 +38,12 @@ SESSION_CONFIGS = [
         display_name="test",
         num_demo_participants=1,
         app_sequence=['typing_lev1', 'encoding']
+    ),
+    dict(
+        name='RET_Choice',
+        display_name="RET_Choice",
+        num_demo_participants=1,
+        app_sequence=['RET_Choice'] + RET_LIST
     ),
 ]
 

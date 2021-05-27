@@ -32,4 +32,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    Task_Choice = models.CharField(
+        doc="Task_Choice", choices=["typing_lev1", "transcribing", "grid_counting", "encoding"], widget=widgets.RadioSelect
+    )
+    #This needs to be made dynamic - after you introduce BDM.
