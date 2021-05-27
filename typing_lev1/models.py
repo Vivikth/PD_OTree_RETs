@@ -76,7 +76,7 @@ class Player(BasePlayer):
 
     user_text = models.CharField(
         doc="user's transcribed text",
-        widget=widgets.TextInput(attrs={'autocomplete':'off'}))
+        widget=widgets.TextInput(attrs={'autocomplete':'off', 'id':'user_form'}))
 
     is_correct = models.BooleanField(
         doc="did the user get the task correct?")

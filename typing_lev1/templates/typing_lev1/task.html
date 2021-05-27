@@ -7,6 +7,7 @@
 
 
 
+
 {% block content %}
 
 <div class="instructions well well-lg">
@@ -40,13 +41,13 @@
             <h3>
                 <th style="vertical-align:middle">
                     <br><br>
-                    {% formfield player.user_text with label="" %}
+                    {% formfield player.user_text with label=""%}
                     <br><br>
                 </th>
                 <th style="vertical-align:middle; text-align: left">
                     <br><br>
-                    {% next_button %}
-                    <br><br            
+                        <button id="Submit" class="otree-btn-next btn btn-primary">Next</button>
+                    <br><br>
                 </th>
             </tr>
 
@@ -62,6 +63,17 @@
 
 
         </table>
+<script>
+document.getElementById("user_form").onsubmit = function ()
+{
+   document.getElementById("Submit").disabled = "true";
+  setTimeout(function() {document.getElementById("Submit").disabled = false;}, 2000);
+  return false
+}
+
+
+</script>
+
 
     {% if debug %}
 
