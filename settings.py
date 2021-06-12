@@ -1,6 +1,6 @@
 from os import environ
 
-RET_LIST= ["typing_lev1", "transcribing", "grid_counting", "encoding"]
+RET_LIST= ['RET_Choice', "transcribing", "grid_counting", "encoding", "RET_Choice_2"]
 
 SESSION_CONFIGS = [
     # dict(
@@ -9,12 +9,12 @@ SESSION_CONFIGS = [
     #    num_demo_participants=1,
     #    app_sequence=['counting_zeroes_lev1']
     # ),
-    dict(
-        name='typing_lev1',
-        display_name="typing_lev1",
-        num_demo_participants=1,
-        app_sequence=['typing_lev1']
-    ),
+    # dict(
+    #     name='typing_lev1',
+    #     display_name="typing_lev1",
+    #     num_demo_participants=1,
+    #     app_sequence=['typing_lev1']
+    # ),
     dict(
         name='transcribing',
         display_name="transcribing",
@@ -34,17 +34,17 @@ SESSION_CONFIGS = [
         app_sequence=['grid_counting']
     ),
     dict(
-        name='test',
-        display_name="test",
-        num_demo_participants=1,
-        app_sequence=['typing_lev1', 'encoding']
-    ),
-    dict(
         name='RET_Choice',
         display_name="RET_Choice",
         num_demo_participants=1,
-        app_sequence=['RET_Choice'] + RET_LIST
+        app_sequence=RET_LIST
     ),
+    dict(
+        name = 'Experiment',
+        display_name = 'Experiment',
+        num_demo_participants = 1,
+        app_sequence = ['Introduction', 'BDM'] + RET_LIST
+)
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -74,3 +74,6 @@ SECRET_KEY = '=56(oy3rxv5n+gd-c2%yi$@_!ii^7l$*1lwnc-663iq&j&s=r#'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
+
+#Debug
+SESSION_FIELDS = ['DEBUG']

@@ -7,7 +7,7 @@ import time
 import random
 
 class Level_Selection(Page):
-    form_model = models.Player
+    form_model = player
     form_fields = ['level']
     def is_displayed(self):
         return self.round_number == 1
@@ -51,17 +51,14 @@ class start(Page):
 
 
 class task(Page):
-    form_model = models.Player
+    form_model = player
     form_fields = ['user_text']
 
     def before_next_page(self):
         if self.round_number < Constants.num_rounds:
             self.player.getting_text()
 
-    def user_text_error_message(self, value):
-        if not value == self.player.correct_text:
-            time.sleep(5) #I'm a fucking genius.
-            return 'Answer is Incorrect'
+
 
     def vars_for_template(self):
 

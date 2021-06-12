@@ -28,7 +28,7 @@ Real Effort Task. Type as many strings as possible.
 class Constants(BaseConstants):
     name_in_url = 'task_counting'
     players_per_group = None
-    num_rounds = 10 # must be more than the max one person can do in task_timer seconds
+    num_rounds = 3 # must be more than the max one person can do in task_timer seconds
     grid_size = 8
 
     #encrypts text given key and alphabet.

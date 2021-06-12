@@ -2,12 +2,6 @@
 # <standard imports>
 from __future__ import division
 import itertools
-# import otree.models
-# from otree.db import models
-# from otree import widgets
-# from otree.common import Currency as c, currency_range, safe_json
-# from otree.constants import BaseConstants
-# from otree.models import BaseSubsession, BaseGroup, BasePlayer
 
 from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
@@ -81,3 +75,7 @@ class Player(BasePlayer):
     is_correct = models.BooleanField(
         doc="did the user get the task correct?")
 
+    def user_text_error_message(self, value):
+        if not value == self.player.correct_text:
+            time.sleep(5) #I'm a fucking genius.
+            return 'Answer is Incorrect'

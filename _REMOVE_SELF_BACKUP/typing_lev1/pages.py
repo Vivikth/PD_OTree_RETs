@@ -3,9 +3,8 @@ from ._builtin import Page, WaitPage
 from otree.api import Currency as c, currency_range
 from .models import Constants
 from django.conf import settings
-# import time
+import time
 import random
-
 
 class Level_Selection(Page):
     form_model = models.Player
@@ -21,6 +20,13 @@ class Level_Selection(Page):
             'debug': settings.DEBUG,
         }
 
+    def app_after_this_page(self, upcoming_apps):
+        pass
+        # print(self.session.config['app_sequence'], upcoming_apps)
+        # self.session.config['app_sequence'] = ['typing_lev1', 'encoding', 'transcribing']
+        # upcoming_apps.append('transcribing')
+        # print(self.session.config['app_sequence'], upcoming_apps)
+        # print(self.session.config)
 
 class start(Page):
 
@@ -33,16 +39,28 @@ class start(Page):
     def vars_for_template(self):
         return {
             'debug': settings.DEBUG,
-            'level_description': Constants.level_description(self.player.in_round(1).level)
         }
+
+    def app_after_this_page(self, upcoming_apps):
+        pass
+        #print(self.session.config)
+  #      print(self.session.config['app_sequence'], upcoming_apps)
+        # self.session.config['app_sequence'] =
+        # print(self.session.config['app_sequence'], upcoming_apps)
+
 
 
 class task(Page):
     form_model = models.Player
     form_fields = ['user_text']
 
+    def before_next_page(self):
+        if self.round_number < Constants.num_rounds:
+            self.player.getting_text()
+
     def user_text_error_message(self, value):
         if not value == self.player.correct_text:
+            time.sleep(5) #I'm a fucking genius.
             return 'Answer is Incorrect'
 
     def vars_for_template(self):
@@ -50,14 +68,10 @@ class task(Page):
         return {
             'round_count': (self.round_number - 1),
             'debug': settings.DEBUG,
-            'rounds_remaining': (Constants.num_rounds - self.round_number + 1),
-            'tab_img': self.player.image_path,
-            'level_description': Constants.level_description(self.player.in_round(1).level)
+            'rounds_remaining': (Constants.num_rounds - self.round_number + 1)
         }
 
-    def before_next_page(self):
-        if self.round_number < Constants.num_rounds:
-            self.player.getting_text()
+
 
 
 class Results(Page):
