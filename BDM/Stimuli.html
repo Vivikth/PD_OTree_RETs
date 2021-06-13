@@ -1,16 +1,46 @@
+<style>
+.divider{
+    width:5px;
+    height:10px;
+    display:inline-block;
+}
+</style>
+
 {{ block title }}
 {{ endblock }}
 {{ block content }}
 
 <p id="question"></p>
 
+
+<!--<input type="radio" value="A" onclick="sendClick(this)" id="Choose1">-->
+<!--<label id="optionA"></label><br>-->
+
+<!--<input type="radio" value="B" onclick="sendClick(this)" id="Choose2">-->
+<!--<label id="optionB"></label><br>-->
+
+<!--<input type="radio" value="C" onclick="sendClick(this)" id="Choose3">-->
+<!--<label id="optionC"></label><br>-->
+
+<!--{% next_button %}-->
+
+
 <div>
-    <button type="button" onclick="sendClick(this)" value="A" id="optionA">
-    </button>
-    <button type="button" onclick="sendClick(this)" value="B" id="optionB">
-    </button>
-    <button type="button" onclick="sendClick(this)" value="C" id="optionC">
-    </button>
+    <button type="button" onclick="sendClick(this)" value="A" style="margin:5px;">
+        <p id="optionA"> </p>
+    </button> <br>
+
+    <button type="button" onclick="sendClick(this)" value="B" style="margin:5px;">
+        <p id="optionB"> </p>
+    </button> <br>
+
+    <button type="button" onclick="sendClick(this)" value="C" style="margin:5px;">
+        <p id="optionC"> </p>
+    </button> <br>
+
+    <button type="button" onclick="sendClick(this)" value="D" style="margin:5px;">
+        <p id="optionD"> </p>
+    </button> <br>
 </div>
 
 <input type="hidden" name="raw_responses" id="raw_responses">
@@ -23,7 +53,7 @@
     let trials = js_vars.trials;
 
     function updateUI() {
-        for (let item of ['question', 'optionA', 'optionB', 'optionC']) {
+        for (let item of ['question', 'optionA', 'optionB', 'optionC', 'optionD']) {
             document.getElementById(item).innerText = trials[trialIndex][item];
         }
     }

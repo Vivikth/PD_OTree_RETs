@@ -83,3 +83,4 @@ INSTALLED_APPS = ['otree']
 
 #Debug
 SESSION_FIELDS = ['DEBUG']
+PARTICIPANT_FIELDS = ['BDM_Score']
