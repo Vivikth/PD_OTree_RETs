@@ -39,12 +39,18 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=RET_LIST
     ),
+#     dict(
+#         name = 'Experiment',
+#         display_name = 'Experiment',
+#         num_demo_participants = 1,
+#         app_sequence = ['Introduction', 'BDM'] + RET_LIST
+# )
     dict(
-        name = 'Experiment',
-        display_name = 'Experiment',
-        num_demo_participants = 1,
-        app_sequence = ['Introduction', 'BDM'] + RET_LIST
-)
+        name='BDM',
+        display_name='BDM',
+        num_demo_participants=1,
+        app_sequence=['BDM']
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

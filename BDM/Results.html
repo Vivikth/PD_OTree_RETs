@@ -1,13 +1,36 @@
-{% extends "global/Page.html" %}
-{% load otree static %}
+{{ block title }}
+    Results
+{{ endblock }}
 
-{% block title %}
-    Page title
-{% endblock %}
+{{ block content }}
 
-{% block content %}
+    <p>
+    You gave {{ player.num_correct }} correct answers.
+    </p>
 
-    {% next_button %}
-{% endblock %}
+    <table class="table">
+        <tr>
+            <th>question</th>
+            <th>optionA</th>
+            <th>optionB</th>
+            <th>optionC</th>
+            <th>Your choice</th>
+            <th>solution</th>
+            <th>correct?</th>
+        </tr>
+        {{ for trial in trials }}
+        <tr>
+            <td>{{ trial.question }}</td>
+            <td>{{ trial.optionA }}</td>
+            <td>{{ trial.optionB }}</td>
+            <td>{{ trial.optionC }}</td>
+            <td>{{ trial.choice }}</td>
+            <td>{{ trial.solution }}</td>
+            <td>{{ trial.is_correct }}</td>
+        </tr>
+        {{ endfor }}
+    </table>
+
+{{ endblock }}
 
 
