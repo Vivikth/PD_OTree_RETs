@@ -51,6 +51,12 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['BDM']
     ),
+    dict(
+        name='Task_WTP',
+        display_name='Task_WTP',
+        num_demo_participants=1,
+        app_sequence=['Task_WTP']
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -83,4 +89,4 @@ INSTALLED_APPS = ['otree']
 
 #Debug
 SESSION_FIELDS = ['DEBUG']
-PARTICIPANT_FIELDS = ['BDM_Score']
+PARTICIPANT_FIELDS = ['BDM_Score', 'Encoding_Value']
