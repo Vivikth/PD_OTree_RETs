@@ -12,6 +12,10 @@ class Constants(BaseConstants):
     name_in_url = 'BDM'
     players_per_group = None
     num_rounds = 1
+    SPA_template = 'BDM/SPA.html'
+    SPB_template = 'BDM/SPB.html'
+    BDM_Info_Template = 'BDM/BDM_Info.html'
+
 
 def read_csv(filename):
     import csv
@@ -91,7 +95,6 @@ class Stimuli(Page):
             # have to use str() because Javascript implicitly converts keys to strings
             trial.choice = responses[str(trial.id)]
             trial.is_correct = trial.choice == trial.solution
-            print(trial.is_correct)
             player.num_correct += int(trial.is_correct)
             player.participant.BDM_Score = player.num_correct #Probably not the most efficient.
 

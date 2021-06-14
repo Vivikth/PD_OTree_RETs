@@ -7,22 +7,11 @@
 </style>
 
 {{ block title }}
+Switch-Point Questions (<span id="Qnumber"></span> of 8)
 {{ endblock }}
 {{ block content }}
 
 <p id="question"></p>
-
-
-<!--<input type="radio" value="A" onclick="sendClick(this)" id="Choose1">-->
-<!--<label id="optionA"></label><br>-->
-
-<!--<input type="radio" value="B" onclick="sendClick(this)" id="Choose2">-->
-<!--<label id="optionB"></label><br>-->
-
-<!--<input type="radio" value="C" onclick="sendClick(this)" id="Choose3">-->
-<!--<label id="optionC"></label><br>-->
-
-<!--{% next_button %}-->
 
 
 <div>
@@ -43,6 +32,15 @@
     </button> <br>
 </div>
 
+<br>
+<br>
+<br>
+
+<h2> Switch-Point Procedure Information (If you'd like to refer back to it)</h2>
+
+{{ include Constants.BDM_Info_Template }}
+
+
 <input type="hidden" name="raw_responses" id="raw_responses">
 
 <script>
@@ -51,6 +49,8 @@
 
     let trialIndex = 0;
     let trials = js_vars.trials;
+    document.getElementById("Qnumber").innerHTML = trialIndex + 1;
+
 
     function updateUI() {
         for (let item of ['question', 'optionA', 'optionB', 'optionC', 'optionD']) {
@@ -67,9 +67,9 @@
             document.getElementById('form').submit();
         } else {
             updateUI();
+            document.getElementById("Qnumber").innerHTML = trialIndex + 1;
         }
     }
-
     updateUI();
 </script>
 

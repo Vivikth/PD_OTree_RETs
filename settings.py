@@ -39,12 +39,12 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=RET_LIST
     ),
-#     dict(
-#         name = 'Experiment',
-#         display_name = 'Experiment',
-#         num_demo_participants = 1,
-#         app_sequence = ['Introduction', 'BDM'] + RET_LIST
-# )
+    dict(
+        name = 'Experiment',
+        display_name = 'Experiment',
+        num_demo_participants = 1,
+        app_sequence = ['Introduction', 'BDM']
+    ),
     dict(
         name='BDM',
         display_name='BDM',

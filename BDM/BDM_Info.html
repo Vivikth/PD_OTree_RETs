@@ -1,0 +1,54 @@
+
+<p>In this experiment, I want to determine how much you value objects or tasks.
+    I will use the switch-point procedure for this purpose.
+    I'll explain the procedure using 2 examples. </p>
+<br>
+
+<h2> Example One</h2>
+<p>
+    Let's suppose that I want to determine how much you value a pencil, in terms of money.
+    I would ask you the following questions:
+</p>
+
+    {{ include Constants.SPA_template}}
+
+<br>
+
+<p>
+    In each question, you pick either option A (the pencil) or option B (the money).
+    After you answer all 2001 questions, I will randomly pick one question, and pay you the option you chose on that question.
+    Each question is equally likely to be chosen for payment.
+    Obviously you have no incentive to lie on any question, because if that question gets chosen for payment then you’d end up with the option you like less.
+</p>
+<p>
+    I assume you’re going to choose the Option A in at least the first few questions, but at some point switch to choosing Option B.
+    So, to save time, just tell me at which dollar value you’d switch.  I can then ‘fill out’ your answers to all 2001 questions based on your switch point (choosing Option A for all questions before your switch point, and Option B for all questions at or after your switch point).
+</p>
+<p>
+    I’ll still draw one question randomly for payment.
+    Again, if you lie about your true switch point you might end up getting paid an option that you like less.
+</p>
+
+<h2> Example Two</h2>
+<p>
+    I can also apply the switch-point procedure to determine how much you value an item in terms of a lottery.
+    Let's suppose I want to determine how much you value a pencil in terms of the probability of leaving the experiment right now (and getting full payment), or watching a boring video and answering some questions before continuing with the rest of the experiment.
+    In this case, I would ask you the following questions:
+</p>
+
+    {{ include Constants.SPB_template}}
+<br>
+
+<p>
+    Like the monetary example above, in each question, you pick either option A (the pencil) or option B (the lottery). <br>
+    I’ll still also randomly pick one question and pay you the option you chose on that one question. <br>
+    If you chose the pencil on that question, this means you get the pencil for sure. <br>
+    If you chose the lottery on that question, this means that I’ll run the lottery with the probabilities specified in that question. <br>
+    You’ll get to leave the experiment (and receive the full monetary compensation) if that is the outcome from the lottery, or have to watch the boring video and answer questions otherwise.
+</p>
+<p>
+    I assume you’re going to choose the Option A in at least the first few questions, but at some point switch to choosing Option B. <br>
+    So, to save time, just tell me at which probability you’d switch. I can then ‘fill out’ your answers to all 99 questions based on your switch point (choosing Option A for all questions before your switch point, and Option B for all questions at or after your switch point). <br>
+    I’ll still draw one question randomly.
+    Again, if you lie about your true switch point you might end up getting an option that you like less.
+</p>
