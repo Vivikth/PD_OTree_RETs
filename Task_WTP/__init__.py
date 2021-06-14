@@ -10,7 +10,7 @@ class Constants(BaseConstants):
     name_in_url = 'Task_WTP'
     players_per_group = None
     num_rounds = 1
-
+    BDMQs_Table = 'Task_WTP/Task_BDMQs.html'
 
 class Subsession(BaseSubsession):
     pass
