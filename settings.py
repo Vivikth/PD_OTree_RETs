@@ -37,7 +37,7 @@ SESSION_CONFIGS = [
         name='RET_Choice',
         display_name="RET_Choice",
         num_demo_participants=1,
-        app_sequence=RET_LIST
+        app_sequence=RET_LIST,
     ),
     dict(
         name = 'Experiment',
@@ -56,6 +56,12 @@ SESSION_CONFIGS = [
         display_name='Task_WTP',
         num_demo_participants=1,
         app_sequence=['Task_WTP']
+    ),
+    dict(
+        name='Introduction',
+        display_name='Introduction',
+        num_demo_participants=1,
+        app_sequence=['Introduction']
     ),
 ]
 
@@ -89,4 +95,4 @@ INSTALLED_APPS = ['otree']
 
 #Debug
 SESSION_FIELDS = ['DEBUG']
-PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2']
+PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment']

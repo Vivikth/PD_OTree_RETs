@@ -2,6 +2,7 @@ from otree.api import *
 
 from . import models
 
+#Treatment, Pair1, pair2 are inputted before.
 
 author = 'Your name here'
 doc = """

@@ -1,5 +1,5 @@
 from otree.api import *
-
+import random
 
 author = 'Viv'
 doc = """
@@ -14,8 +14,6 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     pass
-
-
 class Group(BaseGroup):
     pass
 
@@ -25,10 +23,16 @@ class Player(BasePlayer):
 
 
 # FUNCTIONS
-# PAGES
+def creating_session(subsession):
+    if subsession.round_number == 1:
+        for player in subsession.get_players():
+            player.participant.treatment = random.choice(["Substitution", "Prior-Information", "Post-Information"])
 
+# PAGES
 class Introduction(Page):
-    pass
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        pass
 
 class MyPage(Page):
     pass
