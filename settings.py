@@ -89,4 +89,4 @@ INSTALLED_APPS = ['otree']
 
 #Debug
 SESSION_FIELDS = ['DEBUG']
-PARTICIPANT_FIELDS = ['BDM_Score', 'Encoding_Value']
+PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2']

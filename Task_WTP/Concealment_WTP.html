@@ -1,0 +1,22 @@
+{{ block title }}
+    How much do you value unknown tasks?
+{{ endblock }}
+
+{{ block content }}
+
+
+{{ include 'Task_WTP/Pref_Elicit.html' }}
+
+
+<div>
+    {% formfield player.Concealment_Value %}
+</div>
+
+    {{ next_button }}
+<br><br>
+
+<h2> Switch-Point Procedure Information</h2>
+
+{{ include 'BDM/BDM_Info.html' }}
+
+{{ endblock }}
