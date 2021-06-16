@@ -38,6 +38,10 @@ SESSION_CONFIGS = [
         display_name="RET_Choice",
         num_demo_participants=1,
         app_sequence=RET_LIST,
+        treatment = "Substitution",
+        pair1 = ["T", "C"],
+        pair2 = ["R", "I"]
+
     ),
     dict(
         name = 'Experiment',
@@ -95,4 +99,4 @@ INSTALLED_APPS = ['otree']
 
 #Debug
 SESSION_FIELDS = ['DEBUG']
-PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment']
+PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2']

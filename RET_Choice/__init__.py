@@ -33,7 +33,21 @@ class Player(BasePlayer):
 
 
 # FUNCTIONS
+def creating_session(subsession):
+    if subsession.round_number == 1:
+        for player in subsession.get_players():
+            player.participant.treatment = player.session.config['treatment']
+            player.participant.pair1 = player.session.config['pair1']
+            player.participant.pair2 = player.session.config['pair2']
+#Need a function to set treatment to the one in session config.
+#Get the pairs too.
+
+
 # PAGES
+
+class RET_Choice_Introduction(Page):
+    pass
+
 class Task_Selection(Page):
     form_model = 'player'
     form_fields = ['Task_Choice']
@@ -51,4 +65,4 @@ class Results(Page):
     pass
 
 
-page_sequence = [Task_Selection, Results]
+page_sequence = [RET_Choice_Introduction, Task_Selection, Results]

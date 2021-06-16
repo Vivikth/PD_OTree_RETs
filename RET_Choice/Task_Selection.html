@@ -2,13 +2,52 @@
 {% load otree static %}
 
 {% block title %}
-    Page title
+    Task-menu selection
 {% endblock %}
 
 {% block content %}
+<p> In this stage of the experiment, you will complete some unknown tasks. <br>
+    You need to pick one task to complete now. <br>
+    In addition, you will have to pick a menu of tasks of which one you must select one to complete later. <br>
+</p>
+<br>
+
+<p>
+    You must pick one of the following options:
+</p>
+
+<p>
+    Option 1: Complete the <strong>tabulation</strong> task now. <br>
+    After completing the <strong>tabulation</strong> task, you must complete <strong>one</strong> of the following tasks:
+</p>
+    <ul>
+        <li>Task 1</li>
+        <li>Task 2</li>
+        <li>Task 3</li>
+    </ul>
+<br>
+<p>
+    Option 2: Complete the <strong>concealment</strong> task now. <br>
+    After completing the <strong>concealment</strong> task, you must complete <strong>one</strong> of the following tasks:
+</p>
+    <ul>
+        <li>Task 1</li>
+        <li>Task 2</li>
+        <li>Task 3</li>
+    </ul>
+<p>
+    Please pick one of the options.
+</p>
 
     {% formfield player.Task_Choice label=""%}
 
     {% next_button %}
+
+<p>
+    Task descriptions are provided below if you'd like to refer to them.
+</p>
+<!--Will have to make a list of descriptions to chuck here.-->
+
+{{ include 'RET_Choice/Task_Descriptions.html'}}
 
 {% endblock %}

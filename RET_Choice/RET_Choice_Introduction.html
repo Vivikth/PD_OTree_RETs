@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Task Preference
+{% endblock %}
+
+{% block content %}
+
+<p> In this stage of the experiment, you will complete some unknown tasks. <br>
+    You need to pick one task to complete now. <br>
+    In addition, you will have to pick a menu of tasks of which one you must select one to complete later. <br>
+    Click the next button to choose a task-menu pair. <br>
+</p>
+<br>
+    {% next_button %}
+
+{% endblock %}

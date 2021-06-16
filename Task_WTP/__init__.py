@@ -134,7 +134,7 @@ class Replication_WTP(Page):
     def vars_for_template(player: Player):
         return {
             'Task_name': 'Replication',
-            'Task_description': 'Subjects must use their technological  abilities to replicate items. '
+            'Task_description': 'Subjects must use their technological  abilities to replicate items.'
         }
 
 class WTP_Conc(Page):
