@@ -15,27 +15,24 @@
 <p>
     You must pick one of the following options:
 </p>
+{{ if player.participant.treatment == 'Substitution' }}
+    {{ include 'RET_Choice/Substitution_Opt1.html'}}
+    <br>
+    {{ include 'RET_Choice/Substitution_Opt2.html'}}
+{{ endif }}
 
-<p>
-    Option 1: Complete the <strong>tabulation</strong> task now. <br>
-    After completing the <strong>tabulation</strong> task, you must complete <strong>one</strong> of the following tasks:
-</p>
-    <ul>
-        <li>Task 1</li>
-        <li>Task 2</li>
-        <li>Task 3</li>
-    </ul>
-<br>
-<p>
-    Option 2: Complete the <strong>concealment</strong> task now. <br>
-    After completing the <strong>concealment</strong> task, you must complete <strong>one</strong> of the following tasks:
-</p>
-    <ul>
-        <li>Task 1</li>
-        <li>Task 2</li>
-        <li>Task 3</li>
-    </ul>
-<p>
+{{ if player.participant.treatment == 'Post_Information' }}
+    {{ include 'RET_Choice/Post_Opt1.html'}}
+    <br>
+    {{ include 'RET_Choice/Post_Opt2.html'}}
+{{ endif }}
+
+{{ if player.participant.treatment == 'Pre_Information' }}
+    {{ include 'RET_Choice/Pre_Opt1.html'}}
+    <br>
+    {{ include 'RET_Choice/Pre_Opt2.html'}}
+{{ endif }}
+
     Please pick one of the options.
 </p>
 
@@ -46,8 +43,8 @@
 <p>
     Task descriptions are provided below if you'd like to refer to them.
 </p>
-<!--Will have to make a list of descriptions to chuck here.-->
 
 {{ include 'RET_Choice/Task_Descriptions.html'}}
+
 
 {% endblock %}

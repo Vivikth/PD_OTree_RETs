@@ -9,12 +9,12 @@ SESSION_CONFIGS = [
     #    num_demo_participants=1,
     #    app_sequence=['counting_zeroes_lev1']
     # ),
-    # dict(
-    #     name='typing_lev1',
-    #     display_name="typing_lev1",
-    #     num_demo_participants=1,
-    #     app_sequence=['typing_lev1']
-    # ),
+    dict(
+        name='typing_lev1',
+        display_name="typing_lev1",
+        num_demo_participants=1,
+        app_sequence=['typing_lev1']
+    ),
     dict(
         name='transcribing',
         display_name="transcribing",
@@ -34,14 +34,31 @@ SESSION_CONFIGS = [
         app_sequence=['grid_counting']
     ),
     dict(
-        name='RET_Choice',
-        display_name="RET_Choice",
+        name='RET_Choice_Sub',
+        display_name="RET_Choice_Sub",
         num_demo_participants=1,
         app_sequence=RET_LIST,
         treatment = "Substitution",
         pair1 = ["T", "C"],
         pair2 = ["R", "I"]
-
+    ),
+    dict(
+        name='RET_Choice_Post',
+        display_name="RET_Choice_Post",
+        num_demo_participants=1,
+        app_sequence=RET_LIST,
+        treatment="Post_Information",
+        pair1=["T", "C"],
+        pair2=["R", "I"]
+    ),
+    dict(
+        name='RET_Choice_Pre',
+        display_name="RET_Choice_Pre",
+        num_demo_participants=1,
+        app_sequence=RET_LIST,
+        treatment="Pre_Information",
+        pair1=["T", "C"],
+        pair2=["R", "I"]
     ),
     dict(
         name = 'Experiment',
