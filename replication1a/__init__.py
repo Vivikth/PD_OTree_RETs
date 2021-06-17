@@ -6,20 +6,10 @@ import random
 import imgkit
 import prettytable
 from django.conf import settings
+
 from otree.api import *
 
-from . import models
 
-
-# -*- coding: utf-8 -*-
-# <standard imports>
-# import otree.models
-# from otree.db import models
-# from otree import widgets
-# from otree.common import Currency as c, currency_range, safe_json
-# from otree.constants import BaseConstants
-# from otree.models import BaseSubsession, BaseGroup, BasePlayer
-# </standard imports>
 author = 'Vivikth Narayanan'
 doc = """
 Real Effort Task. Type as many strings as possible.  
@@ -27,7 +17,7 @@ Real Effort Task. Type as many strings as possible.
 
 
 class Constants(BaseConstants):
-    name_in_url = 'task_encoding'
+    name_in_url = 'task_replication'
     players_per_group = None
     num_rounds = 3  # must be more than the max one person can do in task_timer seconds
     string_length = 4
@@ -87,10 +77,10 @@ class Constants(BaseConstants):
         table_string = pt.get_html_string(format=True)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
-    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding/table_lev1.png')
-    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding/table_lev2.png')
-    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding/table_lev3.png')
-    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding/table_lev4.png')
+    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding1a/table_lev1.png')
+    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding1a/table_lev2.png')
+    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding1a/table_lev3.png')
+    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding1a/table_lev4.png')
     # Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     rand = random.sample(range(num_rounds), num_rounds)
 
@@ -120,48 +110,19 @@ def creating_session(subsession: Subsession):
             rand = random.sample(range(Constants.num_rounds), Constants.num_rounds)
             p.vars['rand'] = rand
 
-
-def getting_text(player: Player, Call_Loc="Task"):
+def getting_text(player: Player, Call_Loc = "Task"):
     if Call_Loc == "Start":
         dummy_sub = 1
     else:
         dummy_sub = 0
     if player.in_round(1).level == 1:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
-            Constants.reference_texts_lev1[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
-            ],
-            Constants.key_lev1,
-            Constants.alphabet_lev1,
-        )
-        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev1.png'
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[player.participant.vars['rand'][player.round_number - dummy_sub]]
     elif player.in_round(1).level == 2:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
-            Constants.reference_texts_lev2[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
-            ],
-            Constants.key_lev2,
-            Constants.alphabet_lev2,
-        )
-        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev2.png'
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev2[player.participant.vars['rand'][player.round_number - dummy_sub]]
     elif player.in_round(1).level == 3:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
-            Constants.reference_texts_lev3[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
-            ],
-            Constants.key_lev3,
-            Constants.alphabet_lev3,
-        )
-        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev3.png'
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev3[player.participant.vars['rand'][player.round_number - dummy_sub]]
     elif player.in_round(1).level == 4:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
-            Constants.reference_texts_lev4[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
-            ],
-            Constants.key_lev4,
-            Constants.alphabet_lev4,
-        )
-        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev4.png'
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev4[player.participant.vars['rand'][player.round_number - dummy_sub]]
 
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
@@ -219,10 +180,7 @@ class task(Page):
             'round_count': (player.round_number - 1),
             'debug': 1,
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
-            'display_text': Constants.decrypt(
-                player.correct_text, Constants.key_lev1, Constants.alphabet_lev1
-            ),
-            'tab_img': player.image_path,
+            'display_text': player.correct_text,
         }
 
     @staticmethod
@@ -235,24 +193,6 @@ class Results(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
-
-#     @staticmethod
-#     def vars_for_template(player: Player):
-#         # only keep obs if YourEntry player_sum, is not None.
-#         table_rows = []
-#         for prev_player in player.in_all_rounds():
-#             if prev_player.user_text != None:
-#                 row = {
-#                     'round_number': prev_player.round_number,
-#                     'correct_text': prev_player.correct_text,
-#                     'user_text': prev_player.user_text,
-# #                    'is_correct': prev_player.is_correct,
-#                 }
-#                 table_rows.append(row)
-#         player.participant.vars['t1_results'] = table_rows
-#         return {
-#             'table_rows': table_rows,
-#         }
 
     @staticmethod
     def app_after_this_page(player, upcoming_apps):

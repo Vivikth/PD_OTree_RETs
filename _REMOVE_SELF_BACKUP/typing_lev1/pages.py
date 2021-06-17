@@ -23,8 +23,8 @@ class Level_Selection(Page):
     def app_after_this_page(self, upcoming_apps):
         pass
         # print(self.session.config['app_sequence'], upcoming_apps)
-        # self.session.config['app_sequence'] = ['typing_lev1', 'encoding', 'transcribing']
-        # upcoming_apps.append('transcribing')
+        # self.session.config['app_sequence'] = ['typing_lev1', 'encoding1a', 'transcribing1a']
+        # upcoming_apps.append('transcribing1a')
         # print(self.session.config['app_sequence'], upcoming_apps)
         # print(self.session.config)
 

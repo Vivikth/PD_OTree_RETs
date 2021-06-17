@@ -62,13 +62,13 @@ def Option_Index(option):
 
 def task_name_decoder(string):
     if string == 'Tabulation':
-        return grid_counting
+        return 'tabulation1a'
     elif string == 'Concealment':
-        return encoding
+        return 'encoding1a'
     elif string == "Interpretation":
-        return transcribing
+        return 'transcribing1a'
     elif string == "Replication":
-        return typing
+        return 'replication1a'
 
 # PAGES
 
@@ -79,9 +79,11 @@ class Task_Selection(Page):
     form_model = 'player'
     form_fields = ['Task_Choice']
 
-    # @staticmethod
-    # def app_after_this_page(player: Player, upcoming_apps):
-    #     return player.Task_Choice
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        if player.participant.treatment != "Pre_Information":
+            option = Option_Index(player.Task_Choice) - 1
+            return task_name_decoder(task_name(player.participant.pair1[option]))
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -101,5 +103,10 @@ class RET_Choice_Information(Page):
         return {
             'Task_Info' : task_name(player.participant.pair1[0])
         }
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        option = Option_Index(player.Task_Choice) - 1
+        return task_name_decoder(task_name(player.participant.pair1[option]))
 
 page_sequence = [RET_Choice_Introduction, Task_Selection, RET_Choice_Information]

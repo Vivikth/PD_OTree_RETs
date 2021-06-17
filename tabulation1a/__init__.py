@@ -118,16 +118,16 @@ class Constants(BaseConstants):
 
 # Below is the code that actually generates images, no need to run it every time.
 # for i, num in enumerate(reference_texts_lev1):
-#     count_array_pretty(grid_size, num, characters_lev1, '/grid_counting/lev1/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev1, '/tabulation1a/lev1/%i.png'%(i))
 #
 # for i, num in enumerate(reference_texts_lev2):
-#     count_array_pretty(grid_size, num, characters_lev2, '/grid_counting/lev2/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev2, '/tabulation1a/lev2/%i.png'%(i))
 #
 # for i, num in enumerate(reference_texts_lev3):
-#     count_array_pretty(grid_size, num, characters_lev3, '/grid_counting/lev3/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev3, '/tabulation1a/lev3/%i.png'%(i))
 #
 # for i, num in enumerate(reference_texts_lev4):
-#     count_array_pretty(grid_size, num, characters_lev4, '/grid_counting/lev4/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev4, '/tabulation1a/lev4/%i.png'%(i))
 class Subsession(BaseSubsession):
     pass
 
@@ -170,7 +170,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
-        ).image_path = '/grid_counting/lev1/%i.png' % (
+        ).image_path = '/tabulation/lev1/%i.png' % (
             player.participant.vars['rand'][player.round_number - dummy_sub]
         )
     elif player.in_round(1).level == 2:
@@ -181,7 +181,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
-        ).image_path = '/grid_counting/lev2/%i.png' % (
+        ).image_path = '/tabulation/lev2/%i.png' % (
             player.participant.vars['rand'][player.round_number - dummy_sub]
         )
     elif player.in_round(1).level == 3:
@@ -192,7 +192,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
-        ).image_path = '/grid_counting/lev3/%i.png' % (
+        ).image_path = '/tabulation/lev3/%i.png' % (
             player.participant.vars['rand'][player.round_number - dummy_sub]
         )
     elif player.in_round(1).level == 4:
@@ -203,7 +203,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
-        ).image_path = '/grid_counting/lev4/%i.png' % (
+        ).image_path = '/tabulation/lev4/%i.png' % (
             player.participant.vars['rand'][player.round_number - dummy_sub]
         )
 

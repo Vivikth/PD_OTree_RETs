@@ -230,23 +230,7 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-    # @staticmethod
-    # def vars_for_template(player: Player):
-    #     # only keep obs if YourEntry player_sum, is not None.
-    #     table_rows = []
-    #     for prev_player in player.in_all_rounds():
-    #         if prev_player.user_text != None:
-    #             row = {
-    #                 'round_number': prev_player.round_number,
-    #                 'correct_text': prev_player.correct_text,
-    #                 'user_text': prev_player.user_text,
-    #                 'is_correct': prev_player.is_correct,
-    #             }
-    #             table_rows.append(row)
-    #     player.participant.vars['t1_results'] = table_rows
-    #     return {
-    #         'table_rows': table_rows,
-    #     }
+
 
 
 page_sequence = [Level_Selection, start, task, Results]

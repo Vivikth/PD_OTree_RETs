@@ -21,7 +21,7 @@ class Constants(BaseConstants):
     name_in_url = 'RET_Choice'
     players_per_group = None
     num_rounds = 1
-    task_list = ["typing_lev1", "transcribing", "grid_counting", "encoding"]
+    task_list = ["typing_lev1", "transcribing1a", "tabulation1a", "encoding1a"]
 
 class Subsession(BaseSubsession):
     pass

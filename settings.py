@@ -1,34 +1,34 @@
 from os import environ
 
-RET_LIST= ['RET_Choice', "transcribing", "grid_counting", "encoding", "RET_Choice_2"]
+RET_LIST= ['RET_Choice', "transcribing1a", "tabulation1a", "encoding1a", "replication1a", "RET_Choice_2"]
 
 SESSION_CONFIGS = [
     dict(
-        name='replication',
-        display_name="replication",
+        name='replication1a',
+        display_name="replication1a",
         num_demo_participants=1,
-        app_sequence=['replication'],
+        app_sequence=['replication1a'],
         debug = True,
     ),
     dict(
-        name='transcribing',
-        display_name="transcribing",
+        name='transcribing1a',
+        display_name="transcribing1a",
         num_demo_participants=1,
-        app_sequence=['transcribing'],
+        app_sequence=['transcribing1a'],
         debug=True,
     ),
     dict(
-        name='encoding',
-        display_name="encoding",
+        name='encoding1a',
+        display_name="encoding1a",
         num_demo_participants=1,
-        app_sequence=['encoding'],
+        app_sequence=['encoding1a'],
         debug=True,
     ),
     dict(
-        name='grid_counting',
-        display_name="grid_counting",
+        name='tabulation1a',
+        display_name="tabulation1a",
         num_demo_participants=1,
-        app_sequence=['grid_counting'],
+        app_sequence=['tabulation1a'],
         debug=True,
     ),
     dict(
@@ -38,7 +38,8 @@ SESSION_CONFIGS = [
         app_sequence=RET_LIST,
         treatment = "Substitution",
         pair1 = ["T", "C"],
-        pair2 = ["R", "I"]
+        pair2 = ["R", "I"],
+        debug=True,
     ),
     dict(
         name='RET_Choice_Post',
@@ -47,7 +48,8 @@ SESSION_CONFIGS = [
         app_sequence=RET_LIST,
         treatment="Post_Information",
         pair1=["T", "C"],
-        pair2=["R", "I"]
+        pair2=["R", "I"],
+        debug=True,
     ),
     dict(
         name='RET_Choice_Pre',
@@ -56,31 +58,36 @@ SESSION_CONFIGS = [
         app_sequence=RET_LIST,
         treatment="Pre_Information",
         pair1=["T", "C"],
-        pair2=["R", "I"]
+        pair2=["R", "I"],
+        debug=True,
     ),
     dict(
         name = 'Experiment',
         display_name = 'Experiment',
         num_demo_participants = 1,
-        app_sequence = ['Introduction', 'BDM']
+        app_sequence = ['Introduction', 'BDM'],
+        debug=True,
     ),
     dict(
         name='BDM',
         display_name='BDM',
         num_demo_participants=1,
-        app_sequence=['BDM']
+        app_sequence=['BDM'],
+        debug=True,
     ),
     dict(
         name='Task_WTP',
         display_name='Task_WTP',
         num_demo_participants=1,
-        app_sequence=['Task_WTP']
+        app_sequence=['Task_WTP'],
+        debug=True,
     ),
     dict(
         name='Introduction',
         display_name='Introduction',
         num_demo_participants=1,
-        app_sequence=['Introduction']
+        app_sequence=['Introduction'],
+        debug=True,
     ),
 ]
 
