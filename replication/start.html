@@ -1,0 +1,44 @@
+
+{% extends "global/BaseMotherhood.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+
+{% load otree_tags staticfiles %}
+
+<div class="instructions well well-lg">
+
+    <h2 class="panel-sub-heading">
+        
+    </h2>
+
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'global/matrix.css' %}"/>
+
+    <p>
+      In this part of the experiment you will be presented with a series of randomly selected letters and numbers.
+        <br>You must type all {{Constants.num_rounds}} sequences correctly to move on to the next task. There is <b>no</b> time limit.
+        Note that each character has to be correct for you to proceed the next sequence.
+    </p>
+    <p>
+      Once you have entered your text, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
+    </p>
+     <p>
+           After you have typed all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
+    </p>
+    <p>
+           Otherwise, if you are ready, please click "Next" below to start this task. The instructions will be repeated on every page.<br>
+    </p>
+
+</div>
+      {% next_button %}<br><br><br>
+
+
+
+
+
+{% endblock %}

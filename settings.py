@@ -3,12 +3,13 @@ from os import environ
 RET_LIST= ['RET_Choice', "transcribing", "grid_counting", "encoding", "RET_Choice_2"]
 
 SESSION_CONFIGS = [
-    # dict(
-    #     name='typing_lev1',
-    #     display_name="typing_lev1",
-    #     num_demo_participants=1,
-    #     app_sequence=['typing_lev1']
-    # ),
+    dict(
+        name='replication',
+        display_name="replication",
+        num_demo_participants=1,
+        app_sequence=['replication'],
+        debug = True,
+    ),
     dict(
         name='transcribing',
         display_name="transcribing",
