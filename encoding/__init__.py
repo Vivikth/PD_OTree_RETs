@@ -163,6 +163,9 @@ def getting_text(player: Player, Call_Loc="Task"):
         )
         player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev4.png'
 
+def user_text_error_message(player: Player, value):
+    if not value == player.correct_text:
+        return 'Answer is Incorrect'
 
 # PAGES
 # import time
@@ -181,7 +184,7 @@ class Level_Selection(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'debug': 'true',
+            'debug': player.session.config['debug'],
         }
 
     @staticmethod
@@ -201,19 +204,14 @@ class start(Page):
     @staticmethod
     def vars_for_template(player):
         pass
-        # return {
-        #     'debug': session.vars['DEBUG'],
-        # }
+        return {
+            'debug': player.session.config['debug'],
+        }
 
 
 class task(Page):
     form_model = 'player'
     form_fields = ['user_text']
-
-    @staticmethod
-    def user_text_error_message(player: Player, value):
-        if not value == player.correct_text:
-            return 'Answer is Incorrect'
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -238,23 +236,23 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-    @staticmethod
-    def vars_for_template(player: Player):
-        # only keep obs if YourEntry player_sum, is not None.
-        table_rows = []
-        for prev_player in player.in_all_rounds():
-            if prev_player.user_text != None:
-                row = {
-                    'round_number': prev_player.round_number,
-                    'correct_text': prev_player.correct_text,
-                    'user_text': prev_player.user_text,
-#                    'is_correct': prev_player.is_correct,
-                }
-                table_rows.append(row)
-        player.participant.vars['t1_results'] = table_rows
-        return {
-            'table_rows': table_rows,
-        }
+#     @staticmethod
+#     def vars_for_template(player: Player):
+#         # only keep obs if YourEntry player_sum, is not None.
+#         table_rows = []
+#         for prev_player in player.in_all_rounds():
+#             if prev_player.user_text != None:
+#                 row = {
+#                     'round_number': prev_player.round_number,
+#                     'correct_text': prev_player.correct_text,
+#                     'user_text': prev_player.user_text,
+# #                    'is_correct': prev_player.is_correct,
+#                 }
+#                 table_rows.append(row)
+#         player.participant.vars['t1_results'] = table_rows
+#         return {
+#             'table_rows': table_rows,
+#         }
 
     @staticmethod
     def app_after_this_page(player, upcoming_apps):

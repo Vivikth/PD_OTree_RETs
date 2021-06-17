@@ -26,7 +26,7 @@
                 <center><h2>Select the letter below and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
                 <br>
                 <center>
-                    <img src="{{ STATIC_URL }}{{image_path}}"/>
+                    <img src="{{ static image_path}}"/>
                 </center>
                 <br><br>
     </p>
@@ -36,7 +36,7 @@
             <h3>
                 <th style="vertical-align:middle">
                     <br><br>
-                    {% formfield player.user_text with label="" %}
+                    {% formfield player.user_text label="" %}
                     <br><br>
                 </th>
                 <th style="vertical-align:middle; text-align: left">
@@ -98,7 +98,7 @@
 <!--    function make_base()-->
 <!--    {-->
 <!--      base_image = new Image();-->
-<!--      base_image.src = "{{ STATIC_URL }}{{image_path}}";-->
+<!--      base_image.src = "{{ static image_path}}";-->
 <!--      base_image.onload = function(){-->
 <!--        context.drawImage(base_image, 0, 0);-->
 <!--      }-->

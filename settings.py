@@ -4,34 +4,31 @@ RET_LIST= ['RET_Choice', "transcribing", "grid_counting", "encoding", "RET_Choic
 
 SESSION_CONFIGS = [
     # dict(
-    #    name='counting_zeroes_lev1',
-    #    display_name="counting_zeroes_lev1",
-    #    num_demo_participants=1,
-    #    app_sequence=['counting_zeroes_lev1']
+    #     name='typing_lev1',
+    #     display_name="typing_lev1",
+    #     num_demo_participants=1,
+    #     app_sequence=['typing_lev1']
     # ),
-    dict(
-        name='typing_lev1',
-        display_name="typing_lev1",
-        num_demo_participants=1,
-        app_sequence=['typing_lev1']
-    ),
     dict(
         name='transcribing',
         display_name="transcribing",
         num_demo_participants=1,
-        app_sequence=['transcribing']
+        app_sequence=['transcribing'],
+        debug=True,
     ),
     dict(
         name='encoding',
         display_name="encoding",
         num_demo_participants=1,
-        app_sequence=['encoding']
+        app_sequence=['encoding'],
+        debug=True,
     ),
     dict(
         name='grid_counting',
         display_name="grid_counting",
         num_demo_participants=1,
-        app_sequence=['grid_counting']
+        app_sequence=['grid_counting'],
+        debug=True,
     ),
     dict(
         name='RET_Choice_Sub',
@@ -115,5 +112,5 @@ SECRET_KEY = '=56(oy3rxv5n+gd-c2%yi$@_!ii^7l$*1lwnc-663iq&j&s=r#'
 INSTALLED_APPS = ['otree']
 
 #Debug
-SESSION_FIELDS = ['DEBUG']
+SESSION_FIELDS = ['debug']
 PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2']
