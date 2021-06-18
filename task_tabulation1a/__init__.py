@@ -31,7 +31,7 @@ Real Effort Task. Type as many strings as possible.
 class Constants(BaseConstants):
     name_in_url = 'task_counting1a'
     players_per_group = None
-    num_rounds = 3  # must be more than the max one person can do in task_timer seconds
+    num_rounds = 10  # must be more than the max one person can do in task_timer seconds
     grid_size = 8
     # encrypts text given key and alphabet.
     def encrypt(plaintext, key, alphabet):
@@ -144,14 +144,15 @@ class Player(BasePlayer):
     )
     is_correct = models.BooleanField(doc="did the user get the task correct?")
     image_path = models.CharField()
+    rand_string = models.StringField()
 
 
 # FUNCTIONS
 def creating_session(subsession: Subsession):
     if subsession.round_number == 1:
-        for p in subsession.session.get_participants():
+        for p in subsession.get_players():
             rand = random.sample(range(Constants.num_rounds), Constants.num_rounds)
-            p.vars['rand'] = rand
+            p.rand_string = ''.join(str(r) for r in rand)
 
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
@@ -166,45 +167,45 @@ def getting_text(player: Player, Call_Loc="Task"):
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev1[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).image_path = '/tabulation/lev1/%i.png' % (
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         )
     elif player.participant.lc1a == 2:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev2[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).image_path = '/tabulation/lev2/%i.png' % (
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         )
     elif player.participant.lc1a == 3:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev3[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).image_path = '/tabulation/lev3/%i.png' % (
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         )
     elif player.participant.lc1a == 4:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev4[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).image_path = '/tabulation/lev4/%i.png' % (
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         )
 
 

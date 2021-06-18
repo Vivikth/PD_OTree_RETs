@@ -34,6 +34,7 @@ def creating_session(subsession: Subsession):
     for p in subsession.get_players():
         stimuli = read_csv('BDM/BDMQs.csv')
         p.num_trials = len(stimuli)
+        p.participant.BDM_Score = 0
         for stim in stimuli:
             Trial.create(player=p, **stim)
 
@@ -44,7 +45,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     num_correct = models.IntegerField(initial=0)
     raw_responses = models.LongStringField()
-
+    num_trials = models.IntegerField()
 
 # FUNCTIONS
 
@@ -95,8 +96,7 @@ class Stimuli(Page):
             # have to use str() because Javascript implicitly converts keys to strings
             trial.choice = responses[str(trial.id)]
             trial.is_correct = trial.choice == trial.solution
-            player.num_correct += int(trial.is_correct)
-            player.participant.BDM_Score = player.num_correct #Probably not the most efficient.
+            player.participant.BDM_Score += int(trial.is_correct)
 
 class Results(Page):
     @staticmethod

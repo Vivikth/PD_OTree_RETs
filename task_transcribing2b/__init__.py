@@ -117,3 +117,4 @@ class Player(BasePlayer):
     )
     is_correct = models.BooleanField(doc="did the user get the task correct?")
     image_path = models.CharField()
+    rand_string = models.StringField()

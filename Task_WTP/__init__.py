@@ -138,10 +138,12 @@ class Replication_WTP(Page):
         }
 
 class WTP_Conc(Page):
+
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.pair1, player.participant.pair2 = pair_generator(player.Tabulation_Value, player.Concealment_Value, player.Interpretation_Value, player.Replication_Value)
         print(player.participant.pair1, player.participant.pair2)
+        player.participant.pair = player.participant.pair1
 
 
 page_sequence = [WTP_Intro, Tabulation_WTP, Concealment_WTP, Interpretation_WTP, Replication_WTP, WTP_Conc]

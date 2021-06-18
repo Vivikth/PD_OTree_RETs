@@ -29,20 +29,13 @@ Real Effort Task. Type as many strings as possible.
 class Constants(BaseConstants):
     name_in_url = 'task_encoding1a'
     players_per_group = None
-    num_rounds = 3  # must be more than the max one person can do in task_timer seconds
+    num_rounds = 10  # must be more than the max one person can do in task_timer seconds
     string_length = 4
     characters = "ab"  # Characters to create strings from.
     reference_texts = [
         "".join(p) for p in itertools.product(characters, repeat=string_length)
     ]  # List of strings to encrypt.
     # encrypts text given key and alphabet.
-    def encrypt(plaintext, key, alphabet):
-        keyIndices = [alphabet.index(k.lower()) for k in plaintext]
-        return ''.join(key[keyIndex] for keyIndex in keyIndices)
-
-    def decrypt(cipher, key, alphabet):
-        keyIndices = [key.index(k) for k in cipher]
-        return ''.join(alphabet[keyIndex] for keyIndex in keyIndices)
 
     characters_lev1 = "ab"  # Characters to create strings from.
     characters_lev2 = "cd"  # Characters to create strings from.
@@ -111,14 +104,23 @@ class Player(BasePlayer):
     )
     is_correct = models.BooleanField(doc="did the user get the task correct?")
     image_path = models.CharField()
+    rand_string = models.StringField()
 
 
 # FUNCTIONS
 def creating_session(subsession: Subsession):
     if subsession.round_number == 1:
-        for p in subsession.session.get_participants():
+        for p in subsession.get_players():
             rand = random.sample(range(Constants.num_rounds), Constants.num_rounds)
-            p.vars['rand'] = rand
+            p.rand_string = ''.join(str(r) for r in rand)
+
+def encrypt(plaintext, key, alphabet):
+    keyIndices = [alphabet.index(k.lower()) for k in plaintext]
+    return ''.join(key[keyIndex] for keyIndex in keyIndices)
+
+def decrypt(cipher, key, alphabet):
+    keyIndices = [key.index(k) for k in cipher]
+    return ''.join(alphabet[keyIndex] for keyIndex in keyIndices)
 
 
 def getting_text(player: Player, Call_Loc="Task"):
@@ -127,36 +129,36 @@ def getting_text(player: Player, Call_Loc="Task"):
     else:
         dummy_sub = 0
     if player.participant.lc1a == 1:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = encrypt(
             Constants.reference_texts_lev1[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
             ],
             Constants.key_lev1,
             Constants.alphabet_lev1,
         )
         player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev1.png'
     elif player.participant.lc1a == 2:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = encrypt(
             Constants.reference_texts_lev2[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
             ],
             Constants.key_lev2,
             Constants.alphabet_lev2,
         )
         player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev2.png'
     elif player.participant.lc1a == 3:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = encrypt(
             Constants.reference_texts_lev3[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
             ],
             Constants.key_lev3,
             Constants.alphabet_lev3,
         )
         player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev3.png'
     elif player.participant.lc1a == 4:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = encrypt(
             Constants.reference_texts_lev4[
-                player.participant.vars['rand'][player.round_number - dummy_sub]
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
             ],
             Constants.key_lev4,
             Constants.alphabet_lev4,
@@ -218,7 +220,7 @@ class task(Page):
             'round_count': (player.round_number - 1),
             'debug': 1,
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
-            'display_text': Constants.decrypt(
+            'display_text': decrypt(
                 player.correct_text, Constants.key_lev1, Constants.alphabet_lev1
             ),
             'tab_img': player.image_path,

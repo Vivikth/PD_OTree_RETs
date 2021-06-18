@@ -65,8 +65,6 @@ class Constants(BaseConstants):
         'ω',
     ]
     reference_texts_lev4 = list(string.punctuation)
-    # Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
-    rand = random.sample(range(num_rounds), num_rounds)
 
     def greek_to_name(symbol):
         greek, size, letter, what, *with_tonos = unicodedata.name(symbol).split()
@@ -91,14 +89,14 @@ class Player(BasePlayer):
     user_text = models.CharField(label="Which Letter is this?")
     is_correct = models.BooleanField(doc="did the user get the task correct?")
     image_path = models.CharField()
-
+    rand_string = models.StringField()
 
 # FUNCTIONS
 def creating_session(subsession: Subsession):
     if subsession.round_number == 1:
-        for p in subsession.session.get_participants():
+        for p in subsession.get_players():
             rand = random.sample(range(Constants.num_rounds), Constants.num_rounds)
-            p.vars['rand'] = rand
+            p.rand_string = ''.join(str(r) for r in rand)
 
 
 def getting_text(player: Player, Call_Loc="Task"):
@@ -110,7 +108,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev1[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
@@ -121,7 +119,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev2[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
@@ -132,7 +130,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev3[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub
@@ -145,7 +143,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev4[
-            player.participant.vars['rand'][player.round_number - dummy_sub]
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
         ]
         player.in_round(
             player.round_number + 1 - dummy_sub

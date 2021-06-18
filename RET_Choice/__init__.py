@@ -36,11 +36,14 @@ class Player(BasePlayer):
 def creating_session(subsession):
     if subsession.round_number == 1:
         for player in subsession.get_players():
-            player.participant.treatment = player.session.config['treatment']
-            player.participant.pair1 = player.session.config['pair1']
-            player.participant.pair2 = player.session.config['pair2']
+            if 'treatment' in player.session.config:
+                player.participant.treatment = player.session.config['treatment']
+            if 'pair1' in player.session.config:
+                player.participant.pair1 = player.session.config['pair1']
+                player.participant.pair = player.participant.pair1
+            if 'pair2' in player.session.config:
+                player.participant.pair2 = player.session.config['pair2']
 
-            player.participant.pair = player.participant.pair1
 
 def task_name(string):
     if string == 'T':
