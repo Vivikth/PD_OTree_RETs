@@ -26,7 +26,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    MenuTask = models.CharField(
+    MenuTask = models.StringField(
         doc="MenuTask", widget=widgets.RadioSelect
     )
     # This needs to be made dynamic - after you introduce BDM.
@@ -70,7 +70,7 @@ def task_name_decoder(string):
     elif string == "Replication":
         return 'task_replication1a'
 
-def MenuTask_Choices(player):
+def MenuTask_choices(player):
     if player.participant.treatment == "Substitution":
         pref_opt = task_name(player.participant.pair1[1])
         return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
@@ -109,9 +109,5 @@ class Menu_Select_Info(Page):
             'Task_Info' : task_name(player.participant.pair1[0])
         }
 
-    @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        option = Option_Index(player.Task_Choice) - 1
-        return task_name_decoder(task_name(player.participant.pair1[option]))
 
 page_sequence = [Menu_Select_Info, Menu_Select_Intro]
