@@ -23,7 +23,7 @@ class Player(BasePlayer):
     Tabulation_Value = models.FloatField(doc="Tabulation_Value", min = 0, max = 100, label = "My switch point for the tabulation task is:")
     Concealment_Value = models.FloatField(doc="Concealment_Value", min = 0, max = 100, label = "My switch point for the concealment task is:")
     Interpretation_Value = models.FloatField(doc="Interpretation_Value", min = 0, max = 100, label = "My switch point for the interpretation task is:")
-    Replication_Value = models.FloatField(doc="Replication_Value", min = 0, max = 100, label = "My switch point for the replication1a task is:")
+    Replication_Value = models.FloatField(doc="Replication_Value", min = 0, max = 100, label = "My switch point for the task_replication1a task is:")
 
 #FUNCTIONS
 def pair_generator(Tabulation_Value, Concealment_Value, Interpretation_Value, Replication_Value):

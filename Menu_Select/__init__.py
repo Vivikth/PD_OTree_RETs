@@ -11,7 +11,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'RET_Choice'
+    name_in_url = 'Menu_Select'
     players_per_group = None
     num_rounds = 1
     task_list = ["Option 1", "Option 2"]
@@ -26,8 +26,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    Task_Choice = models.CharField(
-        doc="Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect
+    MenuTask = models.CharField(
+        doc="MenuTask", widget=widgets.RadioSelect
     )
     # This needs to be made dynamic - after you introduce BDM.
 
@@ -70,35 +70,38 @@ def task_name_decoder(string):
     elif string == "Replication":
         return 'task_replication1a'
 
+def MenuTask_Choices(player):
+    if player.participant.treatment == "Substitution":
+        pref_opt = task_name(player.participant.pair1[1])
+        return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
+    else:
+        return [task_name(player.participant.pair1[0]) + " (level 1)",task_name(player.participant.pair1[1]) + " (level 1)"]
+
+
 # PAGES
-
-class RET_Choice_Introduction(Page):
-    pass
-
-class Task_Selection(Page):
+class Menu_Select_Intro(Page):
     form_model = 'player'
-    form_fields = ['Task_Choice']
+    form_fields = ['MenuTask']
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         if player.participant.treatment != "Pre_Information":
             option = Option_Index(player.Task_Choice) - 1
-            player.participant.optchoice1 = option
-            player.participant.lc1a = 1
             return task_name_decoder(task_name(player.participant.pair1[option]))
 
     @staticmethod
     def vars_for_template(player: Player):
         return {
             'Good_Task' : task_name(player.participant.pair1[0]),
-            'Bad_Task'  : task_name(player.participant.pair1[1])
+            'Bad_Task'  : task_name(player.participant.pair1[1]),
+            'Prev_Opt'  : player.participant.optchoice1 + 1,
         }
 
-class RET_Choice_Information(Page):
+class Menu_Select_Info(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.participant.treatment == "Pre_Information"
+        return player.participant.treatment == "Post_Information"
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -109,8 +112,6 @@ class RET_Choice_Information(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         option = Option_Index(player.Task_Choice) - 1
-        player.participant.optchoice1 = option
-        player.participant.lc1a = 1
         return task_name_decoder(task_name(player.participant.pair1[option]))
 
-page_sequence = [RET_Choice_Introduction, Task_Selection, RET_Choice_Information]
+page_sequence = [Menu_Select_Info, Menu_Select_Intro]

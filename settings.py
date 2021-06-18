@@ -1,34 +1,34 @@
 from os import environ
 
-RET_LIST= ['RET_Choice', "transcribing1a", "tabulation1a", "encoding1a", "replication1a", "RET_Choice_2"]
+RET_LIST= ['RET_Choice', "task_transcribing1a", "task_tabulation1a", "task_encoding1a", "task_replication1a", "Menu_Select"]
 
 SESSION_CONFIGS = [
     dict(
-        name='replication1a',
-        display_name="replication1a",
+        name='task_replication1a',
+        display_name="task_replication1a",
         num_demo_participants=1,
-        app_sequence=['replication1a'],
+        app_sequence=['task_replication1a'],
         debug = True,
     ),
     dict(
-        name='transcribing1a',
-        display_name="transcribing1a",
+        name='task_transcribing1a',
+        display_name="task_transcribing1a",
         num_demo_participants=1,
-        app_sequence=['transcribing1a'],
+        app_sequence=['task_transcribing1a'],
         debug=True,
     ),
     dict(
-        name='encoding1a',
-        display_name="encoding1a",
+        name='task_encoding1a',
+        display_name="task_encoding1a",
         num_demo_participants=1,
-        app_sequence=['encoding1a'],
+        app_sequence=['task_encoding1a'],
         debug=True,
     ),
     dict(
-        name='tabulation1a',
-        display_name="tabulation1a",
+        name='task_tabulation1a',
+        display_name="task_tabulation1a",
         num_demo_participants=1,
-        app_sequence=['tabulation1a'],
+        app_sequence=['task_tabulation1a'],
         debug=True,
     ),
     dict(
@@ -47,8 +47,8 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=RET_LIST,
         treatment="Post_Information",
-        pair1=["T", "C"],
-        pair2=["R", "I"],
+        pair1=["R", "I"],
+        pair2=["C", "T"],
         debug=True,
     ),
     dict(
@@ -57,8 +57,8 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=RET_LIST,
         treatment="Pre_Information",
-        pair1=["T", "C"],
-        pair2=["R", "I"],
+        pair1=["R", "C"],
+        pair2=["T", "I"],
         debug=True,
     ),
     dict(
@@ -121,4 +121,4 @@ INSTALLED_APPS = ['otree']
 
 #Debug
 SESSION_FIELDS = ['debug']
-PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2']
+PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2', 'optchoice1', 'lc1a', 'lc1b', 'lc2a', 'lc2b']

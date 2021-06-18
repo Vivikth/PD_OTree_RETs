@@ -90,16 +90,16 @@ class Constants(BaseConstants):
 
 #Below is the code that actually generates images, no need to run it every time.
     # for i, num in enumerate(reference_texts_lev1):
-    #     count_array_pretty(grid_size, num, characters_lev1, '/tabulation1a/lev1/%i.png'%(i))
+    #     count_array_pretty(grid_size, num, characters_lev1, '/task_tabulation1a/lev1/%i.png'%(i))
     #
     # for i, num in enumerate(reference_texts_lev2):
-    #     count_array_pretty(grid_size, num, characters_lev2, '/tabulation1a/lev2/%i.png'%(i))
+    #     count_array_pretty(grid_size, num, characters_lev2, '/task_tabulation1a/lev2/%i.png'%(i))
     #
     # for i, num in enumerate(reference_texts_lev3):
-    #     count_array_pretty(grid_size, num, characters_lev3, '/tabulation1a/lev3/%i.png'%(i))
+    #     count_array_pretty(grid_size, num, characters_lev3, '/task_tabulation1a/lev3/%i.png'%(i))
     #
     # for i, num in enumerate(reference_texts_lev4):
-    #     count_array_pretty(grid_size, num, characters_lev4, '/tabulation1a/lev4/%i.png'%(i))
+    #     count_array_pretty(grid_size, num, characters_lev4, '/task_tabulation1a/lev4/%i.png'%(i))
 
 
 class Subsession(BaseSubsession):
@@ -122,16 +122,16 @@ class Player(BasePlayer):
             dummy_sub = 0
         if self.in_round(1).level == 1:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/tabulation1a/lev1/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_tabulation1a/lev1/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
         elif self.in_round(1).level == 2:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev2[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/tabulation1a/lev2/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_tabulation1a/lev2/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
         elif self.in_round(1).level == 3:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev3[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/tabulation1a/lev3/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_tabulation1a/lev3/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
         elif self.in_round(1).level == 4:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev4[self.participant.vars['rand'][self.round_number - dummy_sub]]
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/tabulation1a/lev4/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_tabulation1a/lev4/%i.png'%(self.participant.vars['rand'][self.round_number - dummy_sub])
 
 
     level = models.IntegerField(

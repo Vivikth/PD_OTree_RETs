@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Task Preference
+{% endblock %}
+
+{% block content %}
+
+<h3> THIS IS THE MENU SELECT TASK.</h3>
+
+<p> You must now choose a task from the menu you selected earlier. You selected option {{Prev_Opt}} previously.
+    Now, you must choose a single task to complete from the menu in option {{Prev_Opt}}.
+
+
+
+
+    You must now choose a task from the menu selected earlier. You selected option SOMETHING, and completed the SOMETHING task.
+    INFO if shit.
+    Now, you must select a task from one of the following.
+    Please press a task.
+</p>
+<br>
+    {% next_button %}
+
+
+{% endblock %}

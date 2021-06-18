@@ -106,7 +106,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         dummy_sub = 1
     else:
         dummy_sub = 0
-    if player.in_round(1).level == 1:
+    if player.participant.lc1a == 1:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev1[
@@ -117,7 +117,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ).image_path = 'transcribing/Digits/{}.gif'.format(
             player.in_round(player.round_number + 1 - dummy_sub).correct_text
         )
-    elif player.in_round(1).level == 2:
+    elif player.participant.lc1a == 2:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev2[
@@ -128,7 +128,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ).image_path = 'transcribing/Capital_Letters/{}.gif'.format(
             player.in_round(player.round_number + 1 - dummy_sub).correct_text
         )
-    elif player.in_round(1).level == 3:
+    elif player.participant.lc1a == 3:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev3[
@@ -141,7 +141,7 @@ def getting_text(player: Player, Call_Loc="Task"):
                 player.in_round(player.round_number + 1 - dummy_sub).correct_text
             )
         )
-    elif player.in_round(1).level == 4:
+    elif player.participant.lc1a == 4:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev4[
@@ -157,13 +157,13 @@ def getting_text(player: Player, Call_Loc="Task"):
 
 
 def user_text_choices(player: Player):
-    if player.in_round(1).level == 1:
+    if player.participant.lc1a == 1:
         return Constants.reference_texts_lev1
-    elif player.in_round(1).level == 2:
+    elif player.participant.lc1a == 2:
         return Constants.reference_texts_lev2
-    elif player.in_round(1).level == 3:
+    elif player.participant.lc1a == 3:
         return Constants.reference_texts_lev3
-    elif player.in_round(1).level == 4:
+    elif player.participant.lc1a == 4:
         return Constants.reference_texts_lev4
 
 def user_text_error_message(player: Player, value):
@@ -177,11 +177,11 @@ class Level_Selection(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1
+        return player.round_number == 1 and 'lc1a' not in player.participant.vars
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        pass
+        player.participant.lc1a == player.level
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -230,7 +230,9 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        return 'Menu_Select'
 
 
 page_sequence = [Level_Selection, start, task, Results]

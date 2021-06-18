@@ -77,10 +77,10 @@ class Constants(BaseConstants):
         table_string = pt.get_html_string(format=True)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
-    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding1a/table_lev1.png')
-    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding1a/table_lev2.png')
-    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding1a/table_lev3.png')
-    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding1a/table_lev4.png')
+    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/task_encoding1a/table_lev1.png')
+    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/task_encoding1a/table_lev2.png')
+    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/task_encoding1a/table_lev3.png')
+    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/task_encoding1a/table_lev4.png')
     # Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     rand = random.sample(range(num_rounds), num_rounds)
 
@@ -115,13 +115,13 @@ def getting_text(player: Player, Call_Loc = "Task"):
         dummy_sub = 1
     else:
         dummy_sub = 0
-    if player.in_round(1).level == 1:
+    if player.participant.lc1a == 1:
         player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[player.participant.vars['rand'][player.round_number - dummy_sub]]
-    elif player.in_round(1).level == 2:
+    elif player.participant.lc1a == 2:
         player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev2[player.participant.vars['rand'][player.round_number - dummy_sub]]
-    elif player.in_round(1).level == 3:
+    elif player.participant.lc1a == 3:
         player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev3[player.participant.vars['rand'][player.round_number - dummy_sub]]
-    elif player.in_round(1).level == 4:
+    elif player.participant.lc1a == 4:
         player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev4[player.participant.vars['rand'][player.round_number - dummy_sub]]
 
 def user_text_error_message(player: Player, value):
@@ -136,11 +136,12 @@ class Level_Selection(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1
+        return player.round_number == 1 and 'lc1a' not in player.participant.vars
+
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        pass
+        player.participant.lc1a == player.level
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -196,7 +197,7 @@ class Results(Page):
 
     @staticmethod
     def app_after_this_page(player, upcoming_apps):
-        return 'RET_Choice_2'
+        return 'Menu_Select'
 
 
 page_sequence = [Level_Selection, start, task, Results]

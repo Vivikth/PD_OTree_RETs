@@ -118,16 +118,16 @@ class Constants(BaseConstants):
 
 # Below is the code that actually generates images, no need to run it every time.
 # for i, num in enumerate(reference_texts_lev1):
-#     count_array_pretty(grid_size, num, characters_lev1, '/tabulation1a/lev1/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev1, '/task_tabulation1a/lev1/%i.png'%(i))
 #
 # for i, num in enumerate(reference_texts_lev2):
-#     count_array_pretty(grid_size, num, characters_lev2, '/tabulation1a/lev2/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev2, '/task_tabulation1a/lev2/%i.png'%(i))
 #
 # for i, num in enumerate(reference_texts_lev3):
-#     count_array_pretty(grid_size, num, characters_lev3, '/tabulation1a/lev3/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev3, '/task_tabulation1a/lev3/%i.png'%(i))
 #
 # for i, num in enumerate(reference_texts_lev4):
-#     count_array_pretty(grid_size, num, characters_lev4, '/tabulation1a/lev4/%i.png'%(i))
+#     count_array_pretty(grid_size, num, characters_lev4, '/task_tabulation1a/lev4/%i.png'%(i))
 class Subsession(BaseSubsession):
     pass
 
@@ -162,7 +162,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         dummy_sub = 1
     else:
         dummy_sub = 0
-    if player.in_round(1).level == 1:
+    if player.participant.lc1a == 1:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev1[
@@ -173,7 +173,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ).image_path = '/tabulation/lev1/%i.png' % (
             player.participant.vars['rand'][player.round_number - dummy_sub]
         )
-    elif player.in_round(1).level == 2:
+    elif player.participant.lc1a == 2:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev2[
@@ -184,7 +184,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ).image_path = '/tabulation/lev2/%i.png' % (
             player.participant.vars['rand'][player.round_number - dummy_sub]
         )
-    elif player.in_round(1).level == 3:
+    elif player.participant.lc1a == 3:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev3[
@@ -195,7 +195,7 @@ def getting_text(player: Player, Call_Loc="Task"):
         ).image_path = '/tabulation/lev3/%i.png' % (
             player.participant.vars['rand'][player.round_number - dummy_sub]
         )
-    elif player.in_round(1).level == 4:
+    elif player.participant.lc1a == 4:
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).correct_text = Constants.reference_texts_lev4[
@@ -216,11 +216,12 @@ class Level_Selection(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number == 1
+        return player.round_number == 1 and 'lc1a' not in player.participant.vars
+
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        pass
+        player.participant.lc1a == player.level
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -242,7 +243,7 @@ class start(Page):
     def vars_for_template(player: Player):
         return {
             'debug': player.session.config['debug'],
-            'level_description': Constants.level_description(player.in_round(1).level),
+            'level_description': Constants.level_description(player.participant.lc1a),
         }
 
 
@@ -259,7 +260,7 @@ class task(Page):
             'debug': player.session.config['debug'],
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
             'tab_img': player.image_path,
-            'level_description': Constants.level_description(player.in_round(1).level),
+            'level_description': Constants.level_description(player.participant.lc1a),
         }
 
     @staticmethod
@@ -273,28 +274,9 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-    # @staticmethod
-    # def vars_for_template(player: Player):
-    #     # only keep obs if YourEntry player_sum, is not None.
-    #     table_rows = []
-    #     for prev_player in player.in_all_rounds():
-    #         if prev_player.user_text != None:
-    #             row = {
-    #                 'round_number': prev_player.round_number,
-    #                 'correct_text': prev_player.correct_text,
-    #                 'user_text': prev_player.user_text,
-    #                 'is_correct': prev_player.is_correct,
-    #             }
-    #             table_rows.append(row)
-    #     player.participant.vars['t1_results'] = table_rows
-    #     return {
-    #         'table_rows': table_rows,
-    #     }
-
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        print(upcoming_apps)
-        return upcoming_apps[-1]
+        return 'Menu_Select'
 
 
 page_sequence = [Level_Selection, start, task, Results]

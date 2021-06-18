@@ -86,10 +86,10 @@ class Constants(BaseConstants):
         table_string = pt.get_html_string(format=True)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
-    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding1a/table_lev1.png')
-    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding1a/table_lev2.png')
-    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding1a/table_lev3.png')
-    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding1a/table_lev4.png')
+    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/task_encoding1a/table_lev1.png')
+    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/task_encoding1a/table_lev2.png')
+    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/task_encoding1a/table_lev3.png')
+    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/task_encoding1a/table_lev4.png')
 
     #Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     rand = random.sample(range(num_rounds), num_rounds)
@@ -115,16 +115,16 @@ class Player(BasePlayer):
             dummy_sub = 0
         if self.in_round(1).level == 1:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev1[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev1, Constants.alphabet_lev1)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding1a/table_lev1.png'
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_encoding1a/table_lev1.png'
         elif self.in_round(1).level == 2:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev2[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev2, Constants.alphabet_lev2)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding1a/table_lev2.png'
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_encoding1a/table_lev2.png'
         elif self.in_round(1).level == 3:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev3[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev3, Constants.alphabet_lev3)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding1a/table_lev3.png'
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_encoding1a/table_lev3.png'
         elif self.in_round(1).level == 4:
             self.in_round(self.round_number + 1 - dummy_sub).correct_text = Constants.encrypt(Constants.reference_texts_lev4[self.participant.vars['rand'][self.round_number - dummy_sub]],Constants.key_lev4, Constants.alphabet_lev4)
-            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/encoding1a/table_lev4.png'
+            self.in_round(self.round_number + 1 - dummy_sub).image_path = '/task_encoding1a/table_lev4.png'
 
 
     level = models.IntegerField(
