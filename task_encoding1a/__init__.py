@@ -178,7 +178,7 @@ class Level_Selection(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.participant.lc1a == player.level
+        player.participant.lc1a = player.level
 
     @staticmethod
     def vars_for_template(player: Player):

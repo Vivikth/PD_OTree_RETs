@@ -1,23 +1,8 @@
-from __future__ import division
-
-import itertools
-import random
-
-import imgkit
-import prettytable
-from django.conf import settings
-
-from otree.api import *
-
-
-author = 'Vivikth Narayanan'
-doc = """
-Real Effort Task. Type as many strings as possible.  
-"""
+from task_encoding1a import *
 
 
 class Constants(BaseConstants):
-    name_in_url = 'task_replication'
+    name_in_url = 'task_encoding1b'
     players_per_group = None
     num_rounds = 3  # must be more than the max one person can do in task_timer seconds
     string_length = 4
@@ -101,103 +86,3 @@ class Player(BasePlayer):
     )
     is_correct = models.BooleanField(doc="did the user get the task correct?")
     image_path = models.CharField()
-
-
-# FUNCTIONS
-def creating_session(subsession: Subsession):
-    if subsession.round_number == 1:
-        for p in subsession.session.get_participants():
-            rand = random.sample(range(Constants.num_rounds), Constants.num_rounds)
-            p.vars['rand'] = rand
-
-def getting_text(player: Player, Call_Loc = "Task"):
-    if Call_Loc == "Start":
-        dummy_sub = 1
-    else:
-        dummy_sub = 0
-    if player.participant.lc1a == 1:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[player.participant.vars['rand'][player.round_number - dummy_sub]]
-    elif player.participant.lc1a == 2:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev2[player.participant.vars['rand'][player.round_number - dummy_sub]]
-    elif player.participant.lc1a == 3:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev3[player.participant.vars['rand'][player.round_number - dummy_sub]]
-    elif player.participant.lc1a == 4:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev4[player.participant.vars['rand'][player.round_number - dummy_sub]]
-
-def user_text_error_message(player: Player, value):
-    if not value == player.correct_text:
-        return 'Answer is Incorrect'
-
-# PAGES
-# import time
-class Level_Selection(Page):
-    form_model = 'player'
-    form_fields = ['level']
-
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1 and 'lc1a' not in player.participant.vars
-
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        player.participant.lc1a = player.level
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'debug': player.session.config['debug'],
-        }
-
-    @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        pass
-
-
-class start(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        getting_text(player, Call_Loc="Start")
-
-    @staticmethod
-    def vars_for_template(player):
-        pass
-        return {
-            'debug': player.session.config['debug'],
-        }
-
-
-class task(Page):
-    form_model = 'player'
-    form_fields = ['user_text']
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'round_count': (player.round_number - 1),
-            'debug': 1,
-            'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
-            'display_text': player.correct_text,
-        }
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        if player.round_number < Constants.num_rounds:
-            getting_text(player)
-
-
-class Results(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == Constants.num_rounds
-
-    @staticmethod
-    def app_after_this_page(player, upcoming_apps):
-        return 'Menu_Select'
-
-
-page_sequence = [Level_Selection, start, task, Results]

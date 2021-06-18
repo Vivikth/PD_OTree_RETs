@@ -25,6 +25,13 @@ SESSION_CONFIGS = [
         debug=True,
     ),
     dict(
+        name='task_encoding1b',
+        display_name="task_encoding1b",
+        num_demo_participants=1,
+        app_sequence=['task_encoding1b'],
+        debug=True,
+    ),
+    dict(
         name='task_tabulation1a',
         display_name="task_tabulation1a",
         num_demo_participants=1,
