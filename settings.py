@@ -5,7 +5,7 @@ Task1b_list = ["task_transcribing1b", "task_tabulation1b", "task_encoding1b", "t
 Task2a_list = ["task_transcribing2a", "task_tabulation2a", "task_encoding2a", "task_replication2a"]
 Task2b_list = ["task_transcribing2b", "task_tabulation2b", "task_encoding2b", "task_replication2b"]
 
-RET_LIST= ["RET_Choice"] + Task1a_list + ["Menu_Select"] + Task1b_list + ["RET_Choice_2"] #+ Task2a_list + ["Menu_Select2"] + Task2b_list
+RET_LIST= ["RET_Choice"] + Task1a_list + ["Menu_Select"] + Task1b_list + ["RET_Choice_2"] + Task2a_list + ["Menu_Select2"] + Task2b_list
 
 
 

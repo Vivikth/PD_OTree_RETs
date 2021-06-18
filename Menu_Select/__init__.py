@@ -33,15 +33,6 @@ class Player(BasePlayer):
 
 
 # FUNCTIONS
-def creating_session(subsession):
-    if subsession.round_number == 1:
-        for player in subsession.get_players():
-            player.participant.treatment = player.session.config['treatment']
-            player.participant.pair1 = player.session.config['pair1']
-            player.participant.pair2 = player.session.config['pair2']
-#Need a function to set treatment to the one in session config.
-#Get the pairs too.
-
 def task_name(string):
     if string == 'T':
         return 'Tabulation'
@@ -62,20 +53,20 @@ def Option_Index(option):
 
 def task_name_decoder(string):
     if string == 'Tabulation':
-        return 'task_tabulation1b'
+        return 'task_tabulation'
     elif string == 'Concealment':
-        return 'task_encoding1b'
+        return 'task_encoding'
     elif string == "Interpretation":
-        return 'task_transcribing1b'
+        return 'task_transcribing'
     elif string == "Replication":
-        return 'task_replication1b'
+        return 'task_replication'
 
 def MenuTask_choices(player):
     if player.participant.treatment == "Substitution":
-        pref_opt = task_name(player.participant.pair1[1])
+        pref_opt = task_name(player.participant.pair[1])
         return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
     else:
-        return [task_name(player.participant.pair1[0]) + " (level 1)",task_name(player.participant.pair1[1]) + " (level 1)"]
+        return [task_name(player.participant.pair[0]) + " (level 1)",task_name(player.participant.pair[1]) + " (level 1)"]
 
 
 # PAGES
@@ -85,16 +76,15 @@ class Menu_Select_Intro(Page):
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        if player.participant.treatment != "Pre_Information":
-            partitioned_string = player.MenuTask.partition(' ')
-            player.participant.lc1a = int(partitioned_string[2][-2])
-            return task_name_decoder(partitioned_string[0])
+        partitioned_string = player.MenuTask.partition(' ')
+        player.participant.lc1a = int(partitioned_string[2][-2])
+        return task_name_decoder(partitioned_string[0]) + player.participant.stage
 
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'Good_Task' : task_name(player.participant.pair1[0]),
-            'Bad_Task'  : task_name(player.participant.pair1[1]),
+            'Good_Task' : task_name(player.participant.pair[0]),
+            'Bad_Task'  : task_name(player.participant.pair[1]),
             'Prev_Opt'  : player.participant.optchoice1 + 1,
         }
 
@@ -107,7 +97,7 @@ class Menu_Select_Info(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'Task_Info' : task_name(player.participant.pair1[0])
+            'Task_Info' : task_name(player.participant.pair[0])
         }
 
 
