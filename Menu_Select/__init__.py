@@ -62,13 +62,13 @@ def Option_Index(option):
 
 def task_name_decoder(string):
     if string == 'Tabulation':
-        return 'task_tabulation1a'
+        return 'task_tabulation1b'
     elif string == 'Concealment':
-        return 'task_encoding1a'
+        return 'task_encoding1b'
     elif string == "Interpretation":
-        return 'task_transcribing1a'
+        return 'task_transcribing1b'
     elif string == "Replication":
-        return 'task_replication1a'
+        return 'task_replication1b'
 
 def MenuTask_choices(player):
     if player.participant.treatment == "Substitution":
@@ -86,8 +86,9 @@ class Menu_Select_Intro(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         if player.participant.treatment != "Pre_Information":
-            option = Option_Index(player.Task_Choice) - 1
-            return task_name_decoder(task_name(player.participant.pair1[option]))
+            partitioned_string = player.MenuTask.partition(' ')
+            player.participant.lc1a = int(partitioned_string[2][-2])
+            return task_name_decoder(partitioned_string[0])
 
     @staticmethod
     def vars_for_template(player: Player):

@@ -1,6 +1,6 @@
 from os import environ
 
-RET_LIST= ['RET_Choice', "task_transcribing1a", "task_tabulation1a", "task_encoding1a", "task_replication1a", "Menu_Select"]
+RET_LIST= ['RET_Choice', "task_transcribing1a", "task_tabulation1a", "task_encoding1a", "task_replication1a", "Menu_Select", "task_encoding1b"]
 
 SESSION_CONFIGS = [
     dict(
