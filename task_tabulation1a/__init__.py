@@ -29,7 +29,7 @@ Real Effort Task. Type as many strings as possible.
 
 
 class Constants(BaseConstants):
-    name_in_url = 'task_counting'
+    name_in_url = 'task_counting1a'
     players_per_group = None
     num_rounds = 3  # must be more than the max one person can do in task_timer seconds
     grid_size = 8
@@ -275,8 +275,21 @@ class Results(Page):
         return player.round_number == Constants.num_rounds
 
     @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        return 'Menu_Select'
+    def app_after_this_page(player, upcoming_apps):
+        if player.participant.stage == '1a':
+            player.participant.stage = '1b'
+            return 'Menu_Select'
+        elif player.participant.stage == '1b':
+            player.participant.stage = '2a'
+            player.participant.pair = player.participant.pair2
+            return 'RET_Choice_2'
+        elif player.participant.stage == '2a':
+            player.participant.stage = '2b'
+            return 'Menu_Select2'
+        elif player.participant.stage == '2b':
+            player.participant.stage = '3'
+            return 'Demog_Survey'
+
 
 
 page_sequence = [Level_Selection, start, task, Results]

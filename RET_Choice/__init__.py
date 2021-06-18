@@ -11,7 +11,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'RET_Choice'
+    name_in_url = 'RET_Choice1'
     players_per_group = None
     num_rounds = 1
     task_list = ["Option 1", "Option 2"]
@@ -39,8 +39,8 @@ def creating_session(subsession):
             player.participant.treatment = player.session.config['treatment']
             player.participant.pair1 = player.session.config['pair1']
             player.participant.pair2 = player.session.config['pair2']
-#Need a function to set treatment to the one in session config.
-#Get the pairs too.
+
+            player.participant.pair = player.participant.pair1
 
 def task_name(string):
     if string == 'T':
@@ -62,13 +62,13 @@ def Option_Index(option):
 
 def task_name_decoder(string):
     if string == 'Tabulation':
-        return 'task_tabulation1a'
+        return 'task_tabulation'
     elif string == 'Concealment':
-        return 'task_encoding1a'
+        return 'task_encoding'
     elif string == "Interpretation":
-        return 'task_transcribing1a'
+        return 'task_transcribing'
     elif string == "Replication":
-        return 'task_replication1a'
+        return 'task_replication'
 
 # PAGES
 
@@ -82,16 +82,19 @@ class Task_Selection(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         if player.participant.treatment != "Pre_Information":
+            if 'stage' not in player.participant.vars:
+                player.participant.stage = '1a'
+
             option = Option_Index(player.Task_Choice) - 1
             player.participant.optchoice1 = option
             player.participant.lc1a = 1
-            return task_name_decoder(task_name(player.participant.pair1[option]))
+            return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
 
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'Good_Task' : task_name(player.participant.pair1[0]),
-            'Bad_Task'  : task_name(player.participant.pair1[1])
+            'Good_Task' : task_name(player.participant.pair[0]),
+            'Bad_Task'  : task_name(player.participant.pair[1])
         }
 
 class RET_Choice_Information(Page):
@@ -103,14 +106,17 @@ class RET_Choice_Information(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'Task_Info' : task_name(player.participant.pair1[0])
+            'Task_Info' : task_name(player.participant.pair[0])
         }
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
+        if 'stage' not in player.participant.vars:
+            player.participant.stage = '1a' #Initialise stage.
         option = Option_Index(player.Task_Choice) - 1
         player.participant.optchoice1 = option
         player.participant.lc1a = 1
-        return task_name_decoder(task_name(player.participant.pair1[option]))
+        return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
+
 
 page_sequence = [RET_Choice_Introduction, Task_Selection, RET_Choice_Information]

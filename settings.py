@@ -1,6 +1,13 @@
 from os import environ
 
-RET_LIST= ['RET_Choice', "task_transcribing1a", "task_tabulation1a", "task_encoding1a", "task_replication1a", "Menu_Select", "task_encoding1b"]
+Task1a_list = ["task_transcribing1a", "task_tabulation1a", "task_encoding1a", "task_replication1a"]
+Task1b_list = ["task_transcribing1b", "task_tabulation1b", "task_encoding1b", "task_replication1b"]
+Task2a_list = ["task_transcribing2a", "task_tabulation2a", "task_encoding2a", "task_replication2a"]
+Task2b_list = ["task_transcribing2b", "task_tabulation2b", "task_encoding2b", "task_replication2b"]
+
+RET_LIST= ["RET_Choice"] + Task1a_list + ["Menu_Select"] + Task1b_list + ["RET_Choice_2"] #+ Task2a_list + ["Menu_Select2"] + Task2b_list
+
+
 
 SESSION_CONFIGS = [
     dict(
@@ -69,6 +76,16 @@ SESSION_CONFIGS = [
         debug=True,
     ),
     dict(
+        name='RET_Choice_Sub2',
+        display_name="RET_Choice_Sub2",
+        num_demo_participants=1,
+        app_sequence=["RET_Choice_2"],
+        treatment="Substitution",
+        pair1=["T", "C"],
+        pair2=["R", "I"],
+        debug=True,
+    ),
+    dict(
         name = 'Experiment',
         display_name = 'Experiment',
         num_demo_participants = 1,
@@ -128,4 +145,4 @@ INSTALLED_APPS = ['otree']
 
 #Debug
 SESSION_FIELDS = ['debug']
-PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2', 'optchoice1', 'lc1a', 'lc1b', 'lc2a', 'lc2b']
+PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value', 'Replication_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2', 'optchoice1', 'lc1a', 'pair', 'stage']

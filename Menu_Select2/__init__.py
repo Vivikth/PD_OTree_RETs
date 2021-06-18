@@ -1,8 +1,7 @@
-from RET_Choice import *
-
+from Menu_Select import *
 
 class Constants(BaseConstants):
-    name_in_url = 'RET_Choice2'
+    name_in_url = 'Menu_Select2'
     players_per_group = None
     num_rounds = 1
     task_list = ["Option 1", "Option 2"]
@@ -17,9 +16,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    Task_Choice = models.CharField(
-        doc="Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect
+    MenuTask = models.StringField(
+        doc="MenuTask", widget=widgets.RadioSelect
     )
     # This needs to be made dynamic - after you introduce BDM.
 
-    # This needs to be made dynamic - after you introduce BDM.
