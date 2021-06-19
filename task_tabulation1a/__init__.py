@@ -3,7 +3,7 @@ from __future__ import division
 import itertools
 import random
 import string
-
+import time
 import imgkit
 import numpy as np
 import prettytable
@@ -156,6 +156,7 @@ def creating_session(subsession: Subsession):
 
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
+        time.sleep(5)
         return 'Answer is Incorrect'
 
 def getting_text(player: Player, Call_Loc="Task"):

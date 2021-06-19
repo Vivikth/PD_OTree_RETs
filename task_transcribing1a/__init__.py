@@ -166,6 +166,7 @@ def user_text_choices(player: Player):
 
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
+        time.sleep(5)
         return 'Answer is Incorrect'
 
 # PAGES

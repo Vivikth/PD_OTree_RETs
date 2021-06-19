@@ -1,5 +1,5 @@
 from __future__ import division
-
+import time
 import itertools
 import random
 
@@ -19,6 +19,7 @@ from . import models
 # from otree.common import Currency as c, currency_range, safe_json
 # from otree.constants import BaseConstants
 # from otree.models import BaseSubsession, BaseGroup, BasePlayer
+
 # </standard imports>
 author = 'Vivikth Narayanan'
 doc = """
@@ -167,6 +168,7 @@ def getting_text(player: Player, Call_Loc="Task"):
 
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
+        time.sleep(5)
         return 'Answer is Incorrect'
 
 # PAGES

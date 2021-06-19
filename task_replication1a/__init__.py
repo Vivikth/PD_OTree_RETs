@@ -2,7 +2,7 @@ from __future__ import division
 
 import itertools
 import random
-
+import time
 import imgkit
 import prettytable
 from django.conf import settings
@@ -127,6 +127,7 @@ def getting_text(player: Player, Call_Loc = "Task"):
 
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
+        time.sleep(5)
         return 'Answer is Incorrect'
 
 # PAGES
