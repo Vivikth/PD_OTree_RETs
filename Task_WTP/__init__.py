@@ -23,7 +23,37 @@ class Player(BasePlayer):
     Tabulation_Value = models.FloatField(doc="Tabulation_Value", min = 0, max = 100, label = "My switch point for the tabulation task is:")
     Concealment_Value = models.FloatField(doc="Concealment_Value", min = 0, max = 100, label = "My switch point for the concealment task is:")
     Interpretation_Value = models.FloatField(doc="Interpretation_Value", min = 0, max = 100, label = "My switch point for the interpretation task is:")
-    Replication_Value = models.FloatField(doc="Replication_Value", min = 0, max = 100, label = "My switch point for the task_replication1a task is:")
+    Replication_Value = models.FloatField(doc="Replication_Value", min = 0, max = 100, label = "My switch point for the replication task is:")
+    num_correct = models.IntegerField(initial=0)
+    raw_responses = models.LongStringField()
+    num_trials = models.IntegerField()
+    BDM_Q = models.StringField()
+    BDM_Num = models.IntegerField(min = 0, max=100)
+    Rand_Outcome = models.StringField(choices=["BW", "C"]) #Best, Worst Continue
+    Rand_Q = models.StringField(choices=["T", "C", "I", "R"]) #Tasks
+
+class Trial(ExtraModel):
+    player = models.Link(Player)
+    question = models.StringField()
+    optionA = models.StringField()
+    optionB = models.StringField()
+    optionC = models.StringField()
+    optionD = models.StringField()
+    solution = models.StringField()
+    choice = models.StringField()
+    is_correct = models.BooleanField()
+
+
+def to_dict(trial: Trial):
+    return dict(
+        question=trial.question,
+        optionA=trial.optionA,
+        optionB=trial.optionB,
+        optionC=trial.optionC,
+        optionD=trial.optionD,
+        id=trial.id,
+        solution=trial.solution
+    )
 
 #FUNCTIONS
 def pair_generator(Tabulation_Value, Concealment_Value, Interpretation_Value, Replication_Value):
@@ -56,7 +86,30 @@ def pair_generator(Tabulation_Value, Concealment_Value, Interpretation_Value, Re
 
     return pair1, pair2
 
+def creating_session(subsession: Subsession):
+    for p in subsession.get_players():
+        stimuli = read_csv('Task_WTP/BoringQs.csv')
+        p.num_trials = len(stimuli)
+        p.participant.BDM_Score = 0
+        for stim in stimuli:
+            Trial.create(player=p, **stim)
 
+        x = random.random()
+        if x <=0.04:
+            p.Rand_Outcome = "BW"
+            p.Rand_Q = random.choice(["T", "C", "I", "R"])
+        else:
+            p.Rand_Outcome = "C"
+
+def read_csv(filename):
+    import csv
+    import random
+
+    f = open(filename)
+    rows = list(csv.DictReader(f))
+
+    random.shuffle(rows)
+    return rows
 # PAGES
 class WTP_Intro(Page):
     pass
@@ -145,5 +198,37 @@ class WTP_Conc(Page):
         print(player.participant.pair1, player.participant.pair2)
         player.participant.pair = player.participant.pair1
 
+    def vars_for_template(player: Player):
+        pass
 
-page_sequence = [WTP_Intro, Tabulation_WTP, Concealment_WTP, Interpretation_WTP, Replication_WTP, WTP_Conc]
+class Boring(Page):
+    form_model = 'player'
+    form_fields = ['raw_responses']
+
+    @staticmethod
+    def js_vars(player: Player):
+        stimuli = [to_dict(trial) for trial in Trial.filter(player=player)]
+        return dict(trials=stimuli)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        import json
+        responses = json.loads(player.raw_responses)
+        for trial in Trial.filter(player=player):
+            # have to use str() because Javascript implicitly converts keys to strings
+            trial.choice = responses[str(trial.id)]
+            trial.is_correct = trial.choice == trial.solution
+            player.participant.BDM_Score += int(trial.is_correct)
+
+page_sequence = [WTP_Intro, Tabulation_WTP, Concealment_WTP, Interpretation_WTP, Replication_WTP, WTP_Conc, Boring]
+
+def custom_export(players):
+    yield ['participant', 'question', 'choice', 'is_correct']
+
+    for player in players:
+        participant = player.participant
+
+        trials = Trial.filter(player=player)
+
+        for t in trials:
+            yield [participant.code, t.question, t.choice, t.is_correct]
