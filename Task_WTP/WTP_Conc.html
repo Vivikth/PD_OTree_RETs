@@ -7,13 +7,24 @@
 <p>
     Thanks for providing your valuations for those tasks! <br>
     We won't be using the switch-point procedure anymore, so you can relax and forget about it! <br>
-    We will now be running the lottery that was specified.
-    There is a 4\% chance that one of your switch-points will be used.
-
-    We picked this lottery.
-    We chose question number .
-
 </p>
+    We will now be running the lottery that was specified. <br>
+    There is a 4\% chance that one of your switch-points will be used. <br>
+    {{ if player.Rand_Outcome == "C" }}
+        None of your switch-point questions were selected. <br>
+        Click the next button to proceed with the rest of the experiment.
+    {{ endif }}
+    {{ if player.Rand_Outcome == "BW" }}
+        We selected {{player.Rand_T}} as the task. <br>
+        Your switch-point for this task was {{ SP }} <br>
+        We selected question number {{player.BDM_Num}} as the question. <br>
+
+        {{if SP > player.BDM_Num}}
+        Since your switch-poitn was
+        {{endif}}
+
+    {{ endif }}
+
 
     {{ next_button }}
 

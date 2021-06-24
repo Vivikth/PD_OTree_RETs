@@ -1,0 +1,35 @@
+
+{% extends "global/BaseMotherhood.html" %}
+{% load staticfiles otree_tags  %}
+
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+
+{% load otree_tags staticfiles %}
+
+<div class="instructions well well-lg">
+
+    <h2 class="panel-sub-heading">
+
+    </h2>
+
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'global/matrix.css' %}"/>
+
+    <p>
+        THIS PAGE WILL NOT BE SHOWN TO SUBJECTS, IT IS FOR DEBUGGING PURPOSES.
+     Please select the level of the task you wish to complete:
+        {% formfield player.level label="" %}
+
+    </p>
+</div>
+      {% next_button %}<br><br><br>
+
+
+
+
+
+{% endblock %}

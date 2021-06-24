@@ -27,10 +27,9 @@ class Player(BasePlayer):
     num_correct = models.IntegerField(initial=0)
     raw_responses = models.LongStringField()
     num_trials = models.IntegerField()
-    BDM_Q = models.StringField()
     BDM_Num = models.IntegerField(min = 0, max=100)
     Rand_Outcome = models.StringField(choices=["BW", "C"]) #Best, Worst Continue
-    Rand_Q = models.StringField(choices=["T", "C", "I", "R"]) #Tasks
+    Rand_T = models.StringField(choices=["T", "C", "I", "R", "N"]) #Tasks
 
 class Trial(ExtraModel):
     player = models.Link(Player)
@@ -97,10 +96,14 @@ def creating_session(subsession: Subsession):
         x = random.random()
         if x <=0.04:
             p.Rand_Outcome = "BW"
-            p.Rand_Q = random.choice(["T", "C", "I", "R"])
+            p.Rand_T = random.choice(["T", "C", "I", "R"])
+            p.BDM_Num = random.randint(0, 100)
+            p.lot_outcome = random.randint(0, 100)
         else:
             p.Rand_Outcome = "C"
-
+            p.Rand_T = "N"
+            p.BDM_Num = 0
+            p.lot_outcome = 0
 def read_csv(filename):
     import csv
     import random
@@ -194,12 +197,28 @@ class WTP_Conc(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.participant.pair1, player.participant.pair2 = pair_generator(player.Tabulation_Value, player.Concealment_Value, player.Interpretation_Value, player.Replication_Value)
-        print(player.participant.pair1, player.participant.pair2)
-        player.participant.pair = player.participant.pair1
+        if player.Rand_Outcome == "C":
+            player.participant.pair1, player.participant.pair2 = pair_generator(player.Tabulation_Value, player.Concealment_Value, player.Interpretation_Value, player.Replication_Value)
+            player.participant.pair = player.participant.pair1
+        elif player.Rand_Outcome == "BW":
+            Task = p.Rand_T
+            BDM_Num = p.BDM_Num
+
 
     def vars_for_template(player: Player):
-        pass
+        if player.Rand_T == 'T':
+            SP = player.participant.Tabulation_Value
+        elif player.Rand_T == "C":
+            SP = player.participant.Concealment_Value
+        elif player.Rand_T == "I":
+            SP = player.participant.Interpretation_Value
+        elif player.Rand_T == "R":
+            SP = player.participant.Replication_Value
+        else:
+            SP = -1
+        return {
+            'SP' : SP,
+        }
 
 class Boring(Page):
     form_model = 'player'

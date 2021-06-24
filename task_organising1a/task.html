@@ -8,8 +8,7 @@
 
 
 {% block content %}
-
-<div class="instructions well well-lg">
+ <div class="instructions well well-lg">
 
     <h2 class="panel-sub-heading">
 
@@ -19,17 +18,16 @@
           href="{% static 'global/matrix.css' %}"/>
 
     <p>
-        Type each sequence of letters correctly to move on to the next sequence. There is <b>no</b> time limit.
-        <br> Once you have entered the sequence, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
+        Select each letter correctly to move on to the next. There is <b>no</b> time limit.
+        <br> Once you have selected the letter, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
         Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer.
     </p>
 </div>
      <p>
-                <center><h2>Type the text below into the box and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
+                <center><h2>Select the letter below and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
                 <br>
                 <center>
-                    <canvas id="myCanvas" width="1000" height="80" style="border:1px solid #f4f5ff;background: #f4e4e3">
-                            Your browser does not support the HTML5 canvas tag.</canvas>
+                    <img src="{{ static image_path}}"/>
                 </center>
                 <br><br>
     </p>
@@ -62,7 +60,7 @@
 
         </table>
 
-    {% if debug == 1 %}
+    {% if debug %}
 
         <div class="panel panel-success">
             <div class="panel-heading">
@@ -92,16 +90,22 @@
     });
 </script>
 <!-- Text to png Image -->
-<script>
+<!--<script>-->
 
-    var c=document.getElementById("myCanvas");
-    var ctx=c.getContext("2d");
-    ctx.font="30px Courier";
-    ctx.fillText('{{ display_text }}',60,50);
+<!--    var c=document.getElementById("myCanvas");-->
+<!--    var ctx=c.getContext("2d");-->
+<!--    make_base();-->
 
-    // save img
-    Canvas2Image.saveAsImage(c, 1000, 100, 'png');
-</script>
+<!--    function make_base()-->
+<!--    {-->
+<!--      base_image = new Image();-->
+<!--      base_image.src = "{{ static image_path}}";-->
+<!--      base_image.onload = function(){-->
+<!--        context.drawImage(base_image, 0, 0);-->
+<!--      }-->
+<!--    }-->
+
+<!--</script>-->
 {% endblock %}
 
 
