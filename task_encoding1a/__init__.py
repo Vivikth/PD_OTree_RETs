@@ -7,7 +7,7 @@ import imgkit
 import prettytable
 from django.conf import settings
 from otree.api import *
-
+import string
 from . import models
 
 
@@ -38,30 +38,28 @@ class Constants(BaseConstants):
     ]  # List of strings to encrypt.
     # encrypts text given key and alphabet.
 
-    characters_lev1 = "ab"  # Characters to create strings from.
-    characters_lev2 = "cd"  # Characters to create strings from.
-    characters_lev3 = "ef"  # Characters to create strings from.
-    characters_lev4 = "gh"  # Characters to create strings from.
-    reference_texts_lev1 = [
-        "".join(p) for p in itertools.product(characters_lev1, repeat=string_length)
-    ]  # List of strings.
-    reference_texts_lev2 = [
-        "".join(p) for p in itertools.product(characters_lev2, repeat=string_length)
-    ]  # List of strings.
-    reference_texts_lev3 = [
-        "".join(p) for p in itertools.product(characters_lev3, repeat=string_length)
-    ]  # List of strings.
-    reference_texts_lev4 = [
-        "".join(p) for p in itertools.product(characters_lev4, repeat=string_length)
-    ]  # List of strings.
-    alphabet_lev1 = 'abcdefghijklmnopqrstuvwxyz.,! '
-    alphabet_lev2 = 'abcdefghijklmnopqrstuvwxyz.,! '
-    alphabet_lev3 = 'abcdefghijklmnopqrstuvwxyz.,! '
-    alphabet_lev4 = 'abcdefghijklmnopqrstuvwxyz.,! '
-    key_lev1 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
-    key_lev2 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
-    key_lev3 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
-    key_lev4 = 'nu.t!iyvxqfl,bcjrodhkaew spzgm'
+    characters_lev1 = "abcdef" # Characters to create strings from.
+    characters_lev2 = string.ascii_lowercase # Characters to create strings from.
+    characters_lev3 = string.ascii_lowercase + string.digits # Characters to create strings from.
+    characters_lev4 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'  # Characters to create strings from.
+
+    reference_texts_lev1 = []
+    reference_texts_lev2 = []
+    reference_texts_lev3 = []
+    reference_texts_lev4 = []
+
+    for ref_text, char in zip([reference_texts_lev1, reference_texts_lev2, reference_texts_lev3, reference_texts_lev4], [characters_lev1, characters_lev2, characters_lev3, characters_lev4]):
+        for i in range(num_rounds):  # List comprehension doesn't work for some reasoN????
+            ref_text.append(''.join(random.choices(char, k=string_length)))
+
+    alphabet_lev1 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
+    alphabet_lev2 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
+    alphabet_lev3 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
+    alphabet_lev4 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
+    key_lev1 = '?o19wc7qk*m<l!axdj$t06i5)8v2zyu.n%e&g@4>s,(3f^rph#b'
+    key_lev2 = '?o19wc7qk*m<l!axdj$t06i5)8v2zyu.n%e&g@4>s,(3f^rph#b'
+    key_lev3 = '?o19wc7qk*m<l!axdj$t06i5)8v2zyu.n%e&g@4>s,(3f^rph#b'
+    key_lev4 = '?o19wc7qk*m<l!axdj$t06i5)8v2zyu.n%e&g@4>s,(3f^rph#b'
     alphabet_list_lev1 = list(alphabet_lev1)
     key_list_lev1 = list(key_lev1)
     alphabet_list_lev2 = list(alphabet_lev2)
@@ -81,10 +79,10 @@ class Constants(BaseConstants):
         table_string = pt.get_html_string(format=True)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
-    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/task_encoding1a/table_lev1.png')
-    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/task_encoding1a/table_lev2.png')
-    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/task_encoding1a/table_lev3.png')
-    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/task_encoding1a/table_lev4.png')
+    # pretty_table_generator(alphabet_list_lev1, key_list_lev1, '/encoding/table_lev1.png')
+    # pretty_table_generator(alphabet_list_lev2, key_list_lev2, '/encoding/table_lev2.png')
+    # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding/table_lev3.png')
+    # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding/table_lev4.png')
     # Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
     rand = random.sample(range(num_rounds), num_rounds)
 
@@ -218,14 +216,33 @@ class task(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
+        level = player.participant.lc1a
+
+        if level == 1:
+            temp_key = Constants.key_lev1
+            temp_alph = Constants.alphabet_lev1
+        elif level == 2:
+            temp_key = Constants.key_lev2
+            temp_alph = Constants.alphabet_lev2
+        elif level == 3:
+            temp_key = Constants.key_lev2
+            temp_alph = Constants.alphabet_lev2
+        elif level == 4:
+            temp_key = Constants.key_lev2
+            temp_alph = Constants.alphabet_lev2
+
+
         return {
             'round_count': (player.round_number - 1),
             'debug': 1,
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
             'display_text': decrypt(
-                player.correct_text, Constants.key_lev1, Constants.alphabet_lev1
+                player.correct_text, temp_key, temp_alph
             ),
             'tab_img': player.image_path,
+            'abcd_ex': encrypt(
+                'abcd', temp_key, temp_alph
+            ),
         }
 
     @staticmethod
