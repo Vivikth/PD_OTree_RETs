@@ -1,14 +1,13 @@
 from __future__ import division
-
+import time
 import itertools
 import random
-import string
-import time
 
-import unicodedata
+import imgkit
+import prettytable
 from django.conf import settings
 from otree.api import *
-
+import string
 from . import models
 
 
@@ -20,6 +19,7 @@ from . import models
 # from otree.common import Currency as c, currency_range, safe_json
 # from otree.constants import BaseConstants
 # from otree.models import BaseSubsession, BaseGroup, BasePlayer
+
 # </standard imports>
 author = 'Vivikth Narayanan'
 doc = """
@@ -28,51 +28,43 @@ Real Effort Task. Type as many strings as possible.
 
 
 class Constants(BaseConstants):
-    name_in_url = 'task_transcribing1a'
+    name_in_url = 'task_organising1a'
     players_per_group = None
-    # task_timer = 120 #see Subsession, before_session_starts setting.
-    #
-    # string_length = 4
-    # characters = "ab" #Characters to create strings from.
     num_rounds = 10  # must be more than the max one person can do in task_timer seconds
-    reference_texts_lev1 = list(string.digits)  # Might make 2 digits
-    reference_texts_lev2 = list(string.ascii_uppercase)
-    reference_texts_lev3 = [
-        'α',
-        'β',
-        'γ',
-        'δ',
-        'ε',
-        'ζ',
-        'η',
-        'θ',
-        'ι',
-        'κ',
-        'λ',
-        'μ',
-        'ν',
-        'ξ',
-        'ο',
-        'π',
-        'ρ',
-        'ς',
-        'σ',
-        'τ',
-        'υ',
-        'φ',
-        'χ',
-        'ψ',
-        'ω',
-    ]
-    reference_texts_lev4 = list(string.punctuation)
+    string_length = 4
 
-    def greek_to_name(symbol):
-        greek, size, letter, what, *with_tonos = unicodedata.name(symbol).split()
-        assert greek, letter == ("GREEK", "LETTER")
-        return what.lower() if size == "SMALL" else what.title()
+    # encrypts text given key and alphabet.
 
-    def punctuation_to_name(symbol):
-        return unicodedata.name(symbol).replace(" ", "")
+    characters_lev1 = "abcdef" # Characters to create strings from.
+    characters_lev2 = string.ascii_lowercase # Characters to create strings from.
+    characters_lev3 = string.ascii_lowercase + string.digits # Characters to create strings from.
+    characters_lev4 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'  # Characters to create strings from.
+
+    reference_texts_lev1 = []
+    reference_texts_lev2 = []
+    reference_texts_lev3 = []
+    reference_texts_lev4 = []
+
+    for ref_text, char in zip([reference_texts_lev1, reference_texts_lev2, reference_texts_lev3, reference_texts_lev4], [characters_lev1, characters_lev2, characters_lev3, characters_lev4]):
+        for i in range(num_rounds):  # List comprehension doesn't work for some reasoN????
+            ref_text.append(''.join(random.choices(char, k=string_length)))
+
+    def pretty_table_generator(alphabet_list, key_list, outpath):
+        path_wkthmltoimage = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe'
+        config = imgkit.config(wkhtmltoimage=path_wkthmltoimage)
+        pt = prettytable.PrettyTable()
+        pt.field_names = ["Position in Alphabet"] + alphabet_list
+        pt.add_row(["Character"] + key_list)
+        pt.hrules = prettytable.ALL
+        table_string = pt.get_html_string(format=True)
+        imgkit.from_string(table_string, '_static' + outpath, config=config)
+
+    sorted_letters = sorted(string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?')
+    numbers = list(range(1, len(sorted_letters) + 1))
+
+    # pretty_table_generator(numbers, sorted_letters, '/organising/table.png')
+
+    rand = random.sample(range(num_rounds), num_rounds)
 
 
 class Subsession(BaseSubsession):
@@ -86,10 +78,13 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     level = models.IntegerField(doc="Task_Level", choices=[1, 2, 3, 4], widget=widgets.RadioSelect)
     correct_text = models.CharField(doc="user's transcribed text")
-    user_text = models.CharField(label="Which Letter is this?")
+    user_text = models.CharField(
+        doc="user's transcribed text", widget=widgets.TextInput()
+    )
     is_correct = models.BooleanField(doc="did the user get the task correct?")
     image_path = models.CharField()
     rand_string = models.StringField()
+
 
 # FUNCTIONS
 def creating_session(subsession: Subsession):
@@ -99,70 +94,42 @@ def creating_session(subsession: Subsession):
             p.rand_string = ''.join(str(r) for r in rand)
 
 
+def alphabetize(string):
+    return ''.join(sorted(string))
+
 def getting_text(player: Player, Call_Loc="Task"):
     if Call_Loc == "Start":
         dummy_sub = 1
     else:
         dummy_sub = 0
     if player.participant.lc1a == 1:
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).correct_text = Constants.reference_texts_lev1[
-            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
-        ]
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).image_path = 'transcribing/Digits/{}.gif'.format(
-            player.in_round(player.round_number + 1 - dummy_sub).correct_text
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = alphabetize(
+            Constants.reference_texts_lev1[
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
+            ]
         )
+        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/organising/table.png'
     elif player.participant.lc1a == 2:
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).correct_text = Constants.reference_texts_lev2[
-            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
-        ]
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).image_path = 'transcribing/Capital_Letters/{}.gif'.format(
-            player.in_round(player.round_number + 1 - dummy_sub).correct_text
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = alphabetize(
+            Constants.reference_texts_lev2[
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
+            ]
         )
+        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/organising/table.png'
     elif player.participant.lc1a == 3:
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).correct_text = Constants.reference_texts_lev3[
-            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
-        ]
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).image_path = 'transcribing/Greek/{}.gif'.format(
-            Constants.greek_to_name(
-                player.in_round(player.round_number + 1 - dummy_sub).correct_text
-            )
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = alphabetize(
+            Constants.reference_texts_lev3[
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
+            ]
         )
+        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/organising/table.png'
     elif player.participant.lc1a == 4:
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).correct_text = Constants.reference_texts_lev4[
-            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
-        ]
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).image_path = 'transcribing/Punctuation/{}.gif'.format(
-            Constants.punctuation_to_name(
-                player.in_round(player.round_number + 1 - dummy_sub).correct_text
-            )
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = alphabetize(
+            Constants.reference_texts_lev4[
+                int(player.in_round(1).rand_string[player.round_number - dummy_sub])
+            ]
         )
-
-
-def user_text_choices(player: Player):
-    if player.participant.lc1a == 1:
-        return Constants.reference_texts_lev1
-    elif player.participant.lc1a == 2:
-        return Constants.reference_texts_lev2
-    elif player.participant.lc1a == 3:
-        return Constants.reference_texts_lev3
-    elif player.participant.lc1a == 4:
-        return Constants.reference_texts_lev4
+        player.in_round(player.round_number + 1 - dummy_sub).image_path = '/organising/table.png'
 
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
@@ -188,6 +155,10 @@ class Level_Selection(Page):
             'debug': player.session.config['debug'],
         }
 
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        pass
+
 
 class start(Page):
     @staticmethod
@@ -199,7 +170,8 @@ class start(Page):
         getting_text(player, Call_Loc="Start")
 
     @staticmethod
-    def vars_for_template(player: Player):
+    def vars_for_template(player):
+        pass
         return {
             'debug': player.session.config['debug'],
         }
@@ -211,11 +183,27 @@ class task(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
+        level = player.participant.lc1a
+
+        if level == 1:
+            temp_text =  Constants.reference_texts_lev1[
+                int(player.in_round(1).rand_string[player.round_number - 1])]
+        elif level == 2:
+            temp_text =  Constants.reference_texts_lev2[
+                int(player.in_round(1).rand_string[player.round_number - 1])]
+        elif level == 3:
+            temp_text =  Constants.reference_texts_lev3[
+                int(player.in_round(1).rand_string[player.round_number - 1])]
+        elif level == 4:
+            temp_text =  Constants.reference_texts_lev4[
+                int(player.in_round(1).rand_string[player.round_number - 1])]
+
         return {
             'round_count': (player.round_number - 1),
-            'debug': player.session.config['debug'],
-            'image_path': player.image_path,
+            'debug': 1,
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
+            'display_text': temp_text,
+            'tab_img': player.image_path,
         }
 
     @staticmethod
@@ -244,6 +232,7 @@ class Results(Page):
         elif player.participant.stage == '2b':
             player.participant.stage = '3'
             return 'Demog_Survey'
+
 
 
 page_sequence = [Level_Selection, start, task, Results]

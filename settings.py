@@ -32,10 +32,10 @@ SESSION_CONFIGS = [
         debug=True,
     ),
     dict(
-        name='task_encoding1b',
-        display_name="task_encoding1b",
+        name='task_organising1a',
+        display_name="task_organising1a",
         num_demo_participants=1,
-        app_sequence=['task_encoding1b'],
+        app_sequence=['task_organising1a'],
         debug=True,
     ),
     dict(

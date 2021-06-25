@@ -8,7 +8,8 @@
 
 
 {% block content %}
- <div class="instructions well well-lg">
+
+<div class="instructions well well-lg">
 
     <h2 class="panel-sub-heading">
 
@@ -18,19 +19,26 @@
           href="{% static 'global/matrix.css' %}"/>
 
     <p>
-        Select each letter correctly to move on to the next. There is <b>no</b> time limit.
-        <br> Once you have selected the letter, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
-        Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer.
+        Rearrange the given string in alphabetical order.  <br>
+        The table at the bottom shows the characters in alphabetical order <br>
+        For instance, the string 'bcda' would be rearranged as 'abcd'. <br>
+        There is <b>no</b> time limit.
+        <br> Once you have rearranged the string, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
+        Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer. You may have to scroll to view the entire table.
     </p>
 </div>
      <p>
-                <center><h2>Select the letter below and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
+                <center><h2>Encode the string below using the table, then type the answer into the box and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
                 <br>
                 <center>
-                    <img src="{{ static image_path}}"/>
+                    <canvas id="myCanvas" width="200" height="80" style="border:1px solid #f4f5ff;background: #f4e4e3">
+                            Your browser does not support the HTML5 canvas tag.</canvas>
                 </center>
                 <br><br>
     </p>
+        <left>
+        <img src="{{static tab_img}}"/>
+        </left>
 
     <table class="table">
             <tr>
@@ -60,7 +68,7 @@
 
         </table>
 
-    {% if debug %}
+    {% if debug == 1 %}
 
         <div class="panel panel-success">
             <div class="panel-heading">
@@ -90,22 +98,16 @@
     });
 </script>
 <!-- Text to png Image -->
-<!--<script>-->
+<script>
 
-<!--    var c=document.getElementById("myCanvas");-->
-<!--    var ctx=c.getContext("2d");-->
-<!--    make_base();-->
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    ctx.font="30px Helvetica";
+    ctx.fillText('{{ display_text }}',60,50);
 
-<!--    function make_base()-->
-<!--    {-->
-<!--      base_image = new Image();-->
-<!--      base_image.src = "{{ static image_path}}";-->
-<!--      base_image.onload = function(){-->
-<!--        context.drawImage(base_image, 0, 0);-->
-<!--      }-->
-<!--    }-->
-
-<!--</script>-->
+    // save img
+    Canvas2Image.saveAsImage(c, 300, 100, 'png');
+</script>
 {% endblock %}
 
 
