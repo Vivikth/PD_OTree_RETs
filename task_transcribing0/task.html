@@ -1,0 +1,114 @@
+{% extends "global/BaseMotherhood.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Task 
+{% endblock %}
+
+
+
+{% block content %}
+ <div class="instructions well well-lg">
+
+    <h2 class="panel-sub-heading">
+
+    </h2>
+
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'global/matrix.css' %}"/>
+
+    <p>
+        Select each letter correctly to move on to the next. There is <b>no</b> time limit.
+        <br> Once you have selected the letter, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
+        Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer.
+    </p>
+</div>
+     <p>
+                <center><h2>Select the letter below and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
+                <br>
+                <center>
+                    <img src="{{ static image_path}}"/>
+                </center>
+                <br><br>
+    </p>
+
+    <table class="table">
+            <tr>
+            <h3>
+                <th style="vertical-align:middle">
+                    <br><br>
+                    {% formfield player.user_text label="" %}
+                    <br><br>
+                </th>
+                <th style="vertical-align:middle; text-align: left">
+                    <br><br>
+                    {% next_button %}
+                    <br><br            
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    <h2> You have {{rounds_remaining}} rounds remaining.
+                </th>
+                <th style="vertical-align:top; text-align: left">
+                    <h2><br></h2>
+                </th>
+            </h3>    
+            </tr>
+
+
+        </table>
+
+    {% if debug %}
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+
+            <h4><br>Cheater Mode Activated (Debug Mode Only)  - <a href="#" id="prefill">Click Here to Autofill Text</a></h4>
+            <p>You are playing in debug mode, so you can skip the manual
+                transcription by clicking <a href="#" id="prefill">this link</a>
+                and clicking "next".
+            </p>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('a#prefill').click(function () {
+                    $('#id_user_text').val('{{ player.correct_text }}');
+                    $('#id_user_text').focus();
+
+                })
+            });
+        </script>
+    {% endif %}
+
+
+<script>
+    $(document).ready(function () {
+        $('#id_user_text').focus();
+    });
+</script>
+<!-- Text to png Image -->
+<!--<script>-->
+
+<!--    var c=document.getElementById("myCanvas");-->
+<!--    var ctx=c.getContext("2d");-->
+<!--    make_base();-->
+
+<!--    function make_base()-->
+<!--    {-->
+<!--      base_image = new Image();-->
+<!--      base_image.src = "{{ static image_path}}";-->
+<!--      base_image.onload = function(){-->
+<!--        context.drawImage(base_image, 0, 0);-->
+<!--      }-->
+<!--    }-->
+
+<!--</script>-->
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}
