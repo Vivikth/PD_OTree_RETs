@@ -21,6 +21,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    # Elicitation Variables
     Tabulation_Value = models.FloatField(doc="Tabulation_Value", min=0, max=100,
                                          label="My switch point for the tabulation task is:")
     Concealment_Value = models.FloatField(doc="Concealment_Value", min=0, max=100,
@@ -31,13 +32,16 @@ class Player(BasePlayer):
                                           label="My switch point for the replication task is:")
     Organisation_Value = models.FloatField(doc="Organisation_Value", min=0, max=100,
                                            label="My switch point for the organisation task is:")
-    num_correct = models.IntegerField(initial=0)
-    raw_responses = models.LongStringField()
-    num_trials = models.IntegerField()
+    # Randomisation Variables
     BDM_Num = models.IntegerField(min=0, max=100)
     Rand_Outcome = models.StringField(choices=["BW", "C"])  # Best, Worst Continue
     Rand_T = models.StringField(choices=["T", "C", "I", "R", "O"])  # Tasks
     lot_outcome = models.IntegerField(min=0, max=100)
+
+    # Boring Task Variables
+    num_correct = models.IntegerField(initial=0)
+    raw_responses = models.LongStringField()
+    num_trials = models.IntegerField()
 
 
 class Trial(ExtraModel):
@@ -65,7 +69,6 @@ def to_dict(trial: Trial):
 
 
 # FUNCTIONS
-
 def pair_generator(player: Player, exclude):
     all_tasks = ['T', 'C', 'I', 'R', 'O']
     ex_task = [exclude]
@@ -86,25 +89,32 @@ def pair_generator(player: Player, exclude):
 
 def creating_session(subsession: Subsession):
     for p in subsession.get_players():
+        # Boring Task Question Setup
         stimuli = read_csv('Task_WTP/BoringQs.csv')
         p.num_trials = len(stimuli)
-
-        p.participant.Boring_Score = 0
-
+        p.num_correct = 0
         for stim in stimuli:
             Trial.create(player=p, **stim)
-        p.Rand_T = random.choice(["T", "C", "I", "R", "O"])
-        if 'x' in p.session.config:
-            x = p.session.config['x']
+
+        # Randomisation
+        p.Rand_T = random.choice(["T", "C", "I", "R", "O"])  # Random Task to complete
+
+        # Generate continuation_rv to determine whether program should continue or do best / worst task
+        if 'continuation_rv' in p.session.config:
+            continuation_rv = p.session.config['continuation_rv']
         else:
-            x = random.random()
-        if x <= 0.04:
+            continuation_rv = random.random()
+
+        if continuation_rv <= 0.04:  # If best / worst task is selected
             p.Rand_Outcome = "BW"
-            p.BDM_Num = random.randint(0, 100)  # Question Number
-            p.lot_outcome = random.randint(0, 100)  # What the lottery yields
+            p.BDM_Num = random.randint(0, 100)  # BDM Question Number to select
+            if 'lot_outcome' in p.session.config:  # Result of Lottery between best and worst task.
+                p.lot_outcome = p.session.config['lot_outcome']
+            else:
+                p.lot_outcome = random.randint(0, 100)
         else:
-            p.Rand_Outcome = "C"
-            p.BDM_Num = 0
+            p.Rand_Outcome = "C"  # If best / worst task is not selected.
+            p.BDM_Num = 0         # These are placeholder values - they will never be accessed.
             p.lot_outcome = 0
 
 
@@ -201,52 +211,28 @@ class WtpConc(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        # Pairs are always the same? Just the next page / app is different.
         player.participant.pair1, player.participant.pair2 = pair_generator(player, player.Rand_T)
         player.participant.pair = player.participant.pair1
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        if player.Rand_Outcome == "C":
+        if player.Rand_Outcome == "C":  # Continue with experiment without best or worst task.
             return 'RET_Choice'
         elif player.Rand_Outcome == "BW":
-            print("value is ", value_function(player.Rand_T, player), )
-            print("BDM Num is ", player.BDM_Num)
-            print("lot outcome is ", player.lot_outcome)
-            if value_function(player.Rand_T, player) > player.BDM_Num:
+            # print("value is ", value_function(player.Rand_T, player), )
+            # print("BDM Num is ", player.BDM_Num)
+            # print("lot outcome is ", player.lot_outcome)
+            if value_function(player.Rand_T, player) > player.BDM_Num:  # Player values task more than lottery
                 return task_name_decoder(task_name(player.Rand_T)) + '0'
             else:
-                if player.lot_outcome < player.BDM_Num:
+                if player.lot_outcome < player.BDM_Num:  # Player gets best task as lottery outcome
                     return "Demog_Survey"
-                else:
+                else:  # Player gets worst task as lottery outcome
                     pass
 
-    # Logic sketch
-    # If C
-    # Pick a task to ignore
-    # Generate two pairs of task.
-    # Continue
-    # If BW
-    # Pick a task to run.
-    # Run BDM
-    # If task - play that task (would need a 0 version of task) - Continue with experiment.
-    # If lottery - run lottery.
-    # If best task, skip to survey.
-    # If worst task, run worst task, then continue.
     @staticmethod
     def vars_for_template(player: Player):
-        if player.Rand_T == 'T':
-            switch_point = player.participant.Tabulation_Value
-        elif player.Rand_T == "C":
-            switch_point = player.participant.Concealment_Value
-        elif player.Rand_T == "I":
-            switch_point = player.participant.Interpretation_Value
-        elif player.Rand_T == "R":
-            switch_point = player.participant.Replication_Value
-        elif player.Rand_T == "O":
-            switch_point = player.participant.Organisation_Value
-        else:
-            switch_point = -1
+        switch_point = value_function(player.Rand_T, player)
         return {
             'switch_point': switch_point,
         }
@@ -269,7 +255,7 @@ class Boring(Page):
             # have to use str() because Javascript implicitly converts keys to strings
             trial.choice = responses[str(trial.id)]
             trial.is_correct = trial.choice == trial.solution
-            player.participant.Boring_Score += int(trial.is_correct)
+            player.num_correct += int(trial.is_correct)
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):

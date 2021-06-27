@@ -111,7 +111,16 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['Task_WTP'] + RET_LIST,
         debug=True,
-        x=0.01
+        continuation_rv=0.01,
+    ),
+    dict(
+        name='Experiment_W',
+        display_name='Experiment_Worst',
+        num_demo_participants=1,
+        app_sequence=['Task_WTP'] + RET_LIST,
+        debug=True,
+        continuation_rv=0.01,
+        lot_outcome = 100
     )
 ]
 
@@ -145,6 +154,6 @@ INSTALLED_APPS = ['otree']
 
 # Debug
 SESSION_FIELDS = ['debug']
-PARTICIPANT_FIELDS = ['BDM_Score', 'Boring_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
+PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
                       'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2',
                       'opt_choice1', 'lc1a', 'pair', 'stage']
