@@ -85,7 +85,7 @@ class Menu_Select_Intro(Page):
         return {
             'Good_Task' : task_name(player.participant.pair[0]),
             'Bad_Task'  : task_name(player.participant.pair[1]),
-            'Prev_Opt'  : player.participant.optchoice1 + 1,
+            'Prev_Opt'  : player.participant.opt_choice1 + 1,
         }
 
 class Menu_Select_Info(Page):

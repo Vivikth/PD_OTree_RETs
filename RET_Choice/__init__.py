@@ -91,7 +91,7 @@ class Task_Selection(Page):
                 player.participant.stage = '1a'
 
             option = Option_Index(player.Task_Choice) - 1
-            player.participant.optchoice1 = option
+            player.participant.opt_choice1 = option
             player.participant.lc1a = 1
 #            return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
 
@@ -117,7 +117,7 @@ class RET_Choice_Information(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         option = Option_Index(player.Task_Choice) - 1
-        player.participant.optchoice1 = option
+        player.participant.opt_choice1 = option
         player.participant.lc1a = 1
         if 'stage' not in player.participant.vars:
             player.participant.stage = '1a' #Initialise stage.

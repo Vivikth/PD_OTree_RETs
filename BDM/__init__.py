@@ -1,7 +1,7 @@
 from otree.api import *
+from Global_Functions import read_csv
 
-
-author = 'Your name here'
+author = 'Vivikth'  # This app was based off the questions_from_csv in Otree Snippets
 doc = """
 Read quiz questions from a CSV.
 (Also randomizes order) 
@@ -17,18 +17,9 @@ class Constants(BaseConstants):
     BDM_Info_Template = 'BDM/BDM_Info.html'
 
 
-def read_csv(filename):
-    import csv
-    import random
-
-    f = open(filename)
-    rows = list(csv.DictReader(f))
-
-    random.shuffle(rows)
-    return rows
-
 class Subsession(BaseSubsession):
     pass
+
 
 def creating_session(subsession: Subsession):
     for p in subsession.get_players():
@@ -38,17 +29,17 @@ def creating_session(subsession: Subsession):
         for stim in stimuli:
             Trial.create(player=p, **stim)
 
+
 class Group(BaseGroup):
     pass
 
 
 class Player(BasePlayer):
-    num_correct = models.IntegerField(initial=0)
     raw_responses = models.LongStringField()
     num_trials = models.IntegerField()
 
-# FUNCTIONS
 
+# FUNCTIONS
 
 
 class Trial(ExtraModel):
@@ -75,7 +66,7 @@ def to_dict(trial: Trial):
 
 
 # PAGES
-class BDM_Intro(Page):
+class BdmIntro(Page):
     pass
 
 
@@ -98,19 +89,22 @@ class Stimuli(Page):
             trial.is_correct = trial.choice == trial.solution
             player.participant.BDM_Score += int(trial.is_correct)
 
+
 class Results(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return dict(trials=Trial.filter(player=player))
 
-class BDM_Conc(Page):
+
+class BdmConc(Page):
     pass
 
-page_sequence = [BDM_Intro, Stimuli, BDM_Conc]
+
+page_sequence = [BdmIntro, Stimuli, BdmConc]
 
 
 def custom_export(players):
-    yield ['participant', 'question', 'choice', 'is_correct']
+    yield ['participant', 'question', 'choice', 'is_correct', 'BDM_Score']
 
     for player in players:
         participant = player.participant
@@ -118,4 +112,4 @@ def custom_export(players):
         trials = Trial.filter(player=player)
 
         for t in trials:
-            yield [participant.code, t.question, t.choice, t.is_correct]
+            yield [participant.code, t.question, t.choice, t.is_correct, participant.BDM_Score]
