@@ -5,7 +5,6 @@ import random
 
 import imgkit
 import prettytable
-from django.conf import settings
 from otree.api import *
 import string
 from . import models
@@ -32,11 +31,6 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 10  # must be more than the max one person can do in task_timer seconds
     string_length = 4
-    characters = "ab"  # Characters to create strings from.
-    reference_texts = [
-        "".join(p) for p in itertools.product(characters, repeat=string_length)
-    ]  # List of strings to encrypt.
-    # encrypts text given key and alphabet.
 
     characters_lev1 = "abcdef" # Characters to create strings from.
     characters_lev2 = string.ascii_lowercase # Characters to create strings from.
@@ -102,8 +96,9 @@ class Player(BasePlayer):
         doc="user's transcribed text", widget=widgets.TextInput()
     )
     is_correct = models.BooleanField(doc="did the user get the task correct?")
-    image_path = models.CharField()
+    image_path = models.CharField(doc="Img_Path")
     rand_string = models.StringField()
+
 
 
 # FUNCTIONS
@@ -271,6 +266,8 @@ class Results(Page):
         elif player.participant.stage == '2b':
             player.participant.stage = '3'
             return 'Demog_Survey'
+        elif 'stage' not in player.participant.vars:
+            return 'RET_Choice'
 
 
 

@@ -30,7 +30,8 @@ class Player(BasePlayer):
     num_trials = models.IntegerField()
     BDM_Num = models.IntegerField(min = 0, max=100)
     Rand_Outcome = models.StringField(choices=["BW", "C"]) #Best, Worst Continue
-    Rand_T = models.StringField(choices=["T", "C", "I", "R", "O", "N"]) #Tasks
+    Rand_T = models.StringField(choices=["T", "C", "I", "R", "O"]) #Tasks
+    lot_outcome = models.IntegerField(min = 0, max=100)
 
 class Trial(ExtraModel):
     player = models.Link(Player)
@@ -56,27 +57,26 @@ def to_dict(trial: Trial):
     )
 
 #FUNCTIONS
-def pair_generator(Tabulation_Value, Concealment_Value, Interpretation_Value, Replication_Value, Organisation_Value, exclude):
+def value_function(string, player):
+    if string == 'T':
+        return player.Tabulation_Value
+    elif string == 'C':
+        return player.Concealment_Value
+    elif string == 'I':
+        return player.Interpretation_Value
+    elif string == 'R':
+        return player.Replication_Value
+    elif string == 'O':
+        return player.Organisation_Value
+    else:
+        raise ValueError('Input must be first (capital) letter of a task name')
+def pair_generator(player: Player, exclude):
     all_tasks = ['T', 'C', 'I', 'R', 'O']
     ex_task = [exclude]
     la = list(set(all_tasks)-set(ex_task))
 
-    def value_function(string):
-        if string == 'T':
-            return Tabulation_Value
-        elif string == 'C':
-            return Concealment_Value
-        elif string == 'I':
-            return Interpretation_Value
-        elif string == 'R':
-            return Replication_Value
-        elif string == 'O':
-            return Organisation_Value
-        else:
-            raise ValueError('Input must be first (capital) letter of a task name')
-
     def reorder_pair(pair):
-        if value_function(pair[0]) >= value_function(pair[1]):
+        if value_function(pair[0], player) >= value_function(pair[1], player):
             return pair
         else:
             return pair[::-1]
@@ -94,21 +94,25 @@ def creating_session(subsession: Subsession):
     for p in subsession.get_players():
         stimuli = read_csv('Task_WTP/BoringQs.csv')
         p.num_trials = len(stimuli)
-        p.participant.BDM_Score = 0
+
+        p.participant.Boring_Score = 0
+
         for stim in stimuli:
             Trial.create(player=p, **stim)
-
-        x = random.random()
+        p.Rand_T = random.choice(["T", "C", "I", "R", "O"])
+        if 'x' in p.session.config:
+            x = p.session.config['x']
+        else:
+            x = random.random()
         if x <=0.04:
             p.Rand_Outcome = "BW"
-            p.Rand_T = random.choice(["T", "C", "I", "R", "O"])
-            p.BDM_Num = random.randint(0, 100)
-            p.lot_outcome = random.randint(0, 100)
+            p.BDM_Num = random.randint(0, 100) #Question Number
+            p.lot_outcome = random.randint(0, 100) #What the lottery yields
         else:
             p.Rand_Outcome = "C"
-            p.Rand_T = "N"
             p.BDM_Num = 0
             p.lot_outcome = 0
+
 def read_csv(filename):
     import csv
     import random
@@ -118,6 +122,33 @@ def read_csv(filename):
 
     random.shuffle(rows)
     return rows
+
+def task_name_decoder(string):
+    if string == 'Tabulation':
+        return 'task_tabulation'
+    elif string == 'Concealment':
+        return 'task_encoding'
+    elif string == "Interpretation":
+        return 'task_transcribing'
+    elif string == "Replication":
+        return 'task_replication'
+    elif string == "Organisation":
+        return "task_organising"
+
+def task_name(string):
+    if string == 'T':
+        return 'Tabulation'
+    elif string == 'C':
+        return "Concealment"
+    elif string == 'I':
+        return "Interpretation"
+    elif string == 'R':
+        return "Replication"
+    elif string == 'O':
+        return "Organisation"
+    else:
+        raise ValueError('Input must be first (capital) letter of a task name')
+
 # PAGES
 class WTP_Intro(Page):
     pass
@@ -217,13 +248,25 @@ class WTP_Conc(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
+        #Pairs are always the same? Just the next page / app is different.
+        player.participant.pair1, player.participant.pair2 = pair_generator(player, player.Rand_T)
+        player.participant.pair = player.participant.pair1
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
         if player.Rand_Outcome == "C":
-            #Need to generate a random task to ignore.
-            player.participant.pair1, player.participant.pair2 = pair_generator(player.Tabulation_Value, player.Concealment_Value, player.Interpretation_Value, player.Replication_Value)
-            player.participant.pair = player.participant.pair1
+            return 'RET_Choice'
         elif player.Rand_Outcome == "BW":
-            Task = p.Rand_T
-            BDM_Num = p.BDM_Num
+            print("value is ", value_function(player.Rand_T, player), )
+            print("BDM Num is ", player.BDM_Num)
+            print("lot outcome is ", player.lot_outcome)
+            if value_function(player.Rand_T, player) > player.BDM_Num:
+                return task_name_decoder(task_name(player.Rand_T)) + '0'
+            else:
+                if player.lot_outcome < player.BDM_Num:
+                    return "Demog_Survey"
+                else:
+                    pass
 
     #Logic sketch
     # If C
@@ -247,6 +290,8 @@ class WTP_Conc(Page):
             SP = player.participant.Interpretation_Value
         elif player.Rand_T == "R":
             SP = player.participant.Replication_Value
+        elif player.Rand_T == "O":
+            SP = player.participant.Organisation_Value
         else:
             SP = -1
         return {
@@ -270,7 +315,10 @@ class Boring(Page):
             # have to use str() because Javascript implicitly converts keys to strings
             trial.choice = responses[str(trial.id)]
             trial.is_correct = trial.choice == trial.solution
-            player.participant.BDM_Score += int(trial.is_correct)
+            player.participant.Boring_Score += int(trial.is_correct)
+
+    def app_after_this_page(player: Player, upcoming_apps):
+        return "RET_Choice"
 
 page_sequence = [WTP_Intro, Tabulation_WTP, Concealment_WTP, Interpretation_WTP, Replication_WTP, Organisation_WTP, WTP_Conc, Boring]
 

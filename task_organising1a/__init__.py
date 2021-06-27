@@ -232,7 +232,8 @@ class Results(Page):
         elif player.participant.stage == '2b':
             player.participant.stage = '3'
             return 'Demog_Survey'
-
+        elif 'stage' not in player.participant.vars:
+            return 'RET_Choice'
 
 
 page_sequence = [Level_Selection, start, task, Results]
