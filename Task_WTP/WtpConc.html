@@ -16,10 +16,10 @@
     {{ endif }}
     {{ if player.Rand_Outcome == "BW" }}
         We selected {{player.Rand_T}} as the task. <br>
-        Your switch-point for this task was {{ SP }} <br>
+        Your switch-point for this task was {{ switch_point }} <br>
         We selected question number {{player.BDM_Num}} as the question. <br>
 
-        {{if SP > player.BDM_Num}}
+        {{if switch_point > player.BDM_Num}}
         Since your switch-poitn was
         {{endif}}
 

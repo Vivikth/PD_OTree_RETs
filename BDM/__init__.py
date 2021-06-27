@@ -1,11 +1,8 @@
 from otree.api import *
 from Global_Functions import read_csv
 
-author = 'Vivikth'  # This app was based off the questions_from_csv in Otree Snippets
-doc = """
-Read quiz questions from a CSV.
-(Also randomizes order) 
-"""
+author = 'Vivikth'  # This app was based off questions_from_csv in Otree Snippets
+doc = """Introduces and tests subjects on BDM Procedure"""
 
 
 class Constants(BaseConstants):
