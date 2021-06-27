@@ -120,7 +120,16 @@ SESSION_CONFIGS = [
         app_sequence=['Task_WTP'] + RET_LIST,
         debug=True,
         continuation_rv=0.01,
-        lot_outcome = 100
+        lot_outcome=100
+    ),
+    dict(
+        name='Experiment_B',
+        display_name='Experiment_Best',
+        num_demo_participants=1,
+        app_sequence=['Task_WTP'] + RET_LIST,
+        debug=True,
+        continuation_rv=0.01,
+        lot_outcome=0
     )
 ]
 

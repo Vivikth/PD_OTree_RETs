@@ -8,19 +8,56 @@
     Thanks for providing your valuations for those tasks! <br>
     We won't be using the switch-point procedure anymore, so you can relax and forget about it! <br>
 </p>
-    We will now be running the lottery that was specified. <br>
-    There is a 4\% chance that one of your switch-points will be used. <br>
+<br>
+<p>
+    We will now be running the lottery that we specified. <br>
+    There is a 4% chance that one of your switch-points will be used. <br>
+</p>
+<br>
     {{ if player.Rand_Outcome == "C" }}
-        None of your switch-point questions were selected. <br>
-        Click the next button to proceed with the rest of the experiment.
+<p>
+    None of your switch-point questions were selected. <br>
+    Click the next button to proceed with the rest of the experiment.
+</p>
     {{ endif }}
-    {{ if player.Rand_Outcome == "BW" }}
-        We selected {{player.Rand_T}} as the task. <br>
-        Your switch-point for this task was {{ switch_point }} <br>
-        We selected question number {{player.BDM_Num}} as the question. <br>
 
+    {{ if player.Rand_Outcome == "BW" }}
+<p>
+    One of your switch points was selected. <br>
+    We selected {{player.Rand_T}} as the task. <br>
+    We selected question number {{player.BDM_Num}} as the question. <br>
+    Your switch-point for this task was {{ switch_point }}. <br>
+</p>
+<br>
         {{if switch_point > player.BDM_Num}}
-        Since your switch-poitn was
+    <p>
+        Your switch-point was higher than the selected question. <br>
+        This means you said that you prefer the task {{player.Rand_T}} to the lottery in that question <br>
+        Click the next button to complete the task. <br>
+    </p>
+        {{endif}}
+
+        {{if player.BDM_Num >= switch_point }}
+    <p>
+        Your switch-point was lower than the selected question. <br>
+        This means you said that you prefer the lottery to completing the task {{player.Rand_T}}. <br>
+    </p>
+    <br>
+            {{if player.lot_outcome < player.BDM_Num}}
+            <p>
+                The outcome of the lottery was the best task! <br>
+                This means you get to leave the experiment without completing any tasks. <br>
+                Press the next button to finish the experiment.
+            </p>
+            {{endif}}
+
+            {{if player.lot_outcome >= player.BDM_Num}}
+            <p>
+                The outcome of the lottery was the worst task. <br>
+                This means that you have to watch a boring video and answer some questions before continuing. <br>
+                Press the next button to watch the boring video. <br>
+            </p>
+            {{endif}}
         {{endif}}
 
     {{ endif }}
