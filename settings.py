@@ -1,11 +1,11 @@
 from os import environ
-
+Task_0_list = ["task_transcribing0", "task_tabulation0", "task_encoding0", "task_replication0", "task_organising0"]
 Task1a_list = ["task_transcribing1a", "task_tabulation1a", "task_encoding1a", "task_replication1a", "task_organising1a"]
 Task1b_list = ["task_transcribing1b", "task_tabulation1b", "task_encoding1b", "task_replication1b", "task_organising1b"]
 Task2a_list = ["task_transcribing2a", "task_tabulation2a", "task_encoding2a", "task_replication2a", "task_organising2a"]
 Task2b_list = ["task_transcribing2b", "task_tabulation2b", "task_encoding2b", "task_replication2b", "task_organising2b"]
 
-RET_LIST = ["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + Task1b_list + Task2a_list + [
+RET_LIST =["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + Task1b_list + Task2a_list + [
     "Menu_Select2"] + Task2b_list + ["Demog_Survey"]
 
 SESSION_CONFIGS = [
@@ -95,7 +95,7 @@ SESSION_CONFIGS = [
         name='Experiment',
         display_name='Experiment',
         num_demo_participants=1,
-        app_sequence=['Introduction', 'BDM', 'Task_WTP'] + RET_LIST,
+        app_sequence=['Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
         debug=True,
     ),
     dict(
@@ -116,7 +116,7 @@ SESSION_CONFIGS = [
         name='Experiment_BW',
         display_name='Experiment_BW',
         num_demo_participants=1,
-        app_sequence=['Task_WTP'] + RET_LIST,
+        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
         debug=True,
         continuation_rv=0.01,
     ),
@@ -124,7 +124,7 @@ SESSION_CONFIGS = [
         name='Experiment_W',
         display_name='Experiment_Worst',
         num_demo_participants=1,
-        app_sequence=['Task_WTP'] + RET_LIST,
+        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
         debug=True,
         continuation_rv=0.01,
         lot_outcome=100
@@ -133,10 +133,11 @@ SESSION_CONFIGS = [
         name='Experiment_B',
         display_name='Experiment_Best',
         num_demo_participants=1,
-        app_sequence=['Task_WTP'] + RET_LIST,
+        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
         debug=True,
         continuation_rv=0.01,
-        lot_outcome=0
+        lot_outcome=0,
+        Rand_T='I'
     ),
 
 ]

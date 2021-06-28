@@ -93,11 +93,7 @@ def getting_text(player: Player, call_loc="Task"):
     else:
         dummy_sub = 0
     if player.participant.lc1a == 1:
-        player.in_round(
-            player.round_number + 1 - dummy_sub
-        ).correct_text = Constants.reference_texts_lev1[
-            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
-        ]
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[int(player.in_round(1).rand_string[player.round_number - dummy_sub])]
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).image_path = 'transcribing/Digits/{}.gif'.format(

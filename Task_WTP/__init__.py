@@ -97,7 +97,10 @@ def creating_session(subsession: Subsession):
             Trial.create(player=p, **stim)
 
         # Randomisation
-        p.Rand_T = random.choice(["T", "C", "I", "R", "O"])  # Random Task to complete
+        if 'Rand_T' in p.session.config: # Random Task to complete
+            p.Rand_T = p.session.config['Rand_T']
+        else:
+            p.Rand_T = random.choice(["T", "C", "I", "R", "O"])
 
         # Generate continuation_rv to determine whether program should continue or do best / worst task
         if 'continuation_rv' in p.session.config:
@@ -223,6 +226,7 @@ class WtpConc(Page):
             # print("BDM Num is ", player.BDM_Num)
             # print("lot outcome is ", player.lot_outcome)
             if value_function(player.Rand_T, player) > player.BDM_Num:  # Player values task more than lottery
+                player.participant.lc1a = 1  # Set task level to 1.
                 return task_name_decoder(task_name(player.Rand_T)) + '0'
             else:
                 if player.lot_outcome < player.BDM_Num:  # Player gets best task as lottery outcome
