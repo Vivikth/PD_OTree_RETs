@@ -2,13 +2,15 @@
 {% load otree static %}
 
 {% block title %}
-    Task-menu selection
+    Choose your {{stage_for_template}} task-list pair
 {% endblock %}
 
 {% block content %}
-<p> In this stage of the experiment, you will complete some unknown tasks. <br>
+<p> In this stage of the experiment, you need to select a task-list pair. <br>
     You need to pick one task to complete now. <br>
-    In addition, you will have to pick a menu of tasks of which one you must select one to complete later. <br>
+    In addition, you will have to pick a list of tasks. <br>
+    You will have to complete one task from the list after you complete the first task. <br>
+    The available options are below: <br>
 </p>
 <br>
 
@@ -34,7 +36,6 @@
 {{ endif }}
 
     Please pick one of the options.
-</p>
 
     {% formfield player.Task_Choice label=""%}
 

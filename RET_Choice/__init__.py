@@ -51,7 +51,9 @@ def option_index(option):
 
 # PAGES
 class RetChoiceIntroduction(Page):
-    pass
+    @staticmethod
+    def is_displayed(player: Player):
+        return 'stage' not in player.participant.vars
 
 
 class TaskSelection(Page):
@@ -71,9 +73,14 @@ class TaskSelection(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
+        if 'stage' not in player.participant.vars:
+            stage_for_template = "1st"
+        else:
+            stage_for_template = "2nd"
         return {
             'Good_Task': task_name(player.participant.pair[0]),
-            'Bad_Task': task_name(player.participant.pair[1])
+            'Bad_Task': task_name(player.participant.pair[1]),
+            'stage_for_template': stage_for_template
         }
 
 
