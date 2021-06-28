@@ -1,46 +1,26 @@
 from __future__ import division
 
-import itertools
 import random
 import string
 import time
 import imgkit
 import numpy as np
 import prettytable
-from django.conf import settings
 from otree.api import *
 
 from . import models
+from Global_Functions import app_after_task
 
-
-# -*- coding: utf-8 -*-
-# <standard imports>
-# import otree.models
-# from otree.db import models
-# from otree import widgets
-# from otree.common import Currency as c, currency_range, safe_json
-# from otree.constants import BaseConstants
-# from otree.models import BaseSubsession, BaseGroup, BasePlayer
-# </standard imports>
-author = 'Vivikth Narayanan'
-doc = """
-Real Effort Task. Type as many strings as possible.  
-"""
+author = 'Vivikth'
+doc = """Tabulation Real Effort Task - Subjects must count zeros in a grid"""
 
 
 class Constants(BaseConstants):
     name_in_url = 'task_counting1a'
     players_per_group = None
-    num_rounds = 10  # must be more than the max one person can do in task_timer seconds
-    grid_size = 8
-    # encrypts text given key and alphabet.
-    def encrypt(plaintext, key, alphabet):
-        keyIndices = [alphabet.index(k.lower()) for k in plaintext]
-        return ''.join(key[keyIndex] for keyIndex in keyIndices)
+    num_rounds = 10
+    grid_size = 8  # Could vary between levels.
 
-    def decrypt(cipher, key, alphabet):
-        keyIndices = [key.index(k) for k in cipher]
-        return ''.join(alphabet[keyIndex] for keyIndex in keyIndices)
 
     characters_lev1 = list("1")  # Non-zero Characters to create grid
     characters_lev2 = list("123456789")  # Non-zero Characters to create grid
@@ -74,11 +54,14 @@ class Constants(BaseConstants):
         'ψ',
         'ω',
     ]
-    reference_texts_lev1 = list(range(10, 20))  # Correct number of zeros
-    reference_texts_lev2 = list(range(10, 20))  # Correct number of zeros
-    reference_texts_lev3 = list(range(10, 20))  # Correct number of zeros
-    reference_texts_lev4 = list(range(10, 20))  # Correct number of zeros
 
+
+    reference_texts_lev1 = list(range(10, 20))
+    reference_texts_lev2 = list(range(10, 20))
+    reference_texts_lev3 = list(range(10, 20))
+    reference_texts_lev4 = list(range(10, 20))
+
+    @staticmethod
     def count_array_pretty(dim, num_zeros, characters, outpath):
         def random_sum_to(n, num_terms=None):
             num_terms = (num_terms or random.randint(2, n)) - 1
@@ -105,6 +88,7 @@ class Constants(BaseConstants):
         config = imgkit.config(wkhtmltoimage=path_wkthmltoimage)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
+    @staticmethod
     def level_description(level):
         if level == 1:
             return "0s and 1s"
@@ -128,6 +112,8 @@ class Constants(BaseConstants):
 #
 # for i, num in enumerate(reference_texts_lev4):
 #     count_array_pretty(grid_size, num, characters_lev4, '/task_tabulation1a/lev4/%i.png'%(i))
+
+
 class Subsession(BaseSubsession):
     pass
 
@@ -154,13 +140,17 @@ def creating_session(subsession: Subsession):
             rand = random.sample(range(Constants.num_rounds), Constants.num_rounds)
             p.rand_string = ''.join(str(r) for r in rand)
 
+
+
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
         time.sleep(5)
         return 'Answer is Incorrect'
 
-def getting_text(player: Player, Call_Loc="Task"):
-    if Call_Loc == "Start":
+
+
+def getting_text(player: Player, call_loc="Task"):
+    if call_loc == "Start":
         dummy_sub = 1
     else:
         dummy_sub = 0
@@ -212,7 +202,7 @@ def getting_text(player: Player, Call_Loc="Task"):
 
 # PAGES
 # import time
-class Level_Selection(Page):
+class LevelSelection(Page):
     form_model = 'player'
     form_fields = ['level']
 
@@ -232,14 +222,14 @@ class Level_Selection(Page):
         }
 
 
-class start(Page):
+class Start(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        getting_text(player, Call_Loc="Start")
+        getting_text(player, call_loc="Start")
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -249,7 +239,7 @@ class start(Page):
         }
 
 
-class task(Page):
+class Task(Page):
     form_model = 'player'
     form_fields = ['user_text']
 
@@ -276,23 +266,7 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-    @staticmethod
-    def app_after_this_page(player, upcoming_apps):
-        if player.participant.stage == '1a':
-            player.participant.stage = '1b'
-            return 'Menu_Select'
-        elif player.participant.stage == '1b':
-            player.participant.stage = '2a'
-            player.participant.pair = player.participant.pair2
-            return 'RET_Choice_2'
-        elif player.participant.stage == '2a':
-            player.participant.stage = '2b'
-            return 'Menu_Select2'
-        elif player.participant.stage == '2b':
-            player.participant.stage = '3'
-            return 'Demog_Survey'
-        elif 'stage' not in player.participant.vars:
-            return 'RET_Choice'
+    app_after_this_page = app_after_task
 
 
-page_sequence = [Level_Selection, start, task, Results]
+page_sequence = [LevelSelection, Start, Task, Results]
