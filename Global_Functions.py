@@ -59,3 +59,22 @@ def task_name(string):
         return "Organisation"
     else:
         raise ValueError('Input must be first (capital) letter of a task name')
+
+
+def app_after_task(player, _upcoming_apps):
+    """Returns next app after player has completed task"""
+    if player.participant.stage == '1a':
+        player.participant.stage = '1b'
+        return 'Menu_Select'
+    elif player.participant.stage == '1b':
+        player.participant.stage = '2a'
+        player.participant.pair = player.participant.pair2
+        return 'RET_Choice_2'
+    elif player.participant.stage == '2a':
+        player.participant.stage = '2b'
+        return 'Menu_Select2'
+    elif player.participant.stage == '2b':
+        player.participant.stage = '3'
+        return 'Demog_Survey'
+    elif 'stage' not in player.participant.vars:
+        return 'RET_Choice'

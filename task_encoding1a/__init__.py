@@ -6,6 +6,7 @@ import prettytable
 from otree.api import *
 import string
 from . import models
+from Global_Functions import app_after_task
 
 author = 'Vivikth'
 doc = """Encoding Real Effort Task.  """
@@ -16,6 +17,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 10
     string_length = 4
+
     # Characters to create strings from.
     characters_lev1 = string.ascii_lowercase[0:6]
     characters_lev2 = string.ascii_lowercase
@@ -33,6 +35,7 @@ class Constants(BaseConstants):
         for i in range(num_rounds):  # List comprehension doesn't work for some reason????
             ref_text.append(''.join(random.choices(char, k=string_length)))
 
+    # Generating encryption tables
     alphabet_lev1 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
     alphabet_lev2 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
     alphabet_lev3 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
@@ -52,6 +55,7 @@ class Constants(BaseConstants):
 
     @staticmethod
     def pretty_table_generator(alphabet_list, key_list, outpath):
+        """Generates an encryption table"""
         path_wkthmltoimage = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe'
         config = imgkit.config(wkhtmltoimage=path_wkthmltoimage)
         pt = prettytable.PrettyTable()
@@ -66,7 +70,6 @@ class Constants(BaseConstants):
     # pretty_table_generator(alphabet_list_lev3, key_list_lev3, '/encoding/table_lev3.png')
     # pretty_table_generator(alphabet_list_lev4, key_list_lev4, '/encoding/table_lev4.png')
     # Need a random string of numbers from 1 to number of rounds. Then you can randomise order from there.
-    rand = random.sample(range(num_rounds), num_rounds)
 
 
 class Subsession(BaseSubsession):
@@ -97,16 +100,19 @@ def creating_session(subsession: Subsession):
 
 
 def encrypt(plaintext, key, alphabet):
+    """Encrypts plaintext given key and alphabet"""
     key_indices = [alphabet.index(k.lower()) for k in plaintext]
     return ''.join(key[keyIndex] for keyIndex in key_indices)
 
 
 def decrypt(cipher, key, alphabet):
+    """Decrypts cipher given key and alphabet"""
     key_indices = [key.index(k) for k in cipher]
     return ''.join(alphabet[keyIndex] for keyIndex in key_indices)
 
 
 def getting_text(player: Player, call_loc="Task"):
+    """Determines string and image to show player"""
     if call_loc == "Start":
         dummy_sub = 1
     else:
@@ -174,10 +180,6 @@ class LevelSelection(Page):
             'debug': player.session.config['debug'],
         }
 
-    @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        pass
-
 
 class Start(Page):
     @staticmethod
@@ -241,24 +243,7 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-    @staticmethod
-    def app_after_this_page(player, upcoming_apps):
-        if player.participant.stage == '1a':
-            player.participant.stage = '1b'
-            return 'Menu_Select'
-        elif player.participant.stage == '1b':
-            player.participant.stage = '2a'
-            player.participant.pair = player.participant.pair2
-            return 'RET_Choice_2'
-        elif player.participant.stage == '2a':
-            player.participant.stage = '2b'
-            return 'Menu_Select2'
-        elif player.participant.stage == '2b':
-            player.participant.stage = '3'
-            return 'Demog_Survey'
-        elif 'stage' not in player.participant.vars:
-            return 'RET_Choice'
-
+    app_after_this_page = app_after_task
 
 
 page_sequence = [LevelSelection, Start, Task, Results]
