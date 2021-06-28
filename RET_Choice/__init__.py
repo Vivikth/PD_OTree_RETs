@@ -1,13 +1,11 @@
 from otree.api import *
 
 from . import models
+from Global_Functions import task_name, task_name_decoder
+# Treatment, Pair1, pair2 are inputted before.
 
-#Treatment, Pair1, pair2 are inputted before.
-
-author = 'Your name here'
-doc = """
-Your app description
-"""
+author = 'Vivikth'
+doc = """Choosing a real effort task"""
 
 
 class Constants(BaseConstants):
@@ -29,7 +27,6 @@ class Player(BasePlayer):
     Task_Choice = models.CharField(
         doc="Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect
     )
-    # This needs to be made dynamic - after you introduce BDM.
 
 
 # FUNCTIONS
@@ -45,42 +42,19 @@ def creating_session(subsession):
                 player.participant.pair2 = player.session.config['pair2']
 
 
-def task_name(string):
-    if string == 'T':
-        return 'Tabulation'
-    elif string == 'C':
-        return "Concealment"
-    elif string == 'I':
-        return "Interpretation"
-    elif string == 'R':
-        return "Replication"
-    elif string == 'O':
-        return "Organisation"
-    else:
-        raise ValueError('Input must be first (capital) letter of a task name')
-
-def Option_Index(option):
+def option_index(option):
     if option == "Option 1":
         return 1
     elif option == "Option 2":
         return 2
 
-def task_name_decoder(string):
-    if string == 'Tabulation':
-        return 'task_tabulation'
-    elif string == 'Concealment':
-        return 'task_encoding'
-    elif string == "Interpretation":
-        return 'task_transcribing'
-    elif string == "Replication":
-        return 'task_replication'
 
 # PAGES
-
-class RET_Choice_Introduction(Page):
+class RetChoiceIntroduction(Page):
     pass
 
-class Task_Selection(Page):
+
+class TaskSelection(Page):
     form_model = 'player'
     form_fields = ['Task_Choice']
 
@@ -90,7 +64,7 @@ class Task_Selection(Page):
             if 'stage' not in player.participant.vars:
                 player.participant.stage = '1a'
 
-            option = Option_Index(player.Task_Choice) - 1
+            option = option_index(player.Task_Choice) - 1
             player.participant.opt_choice1 = option
             player.participant.lc1a = 1
 #            return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
@@ -98,12 +72,13 @@ class Task_Selection(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'Good_Task' : task_name(player.participant.pair[0]),
-            'Bad_Task'  : task_name(player.participant.pair[1])
+            'Good_Task': task_name(player.participant.pair[0]),
+            'Bad_Task': task_name(player.participant.pair[1])
         }
 
-class RET_Choice_Information(Page):
-#This needs to be moved to previous page - you get information prior to choice.
+
+class RetChoiceInformation(Page):
+    # This needs to be moved to previous page - you get information prior to choice.
     @staticmethod
     def is_displayed(player: Player):
         return player.participant.treatment == "Pre_Information"
@@ -111,19 +86,19 @@ class RET_Choice_Information(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'Task_Info' : task_name(player.participant.pair[0])
+            'Task_Info': task_name(player.participant.pair[0])
         }
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        option = Option_Index(player.Task_Choice) - 1
+        option = option_index(player.Task_Choice) - 1
         player.participant.opt_choice1 = option
         player.participant.lc1a = 1
         if 'stage' not in player.participant.vars:
-            player.participant.stage = '1a' #Initialise stage.
+            player.participant.stage = '1a'  # Initialise stage.
         else:
             pass
-            #return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
+            # return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
 
 
-page_sequence = [RET_Choice_Introduction, Task_Selection, RET_Choice_Information]
+page_sequence = [RetChoiceIntroduction, TaskSelection, RetChoiceInformation]

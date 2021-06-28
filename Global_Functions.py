@@ -63,7 +63,9 @@ def task_name(string):
 
 def app_after_task(player, _upcoming_apps):
     """Returns next app after player has completed task"""
-    if player.participant.stage == '1a':
+    if 'stage' not in player.participant.vars:
+        return 'RET_Choice'
+    elif player.participant.stage == '1a':
         player.participant.stage = '1b'
         return 'Menu_Select'
     elif player.participant.stage == '1b':
@@ -76,5 +78,3 @@ def app_after_task(player, _upcoming_apps):
     elif player.participant.stage == '2b':
         player.participant.stage = '3'
         return 'Demog_Survey'
-    elif 'stage' not in player.participant.vars:
-        return 'RET_Choice'

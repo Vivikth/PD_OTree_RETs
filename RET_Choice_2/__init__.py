@@ -20,6 +20,3 @@ class Player(BasePlayer):
     Task_Choice = models.CharField(
         doc="Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect
     )
-    # This needs to be made dynamic - after you introduce BDM.
-
-    # This needs to be made dynamic - after you introduce BDM.
