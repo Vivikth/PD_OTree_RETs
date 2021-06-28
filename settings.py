@@ -31,6 +31,13 @@ SESSION_CONFIGS = [
         debug=True,
     ),
     dict(
+        name='task_encoding1b',
+        display_name="task_encoding1b",
+        num_demo_participants=1,
+        app_sequence=['task_encoding1b'],
+        debug=True,
+    ),
+    dict(
         name='task_organising1a',
         display_name="task_organising1a",
         num_demo_participants=1,
@@ -130,7 +137,8 @@ SESSION_CONFIGS = [
         debug=True,
         continuation_rv=0.01,
         lot_outcome=0
-    )
+    ),
+
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
