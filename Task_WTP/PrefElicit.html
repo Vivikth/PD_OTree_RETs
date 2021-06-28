@@ -1,5 +1,13 @@
+<style>
+ h4, h5, h6, h7
+{
+font-weight: normal;
+}
+</style>
 
-<!--Need task description, etc. -->
+
+
+
 <p>
     In this stage of the experiment, I want to determine how much you value some unknown tasks. <br>
     I'll give you a vague description of each task, and then use the switch-point procedure to determine how much you value that task. <br>
@@ -7,7 +15,7 @@
 </p>
 <br>
 
-<h3> Task Information</h3>
+<h4> How much do you value completing the <b>{{Task_name}}</b> task?</h4>
 <p>
    This task is called <strong>{{Task_name}}</strong>.<br>
    The task description is: <strong> {{Task_description}}</strong>.  <br>
@@ -17,10 +25,10 @@
 {{ include 'Task_WTP/Task_BDMQs.html' }}
 <br>
 <p>
-    To save time, I'll just ask you for your switch point (in terms of the probability you will be able to leave the experiment). <br>
+    To save time, I'll just ask you for your switch point (in terms of the percentage chance you will be able to leave the experiment). <br>
     Please enter your answer as a percentage (i.e a number between 0 and 100). <br>
     Feel free to enter a decimal (e.g 32.3) if you think that it is a more accurate representation of your switch point. <br>
-    Note: There is a 1% chance that one of these questions will be selected, and your chosen option (calculated from your switch point) for that question will be enacted.
+    Note: There is a 1% chance that one of these questions will be selected, and your chosen option (calculated from your switch point) for that question will be implemented.
 </p>
 
 
