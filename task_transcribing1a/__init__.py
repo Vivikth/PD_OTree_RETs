@@ -1,40 +1,25 @@
 from __future__ import division
 
-import itertools
 import random
 import string
 import time
 
 import unicodedata
-from django.conf import settings
 from otree.api import *
 
 from . import models
+from Global_Functions import app_after_task
 
-
-# -*- coding: utf-8 -*-
-# <standard imports>
-# import otree.models
-# from otree.db import models
-# from otree import widgets
-# from otree.common import Currency as c, currency_range, safe_json
-# from otree.constants import BaseConstants
-# from otree.models import BaseSubsession, BaseGroup, BasePlayer
-# </standard imports>
-author = 'Vivikth Narayanan'
-doc = """
-Real Effort Task. Type as many strings as possible.  
-"""
+author = 'Vivikth'
+doc = """Transcribing Real Effort Task - Subjects must identify a blurry character"""
 
 
 class Constants(BaseConstants):
     name_in_url = 'task_transcribing1a'
     players_per_group = None
-    # task_timer = 120 #see Subsession, before_session_starts setting.
-    #
-    # string_length = 4
-    # characters = "ab" #Characters to create strings from.
-    num_rounds = 10  # must be more than the max one person can do in task_timer seconds
+    num_rounds = 10
+
+    #  Reference Texts
     reference_texts_lev1 = list(string.digits)  # Might make 2 digits
     reference_texts_lev2 = list(string.ascii_uppercase)
     reference_texts_lev3 = [
@@ -66,11 +51,13 @@ class Constants(BaseConstants):
     ]
     reference_texts_lev4 = list(string.punctuation)
 
+    @staticmethod
     def greek_to_name(symbol):
         greek, size, letter, what, *with_tonos = unicodedata.name(symbol).split()
         assert greek, letter == ("GREEK", "LETTER")
         return what.lower() if size == "SMALL" else what.title()
 
+    @staticmethod
     def punctuation_to_name(symbol):
         return unicodedata.name(symbol).replace(" ", "")
 
@@ -91,6 +78,7 @@ class Player(BasePlayer):
     image_path = models.CharField()
     rand_string = models.StringField()
 
+
 # FUNCTIONS
 def creating_session(subsession: Subsession):
     if subsession.round_number == 1:
@@ -99,8 +87,8 @@ def creating_session(subsession: Subsession):
             p.rand_string = ''.join(str(r) for r in rand)
 
 
-def getting_text(player: Player, Call_Loc="Task"):
-    if Call_Loc == "Start":
+def getting_text(player: Player, call_loc="Task"):
+    if call_loc == "Start":
         dummy_sub = 1
     else:
         dummy_sub = 0
@@ -164,13 +152,15 @@ def user_text_choices(player: Player):
     elif player.participant.lc1a == 4:
         return Constants.reference_texts_lev4
 
+
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
         time.sleep(5)
         return 'Answer is Incorrect'
 
+
 # PAGES
-class Level_Selection(Page):
+class LevelSelection(Page):
     form_model = 'player'
     form_fields = ['level']
 
@@ -189,14 +179,14 @@ class Level_Selection(Page):
         }
 
 
-class start(Page):
+class Start(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        getting_text(player, Call_Loc="Start")
+        getting_text(player, call_loc="Start")
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -205,7 +195,7 @@ class start(Page):
         }
 
 
-class task(Page):
+class Task(Page):
     form_model = 'player'
     form_fields = ['user_text']
 
@@ -229,22 +219,7 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-    @staticmethod
-    def app_after_this_page(player, upcoming_apps):
-        if player.participant.stage == '1a':
-            player.participant.stage = '1b'
-            return 'Menu_Select'
-        elif player.participant.stage == '1b':
-            player.participant.stage = '2a'
-            player.participant.pair = player.participant.pair2
-            return 'RET_Choice_2'
-        elif player.participant.stage == '2a':
-            player.participant.stage = '2b'
-            return 'Menu_Select2'
-        elif player.participant.stage == '2b':
-            player.participant.stage = '3'
-            return 'Demog_Survey'
-        elif 'stage' not in player.participant.vars:
-            return 'RET_Choice'
+    app_after_this_page = app_after_task
 
-page_sequence = [Level_Selection, start, task, Results]
+
+page_sequence = [LevelSelection, Start, Task, Results]
