@@ -1,54 +1,42 @@
 from __future__ import division
 import time
-import itertools
 import random
-
 import imgkit
 import prettytable
-from django.conf import settings
 from otree.api import *
 import string
 from . import models
+from Global_Functions import app_after_task
 
 
-# -*- coding: utf-8 -*-
-# <standard imports>
-# import otree.models
-# from otree.db import models
-# from otree import widgets
-# from otree.common import Currency as c, currency_range, safe_json
-# from otree.constants import BaseConstants
-# from otree.models import BaseSubsession, BaseGroup, BasePlayer
-
-# </standard imports>
-author = 'Vivikth Narayanan'
-doc = """
-Real Effort Task. Type as many strings as possible.  
-"""
+author = 'Vivikth'
+doc = """Organising Real Effort Task - Subjects must rearrange strings in alphabetical order"""
 
 
 class Constants(BaseConstants):
     name_in_url = 'task_organising1a'
     players_per_group = None
-    num_rounds = 10  # must be more than the max one person can do in task_timer seconds
+    num_rounds = 10
     string_length = 4
 
-    # encrypts text given key and alphabet.
+    # Characters to create strings from
+    characters_lev1 = string.ascii_lowercase[0:6]
+    characters_lev2 = string.ascii_lowercase
+    characters_lev3 = string.ascii_lowercase + string.digits
+    characters_lev4 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'
 
-    characters_lev1 = "abcdef" # Characters to create strings from.
-    characters_lev2 = string.ascii_lowercase # Characters to create strings from.
-    characters_lev3 = string.ascii_lowercase + string.digits # Characters to create strings from.
-    characters_lev4 = string.ascii_lowercase + string.digits + '!@#$%^&*().,<>?'  # Characters to create strings from.
-
+    # List of Strings
     reference_texts_lev1 = []
     reference_texts_lev2 = []
     reference_texts_lev3 = []
     reference_texts_lev4 = []
 
-    for ref_text, char in zip([reference_texts_lev1, reference_texts_lev2, reference_texts_lev3, reference_texts_lev4], [characters_lev1, characters_lev2, characters_lev3, characters_lev4]):
-        for i in range(num_rounds):  # List comprehension doesn't work for some reasoN????
+    for ref_text, char in zip([reference_texts_lev1, reference_texts_lev2, reference_texts_lev3, reference_texts_lev4],
+                              [characters_lev1, characters_lev2, characters_lev3, characters_lev4]):
+        for i in range(num_rounds):  # List comprehension doesn't work for some reason????
             ref_text.append(''.join(random.choices(char, k=string_length)))
 
+    @staticmethod
     def pretty_table_generator(alphabet_list, key_list, outpath):
         path_wkthmltoimage = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe'
         config = imgkit.config(wkhtmltoimage=path_wkthmltoimage)
@@ -63,8 +51,6 @@ class Constants(BaseConstants):
     numbers = list(range(1, len(sorted_letters) + 1))
 
     # pretty_table_generator(numbers, sorted_letters, '/organising/table.png')
-
-    rand = random.sample(range(num_rounds), num_rounds)
 
 
 class Subsession(BaseSubsession):
@@ -94,11 +80,12 @@ def creating_session(subsession: Subsession):
             p.rand_string = ''.join(str(r) for r in rand)
 
 
-def alphabetize(string):
-    return ''.join(sorted(string))
+def alphabetize(letters):
+    return ''.join(sorted(letters))
 
-def getting_text(player: Player, Call_Loc="Task"):
-    if Call_Loc == "Start":
+
+def getting_text(player: Player, call_loc="Task"):
+    if call_loc == "Start":
         dummy_sub = 1
     else:
         dummy_sub = 0
@@ -131,13 +118,15 @@ def getting_text(player: Player, Call_Loc="Task"):
         )
         player.in_round(player.round_number + 1 - dummy_sub).image_path = '/organising/table.png'
 
+
 def user_text_error_message(player: Player, value):
     if not value == player.correct_text:
         time.sleep(5)
         return 'Answer is Incorrect'
 
+
 # PAGES
-class Level_Selection(Page):
+class LevelSelection(Page):
     form_model = 'player'
     form_fields = ['level']
 
@@ -155,19 +144,16 @@ class Level_Selection(Page):
             'debug': player.session.config['debug'],
         }
 
-    @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        pass
 
 
-class start(Page):
+class Start(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        getting_text(player, Call_Loc="Start")
+        getting_text(player, call_loc="Start")
 
     @staticmethod
     def vars_for_template(player):
@@ -177,7 +163,7 @@ class start(Page):
         }
 
 
-class task(Page):
+class Task(Page):
     form_model = 'player'
     form_fields = ['user_text']
 
@@ -186,16 +172,16 @@ class task(Page):
         level = player.participant.lc1a
 
         if level == 1:
-            temp_text =  Constants.reference_texts_lev1[
+            temp_text = Constants.reference_texts_lev1[
                 int(player.in_round(1).rand_string[player.round_number - 1])]
         elif level == 2:
-            temp_text =  Constants.reference_texts_lev2[
+            temp_text = Constants.reference_texts_lev2[
                 int(player.in_round(1).rand_string[player.round_number - 1])]
         elif level == 3:
-            temp_text =  Constants.reference_texts_lev3[
+            temp_text = Constants.reference_texts_lev3[
                 int(player.in_round(1).rand_string[player.round_number - 1])]
-        elif level == 4:
-            temp_text =  Constants.reference_texts_lev4[
+        else:
+            temp_text = Constants.reference_texts_lev4[
                 int(player.in_round(1).rand_string[player.round_number - 1])]
 
         return {
@@ -217,23 +203,8 @@ class Results(Page):
     def is_displayed(player: Player):
         return player.round_number == Constants.num_rounds
 
-    @staticmethod
-    def app_after_this_page(player, upcoming_apps):
-        if player.participant.stage == '1a':
-            player.participant.stage = '1b'
-            return 'Menu_Select'
-        elif player.participant.stage == '1b':
-            player.participant.stage = '2a'
-            player.participant.pair = player.participant.pair2
-            return 'RET_Choice_2'
-        elif player.participant.stage == '2a':
-            player.participant.stage = '2b'
-            return 'Menu_Select2'
-        elif player.participant.stage == '2b':
-            player.participant.stage = '3'
-            return 'Demog_Survey'
-        elif 'stage' not in player.participant.vars:
-            return 'RET_Choice'
+    app_after_this_page = app_after_task
 
 
-page_sequence = [Level_Selection, start, task, Results]
+
+page_sequence = [LevelSelection, Start, Task, Results]
