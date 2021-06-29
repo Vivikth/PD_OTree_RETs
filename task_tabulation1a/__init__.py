@@ -88,18 +88,6 @@ class Constants(BaseConstants):
         config = imgkit.config(wkhtmltoimage=path_wkthmltoimage)
         imgkit.from_string(table_string, '_static' + outpath, config=config)
 
-    @staticmethod
-    def level_description(level):
-        if level == 1:
-            return "0s and 1s"
-        elif level == 2:
-            return "digits from 0 to 9"
-        elif level == 3:
-            return "English letters and numbers"
-        elif level == 4:
-            return "Greek letters, English letters and numbers"
-
-
 # Below is the code that actually generates images, no need to run it every time.
 # for i, num in enumerate(reference_texts_lev1):
 #     count_array_pretty(grid_size, num, characters_lev1, '/task_tabulation1a/lev1/%i.png'%(i))
@@ -200,8 +188,18 @@ def getting_text(player: Player, call_loc="Task"):
         )
 
 
+def level_description(level):
+    if level == 1:
+        return "0s and 1s"
+    elif level == 2:
+        return "digits from 0 to 9"
+    elif level == 3:
+        return "English letters and numbers"
+    elif level == 4:
+        return "Greek letters, English letters and numbers"
+
+
 # PAGES
-# import time
 class LevelSelection(Page):
     form_model = 'player'
     form_fields = ['level']
@@ -235,7 +233,7 @@ class Start(Page):
     def vars_for_template(player: Player):
         return {
             'debug': player.session.config['debug'],
-            'level_description': Constants.level_description(player.participant.lc1a),
+            'level_description': level_description(player.participant.lc1a),
         }
 
 
@@ -252,7 +250,7 @@ class Task(Page):
             'debug': player.session.config['debug'],
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
             'tab_img': player.image_path,
-            'level_description': Constants.level_description(player.participant.lc1a),
+            'level_description': level_description(player.participant.lc1a),
         }
 
     @staticmethod
