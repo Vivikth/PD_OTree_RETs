@@ -1,9 +1,8 @@
-
 {% extends "global/BaseMotherhood.html" %}
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Instructions
+    Instructions for the Interpretation (level {{player.participant.lc1a}}) task
 {% endblock %}
 
 {% block content %}
@@ -19,20 +18,22 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'global/matrix.css' %}"/>
 
-     <p>
-      In this part of the experiment you will be presented with a series of blurry and moving characters.
+    <p>
+        You will now complete the interpretation (level {{player.participant.lc1a}}) task. <br>
+        In this task, you will be presented with a series of blurry and moving characters. <br>
+        Each character will be a {{level_description}}.
         <br>You must select the correct character from the given drop down list.
          There is <b>no</b> time limit.
         Note that each character has to be correct for you to proceed the next character.
     </p>
     <p>
-      Once you have selected the correct character, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
+      Once you have selected character, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
     </p>
      <p>
            After you have selected all {{Constants.num_rounds}} characters correctly, you may move on to the next task.
     </p>
     <p>
-           Otherwise, if you are ready, please click "Next" below to start this task. The instructions will be repeated on every page.<br>
+           Please click the "Next" button to start this task. The instructions will be repeated on every page..<br>
     </p>
 	
 

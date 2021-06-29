@@ -111,11 +111,11 @@ class LevelSelection(Page):
     def before_next_page(player: Player, timeout_happened):
         player.participant.lc1a = player.level
 
-    # @staticmethod
-    # def vars_for_template(player: Player):
-    #     return {
-    #         'debug': player.session.config['debug'],
-    #     }
+    @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'debug': player.session.config['debug'],
+        }
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):

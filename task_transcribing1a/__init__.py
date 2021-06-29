@@ -154,6 +154,17 @@ def user_text_error_message(player: Player, value):
         time.sleep(5)
         return 'Answer is Incorrect'
 
+def level_description(level):
+    if level == 1:
+        return "digit"
+    elif level == 2:
+        return "letter from the English alphabet"
+    elif level == 3:
+        return "letter from a non-English alphabet"
+    elif level == 4:
+        return "punctuation character"
+
+
 
 # PAGES
 class LevelSelection(Page):
@@ -188,6 +199,7 @@ class Start(Page):
     def vars_for_template(player: Player):
         return {
             'debug': player.session.config['debug'],
+            'level_description': level_description(player.participant.lc1a)
         }
 
 

@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Task 
+    Transcribing (Level {{player.participant.lc1a}}) Task
 {% endblock %}
 
 
@@ -18,8 +18,8 @@
           href="{% static 'global/matrix.css' %}"/>
 
     <p>
-        Select each letter correctly to move on to the next. There is <b>no</b> time limit.
-        <br> Once you have selected the letter, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
+        Select the character from the drop-down menu to move on to the next character. There is <b>no</b> time limit.
+        <br> Once you have selected the character, click the <b>Next</b> button. <br> <br>
         Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer.
     </p>
 </div>
@@ -89,23 +89,6 @@
         $('#id_user_text').focus();
     });
 </script>
-<!-- Text to png Image -->
-<!--<script>-->
-
-<!--    var c=document.getElementById("myCanvas");-->
-<!--    var ctx=c.getContext("2d");-->
-<!--    make_base();-->
-
-<!--    function make_base()-->
-<!--    {-->
-<!--      base_image = new Image();-->
-<!--      base_image.src = "{{ static image_path}}";-->
-<!--      base_image.onload = function(){-->
-<!--        context.drawImage(base_image, 0, 0);-->
-<!--      }-->
-<!--    }-->
-
-<!--</script>-->
 {% endblock %}
 
 
