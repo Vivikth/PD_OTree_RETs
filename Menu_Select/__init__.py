@@ -1,8 +1,8 @@
 from otree.api import *
-
 from . import models
+from Global_Functions import task_name, task_name_decoder, option_index
 
-#Treatment, Pair1, pair2 are inputted before.
+# Treatment, Pair1, pair2 are inputted before.
 
 author = 'Your name here'
 doc = """
@@ -26,42 +26,14 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    MenuTask = models.StringField(
-        doc="MenuTask", widget=widgets.RadioSelect
+    menu_task = models.StringField(
+        doc="menu_task", widget=widgets.RadioSelect
     )
     # This needs to be made dynamic - after you introduce BDM.
 
 
 # FUNCTIONS
-def task_name(string):
-    if string == 'T':
-        return 'Tabulation'
-    elif string == 'C':
-        return "Concealment"
-    elif string == 'I':
-        return "Interpretation"
-    elif string == 'R':
-        return "Replication"
-    else:
-        raise ValueError('Input must be first (capital) letter of a task name')
-
-def Option_Index(option):
-    if option == "Option 1":
-        return 1
-    elif option == "Option 2":
-        return 2
-
-def task_name_decoder(string):
-    if string == 'Tabulation':
-        return 'task_tabulation'
-    elif string == 'Concealment':
-        return 'task_encoding'
-    elif string == "Interpretation":
-        return 'task_transcribing'
-    elif string == "Replication":
-        return 'task_replication'
-
-def MenuTask_choices(player):
+def menu_task_choices(player):
     if player.participant.treatment == "Substitution":
         pref_opt = task_name(player.participant.pair[1])
         return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
@@ -72,11 +44,11 @@ def MenuTask_choices(player):
 # PAGES
 class Menu_Select_Intro(Page):
     form_model = 'player'
-    form_fields = ['MenuTask']
+    form_fields = ['menu_task']
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        partitioned_string = player.MenuTask.partition(' ')
+        partitioned_string = player.menu_task.partition(' ')
         player.participant.lc1a = int(partitioned_string[2][-2])
         return task_name_decoder(partitioned_string[0]) + player.participant.stage
 

@@ -1,7 +1,7 @@
 from otree.api import *
 
 from . import models
-from Global_Functions import task_name, task_name_decoder
+from Global_Functions import task_name, task_name_decoder, option_index
 # Treatment, Pair1, pair2 are inputted before.
 
 author = 'Vivikth'
@@ -42,13 +42,6 @@ def creating_session(subsession):
                 player.participant.pair2 = player.session.config['pair2']
 
 
-def option_index(option):
-    if option == "Option 1":
-        return 1
-    elif option == "Option 2":
-        return 2
-
-
 # PAGES
 class RetChoiceIntroduction(Page):
     @staticmethod
@@ -61,7 +54,7 @@ class TaskSelection(Page):
     form_fields = ['Task_Choice']
 
     @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
+    def before_next_page(player: Player, timeout_happened):
         option = option_index(player.Task_Choice) - 1
         player.participant.lc1a = 1
 
@@ -70,8 +63,6 @@ class TaskSelection(Page):
             player.participant.opt_choice1 = option
         elif player.participant.vars['stage'] == '1a':
             player.participant.opt_choice2 = option
-            opt_choice1 = player.participant.opt_choice1
-            return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -93,4 +84,15 @@ class TaskSelection(Page):
         }
 
 
-page_sequence = [RetChoiceIntroduction, TaskSelection]
+class RetChoiceConc(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return 'opt_choice2' in player.participant.vars
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        opt_choice1 = player.participant.opt_choice1
+        return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage
+
+
+page_sequence = [RetChoiceIntroduction, TaskSelection, RetChoiceConc]

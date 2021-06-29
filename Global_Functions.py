@@ -78,3 +78,11 @@ def app_after_task(player, _upcoming_apps):
     elif player.participant.stage == '2b':
         player.participant.stage = '3'
         return 'Demog_Survey'
+
+
+def option_index(option):
+    """Numeric value of option"""
+    if option == "Option 1":
+        return 1
+    elif option == "Option 2":
+        return 2

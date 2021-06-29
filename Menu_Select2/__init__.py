@@ -17,7 +17,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     MenuTask = models.StringField(
-        doc="MenuTask", widget=widgets.RadioSelect
+        doc="menu_task", widget=widgets.RadioSelect
     )
     # This needs to be made dynamic - after you introduce BDM.
 
