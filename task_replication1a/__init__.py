@@ -19,7 +19,7 @@ class Constants(BaseConstants):
 
     # Characters to create strings from.
     characters_lev1 = string.ascii_lowercase[0:6]
-    characters_lev2 = string.ascii_lowercase
+    characters_lev2 = string.ascii_letters
     characters_lev3 = string.ascii_letters + string.digits
     characters_lev4 = string.ascii_letters + string.digits + '!@#$%^&*().,<>?'
 
@@ -33,6 +33,7 @@ class Constants(BaseConstants):
                               [characters_lev1, characters_lev2, characters_lev3, characters_lev4]):
         for i in range(num_rounds):  # List comprehension doesn't work for some reason????
             ref_text.append(''.join(random.choices(char, k=string_length)))
+
 
 
 class Subsession(BaseSubsession):
@@ -84,6 +85,16 @@ def user_text_error_message(player: Player, value):
         time.sleep(5)
         return 'Answer is Incorrect'
 
+def level_description(level):
+    if level == 1:
+        return "the letters a,b,c,d,e or f"
+    elif level == 2:
+        return "letters of the alphabet"
+    elif level == 3:
+        return "numbers, and letters of the alphabet"
+    elif level == 4:
+        return "numbers, punctuation characters and letters of the alphabet"
+
 
 # PAGES
 class LevelSelection(Page):
@@ -124,6 +135,7 @@ class Start(Page):
         pass
         return {
             'debug': player.session.config['debug'],
+            'level_description': level_description(player.participant.lc1a)
         }
 
 
