@@ -1,10 +1,10 @@
 from __future__ import division
+from otree.api import *
 
 import random
 import time
 import string
 from Global_Functions import app_after_task
-from otree.api import *
 
 
 author = 'Vivikth'
@@ -85,6 +85,7 @@ def user_text_error_message(player: Player, value):
         time.sleep(5)
         return 'Answer is Incorrect'
 
+
 def level_description(level):
     if level == 1:
         return "the letters a,b,c,d,e or f"
@@ -110,11 +111,11 @@ class LevelSelection(Page):
     def before_next_page(player: Player, timeout_happened):
         player.participant.lc1a = player.level
 
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'debug': player.session.config['debug'],
-        }
+    # @staticmethod
+    # def vars_for_template(player: Player):
+    #     return {
+    #         'debug': player.session.config['debug'],
+    #     }
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):

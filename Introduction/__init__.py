@@ -37,16 +37,4 @@ class Introduction(Page):
 
 
 
-class MyPage(Page):
-    pass
-
-
-class ResultsWaitPage(WaitPage):
-    pass
-
-
-class Results(Page):
-    pass
-
-
 page_sequence = [Introduction]

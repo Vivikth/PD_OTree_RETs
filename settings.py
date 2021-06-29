@@ -171,7 +171,6 @@ SECRET_KEY = '=56(oy3rxv5n+gd-c2%yi$@_!ii^7l$*1lwnc-663iq&j&s=r#'
 INSTALLED_APPS = ['otree']
 
 # Debug
-SESSION_FIELDS = ['debug']
 PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
                       'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2',
                       'opt_choice1', 'opt_choice2', 'opt_choice', 'lc1a', 'pair', 'stage']

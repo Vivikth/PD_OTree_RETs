@@ -1,6 +1,5 @@
-
 {% extends "global/BaseMotherhood.html" %}
-{% load staticfiles otree_tags  %}
+{% load staticfiles otree_tags %}
 
 {% block title %}
     Instructions
@@ -8,7 +7,6 @@
 
 {% block content %}
 
-{% load otree_tags staticfiles %}
 
 <div class="instructions well well-lg">
 
@@ -22,14 +20,11 @@
     <p>
         THIS PAGE WILL NOT BE SHOWN TO SUBJECTS, IT IS FOR DEBUGGING PURPOSES.
      Please select the level of the task you wish to complete:
-        {% formfield player.level label="" %}
-
     </p>
+            {% formfield player.level label="" %}
+
+
 </div>
-      {% next_button %}<br><br><br>
-
-
-
-
+      {% next_button %}
 
 {% endblock %}
