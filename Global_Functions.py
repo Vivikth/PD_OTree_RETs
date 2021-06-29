@@ -71,7 +71,7 @@ def app_after_task(player, _upcoming_apps):
     elif player.participant.stage == '1b':
         player.participant.stage = '2a'
         player.participant.pair = player.participant.pair2
-        return 'RET_Choice_2'
+        return 'Interim'
     elif player.participant.stage == '2a':
         player.participant.stage = '2b'
         return 'Menu_Select2'

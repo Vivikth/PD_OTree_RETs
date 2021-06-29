@@ -1,6 +1,6 @@
 from otree.api import *
 from . import models
-from Global_Functions import task_name, task_name_decoder, option_index
+from Global_Functions import task_name, task_name_decoder
 
 # Treatment, Pair1, pair2 are inputted before.
 
@@ -38,11 +38,12 @@ def menu_task_choices(player):
         pref_opt = task_name(player.participant.pair[1])
         return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
     else:
-        return [task_name(player.participant.pair[0]) + " (level 1)",task_name(player.participant.pair[1]) + " (level 1)"]
+        return [task_name(player.participant.pair[0]) + " (level 1)",
+                task_name(player.participant.pair[1]) + " (level 1)"]
 
 
 # PAGES
-class Menu_Select_Intro(Page):
+class MenuSelectIntro(Page):
     form_model = 'player'
     form_fields = ['menu_task']
 
@@ -54,13 +55,20 @@ class Menu_Select_Intro(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
+        if player.participant.stage == '1b':
+            menu_stage = 'first'
+        else:
+            menu_stage = 'second'
+
         return {
-            'Good_Task' : task_name(player.participant.pair[0]),
-            'Bad_Task'  : task_name(player.participant.pair[1]),
-            'Prev_Opt'  : player.participant.opt_choice1 + 1,
+            'Good_Task': task_name(player.participant.pair[0]),
+            'Bad_Task': task_name(player.participant.pair[1]),
+            'Prev_Opt': player.participant.opt_choice1 + 1,
+            'menu_stage': menu_stage
         }
 
-class Menu_Select_Info(Page):
+
+class MenuSelectInfo(Page):
 
     @staticmethod
     def is_displayed(player: Player):
@@ -69,8 +77,8 @@ class Menu_Select_Info(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'Task_Info' : task_name(player.participant.pair[0])
+            'Task_Info': task_name(player.participant.pair[0])
         }
 
 
-page_sequence = [Menu_Select_Info, Menu_Select_Intro]
+page_sequence = [MenuSelectInfo, MenuSelectIntro]

@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Onward!
+{% endblock %}
+
+{% block content %}
+
+<p>
+    Good job completing your first task-list pair! <br>
+    Press the next button to complete your second task-list pair.
+</p>
+    {% next_button %}
+
+{% endblock %}

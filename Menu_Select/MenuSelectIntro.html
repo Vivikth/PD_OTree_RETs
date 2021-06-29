@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{{ if player.participant.stage == '1b' }}
+
+{% block title %}
+    Choose a task from the list
+{% endblock %}
+
+{{ endif }}
+
+{% block content %}
+
+<p>
+    You must now choose a task from the list in your {{ menu_stage }} task-list pair. <br>
+    Previously, you selected option {{Prev_Opt}}. Please select one of the tasks from that list now:
+</p>
+
+    {% formfield player.menu_task label=""%}
+
+
+<br>
+    {% next_button %}
+
+<p>
+    Task descriptions are provided below if you'd like to refer to them.
+</p>
+
+{{ include 'RET_Choice/Task_Descriptions.html'}}
+
+
+
+{% endblock %}
