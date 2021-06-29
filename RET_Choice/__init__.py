@@ -62,50 +62,35 @@ class TaskSelection(Page):
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        if player.participant.treatment != "Pre_Information":
-            if 'stage' not in player.participant.vars:
-                player.participant.stage = '1a'
+        option = option_index(player.Task_Choice) - 1
+        player.participant.lc1a = 1
 
-            option = option_index(player.Task_Choice) - 1
+        if 'stage' not in player.participant.vars:
+            player.participant.stage = '1a'
             player.participant.opt_choice1 = option
-            player.participant.lc1a = 1
-#            return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
+        elif player.participant.vars['stage'] == '1a':
+            player.participant.opt_choice2 = option
+            opt_choice1 = player.participant.opt_choice1
+            return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage
 
     @staticmethod
     def vars_for_template(player: Player):
         if 'stage' not in player.participant.vars:
             stage_for_template = "1st"
+            good_task = task_name(player.participant.pair1[0])
+            bad_task = task_name(player.participant.pair1[1])
+            task_info = task_name(player.participant.pair1[0])
         else:
             stage_for_template = "2nd"
+            good_task = task_name(player.participant.pair2[0])
+            bad_task = task_name(player.participant.pair2[1])
+            task_info = task_name(player.participant.pair2[0])
         return {
-            'Good_Task': task_name(player.participant.pair[0]),
-            'Bad_Task': task_name(player.participant.pair[1]),
-            'stage_for_template': stage_for_template
+            'Good_Task': good_task,
+            'Bad_Task': bad_task,
+            'stage_for_template': stage_for_template,
+            'Task_Info': task_info
         }
 
 
-class RetChoiceInformation(Page):
-    # This needs to be moved to previous page - you get information prior to choice.
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.participant.treatment == "Pre_Information"
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'Task_Info': task_name(player.participant.pair[0])
-        }
-
-    @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        option = option_index(player.Task_Choice) - 1
-        player.participant.opt_choice1 = option
-        player.participant.lc1a = 1
-        if 'stage' not in player.participant.vars:
-            player.participant.stage = '1a'  # Initialise stage.
-        else:
-            pass
-            # return task_name_decoder(task_name(player.participant.pair[option])) + player.participant.stage
-
-
-page_sequence = [RetChoiceIntroduction, TaskSelection, RetChoiceInformation]
+page_sequence = [RetChoiceIntroduction, TaskSelection]

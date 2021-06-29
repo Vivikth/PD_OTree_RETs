@@ -10,9 +10,16 @@
     You need to pick one task to complete now. <br>
     In addition, you will have to pick a list of tasks. <br>
     You will have to complete one task from the list after you complete the first task. <br>
-    The available options are below: <br>
 </p>
 <br>
+
+{{if player.participant.treatment == 'Pre_Information' }}
+<p>
+    Before you make your choice, we will provide you some detailed information about a certain task. <br>
+    Here is some detailed information about {{Task_Info}}.
+</p>
+<br>
+{{ endif }}
 
 <p>
     You must pick one of the following options:
