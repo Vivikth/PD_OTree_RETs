@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Task 
+    Concealment (level {{player.participant.lc1a}}) task
 {% endblock %}
 
 
@@ -20,14 +20,14 @@
 
     <p>
         Use the table to encode each string.  <br>
-        For instance, the string 'abcd' would be encoded as '{{abcd_ex}}'. <br>
+        For instance, the string '{{ex_string}}' would be encoded as '{{ex_encode}}'. <br>
         There is <b>no</b> time limit.
         <br> Once you have encoded the string, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
         Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer. You may have to scroll to view the entire table.
     </p>
 </div>
      <p>
-                <center><h2>Encode the string below using the table, then type the answer into the box and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
+                <center><h2>Encode the string below using the table, then type the answer into the box and click <b>Next</b> or hit the <b>Enter Key</b><h2></center>
                 <br>
                 <center>
                     <canvas id="myCanvas" width="200" height="80" style="border:1px solid #f4f5ff;background: #f4e4e3">
@@ -101,7 +101,7 @@
 
     var c=document.getElementById("myCanvas");
     var ctx=c.getContext("2d");
-    ctx.font="30px Courier";
+    ctx.font="30px Helvetica";
     ctx.fillText('{{ display_text }}',60,50);
 
     // save img

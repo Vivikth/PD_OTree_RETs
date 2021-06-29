@@ -1,24 +1,22 @@
-
 {% extends "global/BaseMotherhood.html" %}
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Task Summary
+    Task Completed!
 {% endblock %}
 
 {% block content %}
+
 
     <p class="text-success">
     </p>
 
     <div class="panel panel-success">
 
-        <div class="panel-heading">
-            <h4>You have successfully completed this task. Press the next button to continue with the experiment. </h4>
-        </div>
-
+            <p>You have successfully completed the Concealment (level {{player.participant.lc1a}}) task. <br>
+                Press the next button to continue with the experiment. </p>
     </div>
-
     {% next_button %}<br><br><br>
+
 
 {% endblock %}

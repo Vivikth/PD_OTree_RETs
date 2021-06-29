@@ -3,7 +3,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Instructions
+    Instructions for the Concealment (level {{player.participant.lc1a}}) task
 {% endblock %}
 
 {% block content %}
@@ -19,20 +19,47 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'global/matrix.css' %}"/>
 
-     <p>
-      In this part of the experiment you will be presented with a series of strings.
-        <br>You must use the given table to encode the strings. Simply convert each character in the "Character" section to the corresponding character in the "Key" section
-         There is <b>no</b> time limit.
-        Note that each encoded string must be correct for you to proceed the next string.
+    <p>
+        You will now complete the Concealment (level {{player.participant.lc1a}}) task.
+        In this task you will be presented with a series of randomly selected sequences each containing {{Constants.string_length}} characters. <br>
+        Each sequence will consist of {{ level_description }}.<br>
+        You must encode each sequence using given table, and type the encoded answer into the box. An example is given below. <br>
+        There is <b>no</b> time limit.
+        Note that each sequence has to be correct for you to proceed the next sequence.
     </p>
     <p>
       Once you have entered your text, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
     </p>
      <p>
-           After you have encoded all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
+         After you have encoded all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
+    </p>
+
+    <h3>Example Encoding</h3>
+
+    <p>
+        The encoding table is given below (you may have to scroll horizontally to view it fully).
+        <left>
+        <img src="{{static ex_table}}"/>
+        </left>
     </p>
     <p>
-           Otherwise, if you are ready, please click "Next" below to start this task. The instructions will be repeated on every page.<br>
+        Consider encoding the string 'a0!d'. Using the table below, we can see that:<br>
+    </p>
+    <ul>
+    <li>If the original character is 'a', then the encoded character is '?'. </li>
+    <li>If the original character is '0', then the encoded character is 'v'. </li>
+    <li>If the original character is '!', then the encoded character is 'g'.</li>
+    <li>If the original character is 'd', then the encoded character is '9'.</li>
+    </ul>
+    <br>
+    <p>
+    Combining all these in order, the string 'a0!d' would be encoded as '?vg9'.
+    </p>
+
+    <h3>Make sure you understand the above example before proceeding!</h3>
+
+    <p>
+        Please click the "Next" button to start this task. The instructions will be repeated on every page.<br>
     </p>
 
 </div>
