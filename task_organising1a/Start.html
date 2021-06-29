@@ -1,9 +1,8 @@
-
 {% extends "global/BaseMotherhood.html" %}
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Instructions
+    Instructions for the Organising (level {{player.participant.lc1a}}) task
 {% endblock %}
 
 {% block content %}
@@ -13,33 +12,56 @@
 <div class="instructions well well-lg">
 
     <h2 class="panel-sub-heading">
-        
+
     </h2>
 
     <link rel="stylesheet" type="text/css"
           href="{% static 'global/matrix.css' %}"/>
 
-     <p>
-      In this part of the experiment you will be presented with a series of strings.
-        <br>You must use the given table to encode the strings. Simply convert each character in the "Character" section to the corresponding character in the "Key" section
-         There is <b>no</b> time limit.
-        Note that each encoded string must be correct for you to proceed the next string.
+    <p>
+        You will now complete the Organising (level {{player.participant.lc1a}}) task.
+        In this task you will be presented with a series of randomly selected sequences each containing {{Constants.string_length}} characters. <br>
+        Each sequence will consist of {{ level_description }}.<br>
+        You must rearrange into alphabetical order, and type the rearrange the answer into the box.
+        A table of the characters in alphabetical order is given below. <br>
+        There is <b>no</b> time limit.
+        Note that each sequence has to be correct for you to proceed the next sequence.
     </p>
     <p>
       Once you have entered your text, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
     </p>
      <p>
-           After you have encoded all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
+         After you have encoded all {{Constants.num_rounds}} sequences correctly, you may move on to the next task.
+    </p>
+
+    <h3>Example rearranging</h3>
+
+    <p>
+        The table is given below (you may have to scroll horizontally to view it fully).
+        <img src="{{static ex_table}}" align="left"/>
     </p>
     <p>
-           Otherwise, if you are ready, please click "Next" below to start this task. The instructions will be repeated on every page.<br>
+        Consider rearranging the string 'a0!d'. Using the table we can see that:<br>
+    </p>
+    <ul>
+    <li>The position of the character 'a', is 26. </li>
+    <li>The position of the character '0', is 11. </li>
+    <li>The position of the character '!', is 1.  </li>
+    <li>The position of the character 'd', is 29. </li>
+    </ul>
+    <br>
+    <p>
+        This means that '!' comes first, then '0', followed by 'a' and then finally 'd'.
+        Thus, the string 'a0!d' in alphabetical order is '!0ad'.
+    </p>
+
+    <h3>Make sure you understand the above example before proceeding!</h3>
+
+    <p>
+        Please click the "Next" button to start this task. The instructions will be repeated on every page.<br>
     </p>
 
 </div>
       {% next_button %}<br><br><br>
-
-
-
-
 
 {% endblock %}

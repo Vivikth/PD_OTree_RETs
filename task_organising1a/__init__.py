@@ -125,6 +125,17 @@ def user_text_error_message(player: Player, value):
         return 'Answer is Incorrect'
 
 
+def level_description(level):
+    if level == 1:
+        return "the letters a,b,c,d,e or f"
+    elif level == 2:
+        return "lowercase letters of the alphabet"
+    elif level == 3:
+        return "numbers, and lowercase letters of the alphabet"
+    elif level == 4:
+        return "numbers, punctuation characters and lowercase letters of the alphabet"
+
+
 # PAGES
 class LevelSelection(Page):
     form_model = 'player'
@@ -160,6 +171,8 @@ class Start(Page):
         pass
         return {
             'debug': player.session.config['debug'],
+            'ex_table': '/organising/table.png',
+            'level_description': level_description(player.participant.lc1a)
         }
 
 

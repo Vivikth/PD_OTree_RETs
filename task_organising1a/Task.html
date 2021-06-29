@@ -21,28 +21,28 @@
     <p>
         Rearrange the given string in alphabetical order.  <br>
         The table at the bottom shows the characters in alphabetical order <br>
-        For instance, the string 'bcda' would be rearranged as 'abcd'. <br>
+        For instance, the string 'a0!d' would be rearranged as '!0ad'. <br>
         There is <b>no</b> time limit.
         <br> Once you have rearranged the string, click the <b>Next</b> button or press the <b>Enter</b> key.<br><br>
         Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer. You may have to scroll to view the entire table.
     </p>
 </div>
-     <p>
-                <center><h2>Encode the string below using the table, then type the answer into the box and click <b>Next</b> <br>or hit the <b>Enter Key</b><h2></center>
+
+                <h2>Rearrange the string below into alphabetical order, then type the answer into the box and click <b>Next</b> <br>or hit the <b>Enter Key</b></h2>
                 <br>
                 <center>
                     <canvas id="myCanvas" width="200" height="80" style="border:1px solid #f4f5ff;background: #f4e4e3">
                             Your browser does not support the HTML5 canvas tag.</canvas>
                 </center>
                 <br><br>
-    </p>
-        <left>
-        <img src="{{static tab_img}}"/>
-        </left>
+
+
+        <img src="{{static tab_img}}" align="left"/>
+
 
     <table class="table">
             <tr>
-            <h3>
+
                 <th style="vertical-align:middle">
                     <br><br>
                     {% formfield player.user_text label="" %}
@@ -51,18 +51,18 @@
                 <th style="vertical-align:middle; text-align: left">
                     <br><br>
                     {% next_button %}
-                    <br><br            
+                    <br><br>
                 </th>
             </tr>
 
             <tr>
                 <th>
-                    <h2> You have {{rounds_remaining}} rounds remaining.
+                    <h2> You have {{rounds_remaining}} rounds remaining. </h2>
                 </th>
                 <th style="vertical-align:top; text-align: left">
                     <h2><br></h2>
                 </th>
-            </h3>    
+
             </tr>
 
 
@@ -75,7 +75,7 @@
 
             <h4><br>Cheater Mode Activated (Debug Mode Only)  - <a href="#" id="prefill">Click Here to Autofill Text</a></h4>
             <p>You are playing in debug mode, so you can skip the manual
-                transcription by clicking <a href="#" id="prefill">this link</a>
+                transcription by clicking above link
                 and clicking "next".
             </p>
             </div>
