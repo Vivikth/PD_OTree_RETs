@@ -16,7 +16,7 @@ doc = """Organising Real Effort Task - Subjects must rearrange strings in alphab
 class Constants(BaseConstants):
     name_in_url = 'task_organising1a'
     players_per_group = None
-    num_rounds = 10
+    num_rounds = 3
     string_length = 4
 
     # Characters to create strings from

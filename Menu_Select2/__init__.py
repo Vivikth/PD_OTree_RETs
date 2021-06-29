@@ -1,10 +1,8 @@
 from Menu_Select import *
 
-class Constants(BaseConstants):
+
+class Constants(Constants):
     name_in_url = 'Menu_Select2'
-    players_per_group = None
-    num_rounds = 1
-    task_list = ["Option 1", "Option 2"]
 
 
 class Subsession(BaseSubsession):
@@ -16,8 +14,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    MenuTask = models.StringField(
+    menu_task = models.StringField(
         doc="menu_task", widget=widgets.RadioSelect
     )
-    # This needs to be made dynamic - after you introduce BDM.
-

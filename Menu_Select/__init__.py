@@ -57,13 +57,15 @@ class MenuSelectIntro(Page):
     def vars_for_template(player: Player):
         if player.participant.stage == '1b':
             menu_stage = 'first'
+            opt_choice = player.participant.opt_choice1
         else:
             menu_stage = 'second'
+            opt_choice = player.participant.opt_choice2
 
         return {
             'Good_Task': task_name(player.participant.pair[0]),
             'Bad_Task': task_name(player.participant.pair[1]),
-            'Prev_Opt': player.participant.opt_choice1 + 1,
+            'Prev_Opt': opt_choice + 1,
             'menu_stage': menu_stage
         }
 

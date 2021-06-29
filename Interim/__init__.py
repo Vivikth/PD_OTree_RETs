@@ -1,5 +1,5 @@
 from otree.api import *
-
+from Global_Functions import task_name, task_name_decoder
 
 doc = """
 Your app description
@@ -29,6 +29,8 @@ class Interim(Page):
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
+        opt_choice2 = player.participant.opt_choice2
+        player.participant.lc1a = 1
         return task_name_decoder(task_name(player.participant.pair[opt_choice2])) + player.participant.stage
 
 

@@ -4,7 +4,7 @@
 {{ if player.participant.stage == '1b' }}
 
 {% block title %}
-    Choose a task from the list
+    Choose a task from your list list
 {% endblock %}
 
 {{ endif }}
@@ -13,7 +13,7 @@
 
 <p>
     You must now choose a task from the list in your {{ menu_stage }} task-list pair. <br>
-    Previously, you selected option {{Prev_Opt}}. Please select one of the tasks from that list now:
+    Previously, you selected option {{Prev_Opt}} when you chose your {{ menu_stage}} task-list pair. Please select one of the tasks from that list now:
 </p>
 
     {% formfield player.menu_task label=""%}
