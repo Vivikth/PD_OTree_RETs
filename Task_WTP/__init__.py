@@ -261,13 +261,15 @@ class Boring(Page):
             trial.is_correct = trial.choice == trial.solution
             player.num_correct += int(trial.is_correct)
 
+
+class BoringConc(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         return "RET_Choice"
 
 
 page_sequence = [WtpIntro, TabulationWTP, ConcealmentWTP, InterpretationWTP, ReplicationWTP, OrganisationWTP,
-                 WtpConc, Boring]
+                 WtpConc, Boring, BoringConc]
 
 
 def custom_export(players):

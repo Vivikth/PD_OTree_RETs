@@ -16,7 +16,7 @@
 
 <details>
 
-    <summary>    Click here to see your lottery outcome</summary>
+    <summary>    Click here to see whether we used one of your switch points.</summary>
     {{ if player.Rand_Outcome == "C" }}
 <p>
     None of your switch-point questions were selected. <br>
@@ -45,8 +45,11 @@
         Your switch-point was lower than the selected question. <br>
         This means you said that you prefer the lottery to completing the task {{player.Rand_T}}. <br>
     </p>
-    <br>
-            {{if player.lot_outcome < player.BDM_Num}}
+
+            <details>
+                <summary>Click here to see the outcome of the lottery.</summary>
+
+                {{if player.lot_outcome < player.BDM_Num}}
             <p>
                 The outcome of the lottery was the best task! <br>
                 This means you get to leave the experiment without completing any tasks. <br>
@@ -57,10 +60,13 @@
             {{if player.lot_outcome >= player.BDM_Num}}
             <p>
                 The outcome of the lottery was the worst task. <br>
-                This means that you have to watch a boring video and answer some questions before continuing. <br>
-                Press the next button to watch the boring video. <br>
+                This means that you have to read some boring information and answer some questions before continuing. <br>
+                Press the next button to read the boring information. <br>
             </p>
             {{endif}}
+
+            </details>
+    <br>
         {{endif}}
 
     {{ endif }}
