@@ -16,8 +16,10 @@
 {{if player.participant.treatment == 'Pre_Information' }}
 <p>
     Before you make your choice, we will provide you some detailed information about a certain task. <br>
-    Here is some detailed information about {{Task_Info}}.
 </p>
+
+{{ include 'RET_Choice/RetChoiceInformation.html' }}
+
 <br>
 {{ endif }}
 

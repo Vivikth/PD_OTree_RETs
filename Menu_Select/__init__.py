@@ -58,15 +58,17 @@ class MenuSelectIntro(Page):
         if player.participant.stage == '1b':
             menu_stage = 'first'
             opt_choice = player.participant.opt_choice1
+            task_info = task_name(player.participant.pair1[0])
         else:
             menu_stage = 'second'
             opt_choice = player.participant.opt_choice2
-
+            task_info = task_name(player.participant.pair2[0])
         return {
             'Good_Task': task_name(player.participant.pair[0]),
             'Bad_Task': task_name(player.participant.pair[1]),
             'Prev_Opt': opt_choice + 1,
-            'menu_stage': menu_stage
+            'menu_stage': menu_stage,
+            'Task_Info': task_info
         }
 
 
@@ -83,4 +85,4 @@ class MenuSelectInfo(Page):
         }
 
 
-page_sequence = [MenuSelectInfo, MenuSelectIntro]
+page_sequence = [MenuSelectIntro]

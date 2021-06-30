@@ -8,6 +8,14 @@
 
 
 {% block content %}
+{{if player.participant.treatment == 'Post_Information' }}
+<p>
+    As promised earlier, we will provide you some detailed information about a certain task before you make your choice. <br>
+</p>
+
+{{ include 'RET_Choice/RetChoiceInformation.html' }}
+
+{{ endif }}
 
 <p>
     You must now choose a task from the list in your {{ menu_stage }} task-list pair. <br>

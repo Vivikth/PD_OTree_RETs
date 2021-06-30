@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Task 
+    Tabulation (level {{player.participant.lc1a}}) task
 {% endblock %}
 
 
@@ -24,18 +24,15 @@
         Note: If you enter an incorrect answer, you will have to wait 5 seconds before being able to enter another answer.
     </p>
 </div>
-     <p>
                 <center>
-        <img src="{{ static tab_img}}"/
+        <img src="{{ static tab_img}}">
                 </center>
                 <br><br>
-    </p>
 
 
 
     <table class="table">
             <tr>
-            <h3>
                 <th style="vertical-align:middle">
                     <br><br>
                     {% formfield player.user_text label="" %}
@@ -44,18 +41,17 @@
                 <th style="vertical-align:middle; text-align: left">
                     <br><br>
                     {% next_button %}
-                    <br><br            
+                    <br><br>
                 </th>
             </tr>
 
             <tr>
                 <th>
-                    <h2> You have {{rounds_remaining}} rounds remaining.
+                    <h2> You have {{rounds_remaining}} rounds remaining. </h2>
                 </th>
                 <th style="vertical-align:top; text-align: left">
                     <h2><br></h2>
                 </th>
-            </h3>    
             </tr>
 
 
@@ -68,7 +64,7 @@
 
             <h4><br>Cheater Mode Activated (Debug Mode Only)  - <a href="#" id="prefill">Click Here to Autofill Text</a></h4>
             <p>You are playing in debug mode, so you can skip the manual
-                transcription by clicking <a href="#" id="prefill">this link</a>
+                transcription by clicking the above link.
                 and clicking "next".
             </p>
             </div>
