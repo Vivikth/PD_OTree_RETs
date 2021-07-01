@@ -5,8 +5,8 @@ Task1b_list = ["task_transcribing1b", "task_tabulation1b", "task_encoding1b", "t
 Task2a_list = ["task_transcribing2a", "task_tabulation2a", "task_encoding2a", "task_replication2a", "task_organising2a"]
 Task2b_list = ["task_transcribing2b", "task_tabulation2b", "task_encoding2b", "task_replication2b", "task_organising2b"]
 
-RET_LIST = ["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + Task1b_list + ["Interim"] + Task2a_list + [
-    "Menu_Select2"] + Task2b_list + ["Demog_Survey"]
+RET_LIST = ["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + Task1b_list + ["Interim"] + \
+           Task2a_list + ["Menu_Select2"] + Task2b_list + ["Demog_Survey"]
 
 SESSION_CONFIGS = [
     dict(
@@ -138,6 +138,12 @@ SESSION_CONFIGS = [
         continuation_rv=0.01,
         lot_outcome=0,
         Rand_T='I'
+    ),
+    dict(
+        name='Survey',
+        display_name='Survey',
+        num_demo_participants=1,
+        app_sequence=['Demog_Survey'],
     ),
 
 ]

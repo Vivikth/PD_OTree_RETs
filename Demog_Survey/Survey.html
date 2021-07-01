@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Congratulations on completing the experiment!
+{% endblock %}
+
+<p>
+    Please fill out the following questions, and then you will have completed the experiment.
+</p>
+
+{% block content %}
+
+
+    {% formfield player.age %}
+
+    {% formfield player.gender %}
+
+    {% formfield player.gender_self_select %}
+
+    {% formfield player.study label="Which of the following best describes your degree or program?"%}
+
+    {% formfield player.econ_classes %}
+
+    {% formfield player.years label="How many years of university study have you completed? Enter 0 if in first year." %}
+
+    {% formfield player.GPA %}
+
+    {% formfield player.identify %}
+
+    {% formfield player.identify_text label="Please enter the tasks you identified (if you correctly identified any tasks)." %}
+
+    {% next_button %}
+
+{% endblock %}
