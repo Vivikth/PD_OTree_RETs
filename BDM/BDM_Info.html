@@ -1,93 +1,140 @@
 
 <p>In this experiment, I want to determine how much you value completing a task or how much you value items. <br>
     I will use the switch-point procedure for this purpose. <br>
-    I'll explain the procedure using 2 cases. </p>
+    Essentially, the switch-point procedure is where I provide you with two options, and ask when you'd switch from choosing one option to the next.
+    I'll explain 3 variants of the procedure. </p>
 <br>
 
-<h2> Case 1: Monetary Value</h2>
+<h3>The pseudo switch-point procedure</h3>
 <p>
-    Let's suppose that I want to determine how much Tim values a pencil, in terms of money.
-    I would ask Tim the following questions:
+    Let's suppose that I want to determine how much Tim values a pencil. <br>
+    Here are the steps I'd take. <br>
 </p>
 
-    {{ include 'BDM/SPA.html'}}
-
-<br>
-
+<h5>Step 1: Give Tim a list of questions</h5>
 <p>
-    The 2nd column (from the left) in the table shows the question that I would ask Tim.
+    The first thing I'd do is give a Tim a list of questions like the ones in the table below. <br>
+    Each row in the table (apart from the header row) shows a question that I'd ask Tim.
     In each question, Tim picks either option A (the pencil) or option B (the money).
-    After Tim has answered all 2001 questions, I will randomly pick one question, and give Tim the option that he chose on that question.
-    Each question is equally likely to be chosen for payment.
-    Obviously Tim has no incentive to lie on any question, because if that question gets chosen for payment then Tim would end up with the option he likes less.
 </p>
+    {{ include 'BDM/SPA.html'}}
+<br>
+<h5>Step 2: Tell Tim one question will be randomly selected</h5>
 <p>
-    I assume that Tim would choose Option A in at least the first few questions, but at some point switch to choosing Option B. <br>
-    So, to save time, I'd just ask Tim to tell me at which dollar value he'd switch.  I can then ‘fill out’ Tim's answers to all 2001 questions based on his switch point (choosing Option A for all questions before his switch point, and Option B for all questions at or after his switch point). <br>
-    To summarise, the switch-point procedure is when I provide you a list of questions like in the above table, and ask you for when you'd switch from choosing option A to option B.
-    To make things more concrete, lets look at two examples.
+    All questions are equally likely to be selected.
 </p>
-<h4> Example 1a</h4>
+<h5>Step 3: Tim fills out his preferred option for each question in the table </h5>
 <p>
-    Suppose Tim's true switch point is $10 (which is question number 1001).
-    So, if I offered Tim less than $10, he would prefer to receive the pencil.
-    Likewise, if I offered Tim more than $10, he would prefer to receive the money.
+    It's important to note that Tim has no reason to lie about which option he prefers for any question in the table. <br>
+    Why? Because if Tim lies on a question, and that question gets chosen for payment then Tim would end up with the option he likes less.
+</p>
+<h5>Step 4: Tim fills out his preferred option for each question in the table </h5>
+<p>
+    I randomly select a question, and give Tim the option he picked on that question. <br>
+    For instance, if I randomly selected question 1001 (which corresponds to $10.00), and Tim said he preferred the pencil on that question, I would give Tim the pencil.
+</p>
+That's all there is to the pseudo switch-point procedure!
+<h5>The issue with the pseudo switch-point procedure</h5>
+<p>
+    The issue with the pseudo switch-point procedure is that Tim has to answer 2001 questions. <br>
+    A reasonable assumption is that Tim prefers option A for the first few questions, but at some point will switch to choosing option B. <br>
+    So, to save time, I'll just ask Tim for his <b>switch-point</b>: the monetary value at which he'd switch from choosing option A to option B. <br>
+    The steps for the switch-point procedure are given below.
+</p>
+<h3> The monetary switch-point procedure </h3>
+<h5>Step 1: Give Tim a list of questions</h5>
+<p>
+    The first thing I'd do is give a Tim a list of questions like the ones in the table below. This is identical to the above table. <br>
+</p>
+    {{ include 'BDM/SPA.html'}}
+<br>
+<h5>Step 2: Tell Tim one question will be randomly selected</h5>
+<p>
+    All questions are equally likely to be selected.
+</p>
+<h5>Step 3: Ask Tim for his switch-point </h5>
+<p>
+    Once Tim has told me his switch-point, I can ‘fill out’ Tim's answers to all 2001 questions based on his switch point (choosing Option A for all questions before his switch point, and Option B for all questions at or after his switch point). <br>
+    Tim still has no reason to lie about his switch-point, as lying might lead to an option that he prefers less.
+</p>
+<h5>Step 4: Pick a question at random </h5>
+<p>
+    Finally, I will randomly select a question, and give Tim the option he picked on that question (which is 'filled out' from his switch-point). <br>
+    Let's suppose I randomly selected question 1001 (which corresponds to $10.00), and Tim said his switch-point was $3.00. <br>
+    Then, I would give Tim the money, as his switch-point indicates that he would prefer the $10.00 to the pencil.
+<p>
+<p>
+    To make things more concrete, let's look at an example.
+</p>
+<h5> Example 1a</h5>
+<p>
+    Suppose Tim's true switch point is $9.50 (which is question number 1001).
+    If I offered Tim less than $9.50, he would prefer to receive the pencil.
+    Likewise, if I offered Tim more than $9.50, he would prefer to receive the money.
 </p>
 
 <p>
-    Now, let's suppose Tim lies and tells me that his switch point is $8.
-    Also, let's suppose that question 901 (which corresponds to $9) was randomly selected.
-    Since Tim's switch point has said his switch-point is $8, I would give him the money.
+    Now, let's suppose Tim lies and tells me that his switch point is $8.50.
+    Let's suppose that question 901 (which corresponds to $9) was randomly selected.
+    Since Tim has said his switch-point is $8, I would give him the money instead of the pencil.
     However, Tim would prefer the pencil to $9.
     So, if Tim lies about his switch-point he may end up receive an outcome he prefers less!
 </p>
 
-<h4> Example 1b</h4>
-<p>
-    Now, suppose that Tim prefers the pencil to $20.
-    Then, if I offer Tim any amount below $20, he would prefer the pencil.
-    So, Tim would tell me that his switch point is $20, even though he prefers the pencil to $20.
-    By stating that his switch-point is the highest possible value, Tim receives the outcome he prefers most (the pencil).
-</p>
+<h3> The lottery switch-point procedure</h3>
 
-
-<h2> Case Two</h2>
 <p>
     I can also apply the switch-point procedure to determine how much you value an item in terms of a lottery.
-    Let's suppose I want to determine how much Luke values a pencil in terms of the probability that Luke gets to leave the experiment right now (and gets full payment), or Luke has to read some boring information and answer some questions on it, then continue with the experiment.
-    In this case, I would ask Luke the following questions:
+    Let's suppose I want to determine how much Luke values a pencil in terms of a lottery with two outcomes:
+<p>
+    <ul>
+    <li> Outcome 1: Luke gets to leave the experiment right now (and gets full payment). </li>
+    <li> Outcome 2: Luke has to read some boring information, (correctly) answer some questions on this information, then continue with the experiment.</li>
+    </ul>
+<p>
+    The steps I would take are as follows:
 </p>
 
+<h5>Step 1: Give Luke a list of questions</h5>
+<p>
+    The first thing I'd do is give a Luke a list of questions like the ones in the table below. <br>
+    This a <b>different</b> table to the one above!<br>
+</p>
     {{ include 'BDM/SPB.html'}}
 <br>
-
+<h5>Step 2: Tell Luke there is a 1% chance a question will be randomly selected</h5>
 <p>
-    Like the monetary example above, in each question, Luke picks either option A (the pencil) or option B (the lottery). <br>
-    Unlike the monetary example, there will be a 1% chance that I will randomly select a question and give Luke the option that he chose on that question. <br>
-    Luke still has no reason to lie on any question, because if that question gets chosen for payment then Luke would end up with the option he likes less. <br>
+    Unlike the monetary switch-point procedure, there is now only a 1% chance that a question will be randomly selected.
+    All questions are still equally likely to be selected (but there is a 99% chance that no question will be selected).
 </p>
+<h5>Step 3: Ask Luke for his switch-point </h5>
 <p>
-    Let's suppose that I randomly pick a question (which has a 1% chance of happening).<br>
+    In this case, Luke's <b>switch-point</b> is the percentage chance of leaving at which Luke would switch from option A to option B. <br>
+    Once Luke has told me his switch-point, I can ‘fill out’ Luke's answers to all 101 questions based on his switch point (choosing Option A for all questions before his switch point, and Option B for all questions at or after his switch point). <br>
+    Luke still has no reason to lie about his switch-point, as lying might lead to an option that he prefers less.
+</p>
+<h5>Step 4: (Potentially) pick a question </h5>
+<p>
+    Once Luke has told me his switch-point, I will use a random-number-generator to randomly determine several things. <br>
+    First, I will use the random-number-generator to determine whether a question is picked (which occurs with 1% probability). <br>
+    If a question needs to be picked, then I will randomly select a question, and give Luke the option he selected on that question (which is 'filled out' from his switch-point).
     If Luke chose the pencil on the question I picked, he would get the pencil for sure. <br>
     If Luke chose the lottery on the question I picked, I would run the lottery in that question. <br>
     Luke would get to leave the experiment (and receive the full monetary compensation) if that was the outcome from the lottery, or have to read the boring information and answer questions otherwise.
 </p>
+<h5> Example 2a</h5>
 <p>
-    I assume Luke is going to choose the Option A in at least the first few questions, but at some point will switch to choosing Option B. <br>
-    So, to save time, I'd ask Luke to tell me the percentage chance of leaving that would cause him to switch from Option A to Option B. <br>
-    I can then ‘fill out’ his answers to all 101 questions based on his switch point (choosing Option A for all questions before his switch point, and Option B for all questions at or after his switch point). <br>
-    Again, if Luke lies about his true switch point, then he might end up getting an option that you like less. <br>
-    To make things more concrete, lets look at an example.
+    Suppose Luke's true switch point is 33.5%. <br>
+    If I offered Luke a lottery with a less than 33.5% chance of leaving immediately, Luke would prefer the pencil. <br>
+    Likewise, if I offered Luke a lottery with a greater than 33.5%chance of leaving immediately, he would prefer to take the lottery. <br>
 </p>
-
-<h4> Example 2a</h4>
 <p>
-    Suppose that Luke always prefers the lottery to the pencil.
-    Then, if I offer Luke any percentage chance of leaving, he would prefer the lottery.
-    So, Luke would tell me that his switch point is 0%, even though he prefers the 0% lottery to the pencil.
-    By stating that his switch-point is the highest possible value, Luke always receives the outcome he prefers most (the lottery).
+    Now, let's suppose Luke lies and tells me that his switch point is 50%.
+    Let's suppose that question 41 (which corresponds to 40%) was randomly selected.
+    Since Luke has said his switch-point is 50%, I would give him the pencil instead of the lottery.
+    However, Luke would prefer the lottery to the pencil.
+    So, if Luke lies about his switch-point he may end up receive an outcome he prefers less!
 </p>
-
 
 <h2> Summary</h2>
 <p>
