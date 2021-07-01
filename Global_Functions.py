@@ -3,7 +3,7 @@ def read_csv(filename):
     import csv
     import random
 
-    f = open(filename)
+    f = open(filename, encoding='cp1252')
     rows = list(csv.DictReader(f))
 
     random.shuffle(rows)
