@@ -87,6 +87,17 @@ def pair_generator(player: Player, exclude):
     return pair1, pair2
 
 
+def sub_control_menu_generator(input_task):
+    def all_levels(task):
+        return [(task_name(task), i) for i in range(2, 5)]
+
+    tuples_to_remove = all_levels(input_task)
+    all_tasks = all_levels('T') + all_levels('C') + all_levels('I') + all_levels('R') + all_levels('O')
+    tasks_to_choose = list_subtract(all_tasks, tuples_to_remove)
+    menu_options = random.sample(tasks_to_choose, 3)
+    return menu_options
+
+
 def creating_session(subsession: Subsession):
     for p in subsession.get_players():
         # Boring Task Question Setup
@@ -97,7 +108,7 @@ def creating_session(subsession: Subsession):
             Trial.create(player=p, **stim)
 
         # Randomisation
-        if 'Rand_T' in p.session.config: # Random Task to complete
+        if 'Rand_T' in p.session.config:  # Random Task to complete
             p.Rand_T = p.session.config['Rand_T']
         else:
             p.Rand_T = random.choice(["T", "C", "I", "R", "O"])
@@ -216,6 +227,9 @@ class WtpConc(Page):
     def before_next_page(player: Player, timeout_happened):
         player.participant.pair1, player.participant.pair2 = pair_generator(player, player.Rand_T)
         player.participant.pair = player.participant.pair1
+        if player.participant.treatment == "Substitution":
+            player.participant.sub_menu1 = sub_control_menu_generator(player.participant.pair1[1])
+            player.participant.sub_menu2 = sub_control_menu_generator(player.participant.pair2[1])
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):

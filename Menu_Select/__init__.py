@@ -32,11 +32,28 @@ class Player(BasePlayer):
     # This needs to be made dynamic - after you introduce BDM.
 
 
+# If control, then substitution options will be different. If control, then information in Post_Opt will be different.
 # FUNCTIONS
 def menu_task_choices(player):
     if player.participant.treatment == "Substitution":
-        pref_opt = task_name(player.participant.pair[1])
-        return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
+        if player.participant.stage == '1b':
+            if player.participant.treatment_used1:
+                pref_opt = task_name(player.participant.pair[1])
+                return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
+            else:
+                item1 = player.participant.sub_menu1[0][0] + " (level %i)" % (player.participant.sub_menu1[0][1])
+                item2 = player.participant.sub_menu1[1][0] + " (level %i)" % (player.participant.sub_menu1[1][1])
+                item3 = player.participant.sub_menu1[2][0] + " (level %i)" % (player.participant.sub_menu1[2][1])
+                return [item1, item2, item3]
+        elif player.participant.stage == '2b':
+            if player.participant.treatment_used2:
+                pref_opt = task_name(player.participant.pair[1])
+                return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
+            else:
+                item1 = player.participant.sub_menu2[0][0] + " (level %i)" % (player.participant.sub_menu2[0][1])
+                item2 = player.participant.sub_menu2[1][0] + " (level %i)" % (player.participant.sub_menu2[1][1])
+                item3 = player.participant.sub_menu2[2][0] + " (level %i)" % (player.participant.sub_menu2[2][1])
+                return [item1, item2, item3]
     else:
         return [task_name(player.participant.pair[0]) + " (level 1)",
                 task_name(player.participant.pair[1]) + " (level 1)"]
@@ -49,7 +66,9 @@ class MenuSelectIntro(Page):
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
+        print(player.menu_task)
         partitioned_string = player.menu_task.partition(' ')
+        print(partitioned_string)
         player.participant.lc1a = int(partitioned_string[2][-2])
         return task_name_decoder(partitioned_string[0]) + player.participant.stage
 

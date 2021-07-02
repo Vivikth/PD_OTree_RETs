@@ -60,6 +60,10 @@ SESSION_CONFIGS = [
         pair1=["T", "C"],
         pair2=["R", "I"],
         debug=True,
+        sub_menu1=[('Tabulation', 1), ('Replication', 2), ('Organisation', 3)],
+        sub_menu2=[('Concealment', 1), ('Replication', 2), ('Tabulation', 3)],
+        treatment_used2=False,
+        treatment_used1=False,
     ),
     dict(
         name='RET_Choice_Post',
@@ -145,7 +149,14 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['Demog_Survey'],
     ),
-
+    dict(
+        name='Task_WTP_Sub',
+        display_name='Task_WTP_Sub',
+        num_demo_participants=1,
+        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
+        treatment="Substitution",
+        debug=True,
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -178,6 +189,7 @@ INSTALLED_APPS = ['otree']
 
 # Debug
 PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
-                      'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'cpair1', 'cpair2',
-                      'opt_choice1', 'opt_choice2', 'opt_choice', 'lc1a', 'pair', 'stage']
-# I should be able to delete cpair1, cpair2 - these variables don't seem to be used anywhere.
+                      'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'sub_menu1',
+                      'sub_menu2', 'c_opt_choice1', 'c_opt_choice2', 'opt_choice1', 'opt_choice2',
+                      'opt_choice', 'lc1a', 'pair', 'stage', 'treatment_used1', 'treatment_used2']
+# I should be able to delete c_opt_choice1, c_opt_choice2 - these variables don't seem to be used anywhere.
