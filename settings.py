@@ -157,6 +157,18 @@ SESSION_CONFIGS = [
         treatment="Substitution",
         debug=True,
     ),
+    dict(
+        name='Ethics_Consent',
+        display_name='Ethics_Consent',
+        num_demo_participants=1,
+        app_sequence=['Ethics_Consent'],
+    ),
+    dict(
+        name='payment_info',
+        display_name='payment_info',
+        num_demo_participants=1,
+        app_sequence=['payment_info'],
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Thank you
+{% endblock %}
+
+{% block content %}
+
+    <p> Thank you for participating in the experiment.</p>
+
+    <p> You earned a total of {{ participant.payoff_plus_participation_fee }}, which includes your show-up fee.</p>
+
+    <p> In order to confirm your payment, please enter your name, student ID number and email address in the boxes
+        below. Your payment will be sent via PayPal to the email address you enter below.</p>
+
+    {% formfield player.first_name label="Please enter your first name:" %}
+    {% formfield player.last_name label="Please enter your surname:" %}
+    {% formfield player.uni_id label="Please enter your University ID:" %}
+    {% formfield player.email_address label="Please enter the email address that you would like your PayPal payment sent to:" %}
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block form %}
+
+{% endblock %}
