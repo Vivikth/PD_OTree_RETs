@@ -34,8 +34,6 @@ class PaymentInfo(Page):
     @staticmethod
     def vars_for_template(player: Player):
         participant = player.participant
-        player.final_payment = participant.payoff_plus_participation_fee()
-        player.final_payment_cents = 100 * participant.payoff_plus_participation_fee()
         return {
             'redemption_code': participant.label or participant.code,
         }

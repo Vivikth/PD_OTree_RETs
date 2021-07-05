@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Random Selection Results
+{% endblock %}
+
+{% block content %}
+
+
+{{ if stage_for_template == "1st" }}
+
+    {{ if player.participant.treatment_used1 }}
+        Treatment
+
+    {{ else }}
+        Control
+    {{ endif}}
+
+
+{{ endif }}
+
+    {% next_button %}
+
+
+
+
+{% endblock %}
+

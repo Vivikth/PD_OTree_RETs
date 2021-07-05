@@ -6,7 +6,7 @@ Task2a_list = ["task_transcribing2a", "task_tabulation2a", "task_encoding2a", "t
 Task2b_list = ["task_transcribing2b", "task_tabulation2b", "task_encoding2b", "task_replication2b", "task_organising2b"]
 
 RET_LIST = ["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + Task1b_list + ["Interim"] + \
-           Task2a_list + ["Menu_Select2"] + Task2b_list + ["Demog_Survey"]
+           Task2a_list + ["Menu_Select2"] + Task2b_list + ["Demog_Survey", "payment_info"]
 
 SESSION_CONFIGS = [
     dict(

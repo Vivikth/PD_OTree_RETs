@@ -136,6 +136,18 @@ class TaskSelection(Page):
         }
 
 
+class RandomPick(Page):
+    @staticmethod
+    def vars_for_template(player: Player):
+        if 'opt_choice2' not in player.participant.vars:
+            stage_for_template = "1st"
+        else:
+            stage_for_template = "2nd"
+        return {
+            'stage_for_template': stage_for_template
+        }
+
+
 class RetChoiceConc(Page):
     @staticmethod
     def is_displayed(player: Player):
@@ -147,4 +159,4 @@ class RetChoiceConc(Page):
         return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage
 
 
-page_sequence = [RetChoiceIntroduction, ControlTaskSelection, TaskSelection, RetChoiceConc]
+page_sequence = [RetChoiceIntroduction, ControlTaskSelection, TaskSelection, RandomPick, RetChoiceConc]

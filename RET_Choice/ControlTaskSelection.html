@@ -17,12 +17,15 @@ div.opt2 {
   text-align: center;
 }
 
+ul { display: inline-block; text-align: left; }
+
+
 
 </style>
 
 
 {% block title %}
-    Choose your {{stage_for_template}} task-list pair
+    Choose your {{stage_for_template}} task-list pair (Version A)
 {% endblock %}
 
 {% block content %}
@@ -73,13 +76,15 @@ div.opt2 {
     {% formfield player.Control_Task_Choice label="Please select one of the above options"
 %}
 
+
+
+    {% next_button %}
+
 <details>
     <summary>Click here if you'd like to see the task descriptions.</summary>
     {{ include 'RET_Choice/Task_Descriptions.html'}}
 
-<details>
+</details>
 
 
-
-    {% next_button %}
 {% endblock %}

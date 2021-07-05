@@ -66,8 +66,6 @@ class Survey(Page):
         }
 
 
-class FinalPage(Page):
-    pass
 
 
-page_sequence = [Survey, FinalPage]
+page_sequence = [Survey]
