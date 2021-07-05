@@ -1,20 +1,19 @@
 from otree.api import *
 
 
-doc = """
-Your app description
-"""
+doc = """Your app description"""
+
 
 class Constants(BaseConstants):
     name_in_url = 'payment_info_enforcement'
     players_per_group = None
     num_rounds = 1
 
-class Subsession(BaseSubsession):
 
+class Subsession(BaseSubsession):
     @staticmethod
-    def creating_session(subssession):
-        for p in subssession.get_players():
+    def creating_session(subsession):
+        for p in subsession.get_players():
             p.payoff = p.participant.payoff
 
 
@@ -30,8 +29,8 @@ class Player(BasePlayer):
     final_payment = models.CurrencyField()
     final_payment_cents = models.CurrencyField()
 
-class PaymentInfo(Page):
 
+class PaymentInfo(Page):
     @staticmethod
     def vars_for_template(player: Player):
         participant = player.participant
@@ -42,7 +41,8 @@ class PaymentInfo(Page):
         }
 
     form_model = 'player'
-    form_fields = ['first_name', 'last_name', 'uni_id', 'email_address']  # define which inputs are available on this page
+    form_fields = ['first_name', 'last_name',
+                   'uni_id', 'email_address']  # define which inputs are available on this page
 
 
 class FinalPage(Page):

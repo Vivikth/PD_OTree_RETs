@@ -10,13 +10,14 @@
 <br>
 <p>
     We will now be running the lottery that we specified. <br>
-    There is a 4% chance that one of your switch-points will be selected. <br>
+    There is a 5% chance that one of your switch-points will be selected. <br>
 </p>
 <br>
 
-<details>
 
-    <summary>    Click here to see whether we used one of your switch points.</summary>
+<h3>Lottery Results</h3>
+
+
     {{ if player.Rand_Outcome == "C" }}
 <p>
     None of your switch-point questions were selected. <br>
@@ -46,8 +47,7 @@
         This means you said that you prefer the lottery to completing the task {{player.Rand_T}}. <br>
     </p>
 
-            <details>
-                <summary>Click here to see the outcome of the lottery.</summary>
+
 
                 {{if player.lot_outcome < player.BDM_Num}}
             <p>
@@ -65,13 +65,11 @@
             </p>
             {{endif}}
 
-            </details>
     <br>
         {{endif}}
 
     {{ endif }}
 
-</details>
 
     {{ next_button }}
 

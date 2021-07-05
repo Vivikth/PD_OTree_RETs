@@ -11,7 +11,7 @@
 
             let warnings = [];
 
-             warnings.push("Please double-check your switch-point. Press OK to proceed.")
+             warnings.push("Please double-check your switch-point. Remember that your switch-point is a percentage between 0 and 100. Press OK to proceed.")
              let confirmed = window.confirm(warnings.join('\r\n'));
              if (!confirmed) return;
 

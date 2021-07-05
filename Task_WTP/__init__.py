@@ -23,15 +23,15 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     # Elicitation Variables
     Tabulation_Value = models.FloatField(doc="Tabulation_Value", min=0, max=100,
-                                         label="My switch point for the tabulation task is:")
+                                         label="Your switch point for the tabulation task is:")
     Concealment_Value = models.FloatField(doc="Concealment_Value", min=0, max=100,
-                                          label="My switch point for the concealment task is:")
+                                          label="Your switch point for the concealment task is:")
     Interpretation_Value = models.FloatField(doc="Interpretation_Value", min=0, max=100,
-                                             label="My switch point for the interpretation task is:")
+                                             label="Your switch point for the interpretation task is:")
     Replication_Value = models.FloatField(doc="Replication_Value", min=0, max=100,
-                                          label="My switch point for the replication task is:")
+                                          label="Your switch point for the replication task is:")
     Organisation_Value = models.FloatField(doc="Organisation_Value", min=0, max=100,
-                                           label="My switch point for the organisation task is:")
+                                           label="Your switch point for the organisation task is:")
     # Randomisation Variables
     BDM_Num = models.IntegerField(min=0, max=100)
     Rand_Outcome = models.StringField(choices=["BW", "C"])  # Best, Worst Continue
@@ -119,7 +119,7 @@ def creating_session(subsession: Subsession):
         else:
             continuation_rv = random.random()
 
-        if continuation_rv <= 0.04:  # If best / worst task is selected
+        if continuation_rv <= 0.05:  # If best / worst task is selected
             p.Rand_Outcome = "BW"
             p.BDM_Num = random.randint(0, 100)  # BDM Question Number to select
             if 'lot_outcome' in p.session.config:  # Result of Lottery between best and worst task.
