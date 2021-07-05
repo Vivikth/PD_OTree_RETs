@@ -1,41 +1,85 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+<style>
+
+div.remind {
+  border: 3px dashed red;
+  text-align: center;
+}
+div.opt1 {
+  border: 2px solid black;
+  text-align: center;
+}
+
+div.opt2 {
+  border: 2px solid black;
+  text-align: center;
+}
+
+
+</style>
+
+
 {% block title %}
     Choose your {{stage_for_template}} task-list pair
 {% endblock %}
 
 {% block content %}
 
+<div class = "remind">
+    <h3>Reminder</h3>
+
 <p> In this stage of the experiment, you need to select a task-list pair. <br>
     You need to pick one task to complete now. <br>
     In addition, you will have to pick a list of tasks. <br>
-    You will have to complete one task from the list after you complete the first task. <br>
+    Remember, there is a 50% chance that you will have to complete this task-list pair!
 </p>
+</div>
+
 <br>
 
 <p>
     You must pick one of the following options:
 </p>
-{{ if player.participant.treatment == 'Substitution' }}
+<div class = "opt1">
+    {{ if player.participant.treatment == 'Substitution' }}
     {{ include 'RET_Choice/Substitution_Opt1.html'}}
-    <br>
-    {{ include 'RET_Choice/Substitution_Opt2.html'}}
 {{ endif }}
 {{ if player.participant.treatment == 'Post_Information' }}
     {{ include 'RET_Choice/Post_Opt1.html'}}
-    <br>
-    {{ include 'RET_Choice/Post_Opt2.html'}}
 {{ endif }}
-
 {{ if player.participant.treatment == 'Pre_Information' }}
     {{ include 'RET_Choice/Pre_Opt1.html'}}
-    <br>
+{{ endif }}
+</div>
+
+<br>
+<div class = "opt2">
+{{ if player.participant.treatment == 'Substitution' }}
+    {{ include 'RET_Choice/Substitution_Opt2.html'}}
+{{ endif }}
+{{ if player.participant.treatment == 'Post_Information' }}
+    {{ include 'RET_Choice/Post_Opt2.html'}}
+{{ endif }}
+{{ if player.participant.treatment == 'Pre_Information' }}
     {{ include 'RET_Choice/Pre_Opt2.html'}}
 {{ endif }}
+</div>
+
+<br>
+<p>
+</p>
+    {% formfield player.Control_Task_Choice label="Please select one of the above options"
+%}
+
+<details>
+    <summary>Click here if you'd like to see the task descriptions.</summary>
+    {{ include 'RET_Choice/Task_Descriptions.html'}}
+
+<details>
 
 
-    {% formfield player.Control_Task_Choice label=""%}
 
     {% next_button %}
 {% endblock %}

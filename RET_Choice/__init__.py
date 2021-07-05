@@ -27,10 +27,10 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     Task_Choice = models.CharField(
-        doc="Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect
+        doc="Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect,
     )
     Control_Task_Choice = models.CharField(
-        doc="Control_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect
+        doc="Control_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect,
     )
 
 

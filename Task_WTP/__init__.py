@@ -279,7 +279,7 @@ class Boring(Page):
 class BoringConc(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        return "RET_Choice"
+        return "Demog_Survey"
 
 
 page_sequence = [WtpIntro, TabulationWTP, ConcealmentWTP, InterpretationWTP, ReplicationWTP, OrganisationWTP,

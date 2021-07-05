@@ -2,22 +2,42 @@
 {% load otree static %}
 
 {% block title %}
-    Choose Tasks to Complete
+    Choose tasks to complete
 {% endblock %}
 
 {% block content %}
+<p>
+    In this stage of the experiment, you will choose some tasks to complete. <br>
+    Instead of selecting tasks directly, you will have to choose <b>task-list pairs.</b> <br>
+</p>
 
-<p> In this stage of the experiment, you will choose some tasks to complete. <br>
-    In total, you will have to complete <b>4</b> more tasks to finish the experiment. <br>
-    Instead of selecting tasks directly, you will have to choose task-list pairs. <br>
-    In each task-list pair, you will have to select one task to complete immediately, as well as a list of tasks. <br>
-    After you complete the first task, you must choose one task from the list to complete. <br>
-    You will select two task-list pairs from the available options. <br>
+<h4>What are task-list pairs?</h4>
+<p>
+    A task-list pair consists of a single task, and a list of tasks. <br>
+    To complete a task-list pair, you must first complete the single task. <br>
+    You may receive some additional information after completing this single task. <br>
+    After completing the single task, you will choose a task from the list and complete that task. <br>
+</p>
+
+<h4>What you need to do</h4>
+<p>
+    You will complete <b>2</b> task-list pairs. <br>
+    However, you will need to choose <b>4</b> task-list pairs. <br>
+    I will randomly pick 2 task-list pairs from the 4 you have chosen. <br>
+    After this, you will complete the 2 task-list pairs that I have randomly picked.
+    The full timeline of events is shown below. <br>
+</p>
+<br>
+
+        <img src="{{static '/global/Timeline.png'}}" align="left"/>
+
+<p>
     Remember, the choices you make now could significantly affect the time it takes for you to complete the experiment! <br>
     Click the next button to choose your task-list pairs. <br>
 </p>
-<br>
     {% next_button %}
+
+
 
 
 {% endblock %}
