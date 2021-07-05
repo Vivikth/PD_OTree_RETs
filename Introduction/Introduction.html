@@ -8,29 +8,28 @@
 {% block content %}
 
 <p>
-    You are about to participate in an experiment in the economics of decision-making.
-    If you <b>complete</b> this experiment, you will earn <b>$20</b>, which will be paid to you via PayPal at the end of the experiment.
-    If you follow the instructions carefully and make good decisions, you will be able to complete the experiment in as little as <b>30 minutes</b>.
+    You are about to participate in an experiment in the economics of decision-making. <br>
+    If you <b>complete</b> this experiment, you will earn <b>$20</b>, which will be paid to you via PayPal at the end of the experiment. <br>
+    On average, we believe that the experiment will take approximately 45 minutes. <br>
 </p>
 <br>
 <h3> The Basic Idea </h3>
 <p>
-    In this experiment, you will have to complete several <b>real effort tasks</b> using your computer. <br>
-    Examples of real effort tasks include solving a maze or summing a series of numbers. <br>
-    You will <b>not</b> complete any of the above example real effort tasks over the course of this experiment. <br>
-    All tasks in this experiment are designed to be equally difficult, but you may be able to complete some tasks quicker than others due to your own aptitudes and abilities.
+    In this experiment, you will have to complete several <b>computerized tasks</b> using your computer. <br>
+    There will be 5 categories of computerized tasks in this experiment. <br>
+    Each category contains 4 different levels of tasks, with level 1 being the easiest, and level 4 being the hardest. <br>
+    All task categories are designed to be equally difficult, but you may be able to complete tasks from one category quicker than others due to your own aptitudes and abilities.
 </p>
 <p>
     You will be able to choose which tasks you want to complete - so choosing appropriately will allow you to complete the experiment quicker. <br>
     However, you will <b>not</b> know what a task entails before you make your choice. <br>
     Instead, you will be given a <b>vague description</b> of each task, and have to make your choice based on these vague descriptions. <br>
-    For instance, a vague description of the summing task might be: "Subjects must use their aggregation skills to catalog quantities". <br>
-    You can click the text below to see the vague descriptions of all the tasks you might have to complete in this experiment.
+    You can click the text below to see the vague descriptions of each task category.
 </p>
 <br>
 
 <details>
-    <summary> Click this text to show / hide the vague descriptions of the tasks!</summary>
+    <summary> Click this text to show / hide the vague descriptions of the tasks</summary>
     {{ include 'RET_Choice/Task_Descriptions.html'}}
 
 </details>
@@ -41,9 +40,10 @@
 <h3>What's Next?</h3>
 <p>
     This experiment has 4 stages. <br>
-    First, we will ask you some questions about how much you value completing an unknown task. <br>
-    Afterwards, you will be able to choose the tasks you want to complete from a specified list. <br>
-    Next, you will complete the tasks you chose. <br>
+    First, we will ask you some questions about how much you value completing an unknown task.
+    There is a small chance that you will be able to leave the experiment after this stage.     <br>
+    Afterwards, you will choose the tasks you want to complete from a specified list. <br>
+    Next, we will randomly pick some of your choices, and you will complete the tasks that were randomly picked. <br>
     Finally, you will answer a simple demographic survey at the end of the experiment. <br>
     Please note that you will only be paid if you <b>complete</b> the demographic survey.
 </p>
@@ -53,6 +53,7 @@
     We will use the switch-point procedure for this purpose. <br>
     Click the next button to learn about the switch-point procedure.
 </p>
+
     {% next_button %}
 
 {% endblock %}
