@@ -8,7 +8,7 @@
 
 
 {% block content %}
-{{if player.participant.treatment == 'Post_Information' }}
+{{if player.participant.treatment == 'Post_Information' and player.participant.stage == '1b' and player.participant.treatment_used1}}
 <p>
     As promised earlier, we will provide you some detailed information about a certain task before you make your choice. <br>
 </p>
@@ -16,6 +16,16 @@
 {{ include 'RET_Choice/RetChoiceInformation.html' }}
 
 {{ endif }}
+
+{{if player.participant.treatment == 'Post_Information' and player.participant.stage == '2b' and player.participant.treatment_used2}}
+<p>
+    As promised earlier, we will provide you some detailed information about a certain task before you make your choice. <br>
+</p>
+
+{{ include 'RET_Choice/RetChoiceInformation.html' }}
+
+{{ endif }}
+
 
 <p>
     You must now choose a task from the list in your {{ menu_stage }} task-list pair. <br>
