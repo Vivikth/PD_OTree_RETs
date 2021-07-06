@@ -62,8 +62,8 @@ SESSION_CONFIGS = [
         debug=True,
         sub_menu1=[('Tabulation', 1), ('Replication', 2), ('Organisation', 3)],
         sub_menu2=[('Concealment', 1), ('Replication', 2), ('Tabulation', 3)],
-        treatment_used2=False,
-        treatment_used1=False,
+        treatment_used2=True,
+        treatment_used1=True,
     ),
     dict(
         name='RET_Choice_Post',

@@ -128,7 +128,7 @@ class TaskSelection(Page):
             task_info = task_name(player.participant.pair1[0])
         else:
             stage_for_template = "2nd"
-            version_for_template = "A"
+            version_for_template = "B"
             good_task = task_name(player.participant.pair2[0])
             bad_task = task_name(player.participant.pair2[1])
             task_info = task_name(player.participant.pair2[0])
@@ -138,7 +138,7 @@ class TaskSelection(Page):
             'stage_for_template': stage_for_template,
             'Task_Info': task_info,
             'control': control,
-            'version_for_template': version_for_template
+            'version_for_template': version_for_template,
         }
 
 
@@ -151,18 +151,27 @@ class RandomPick(Page):
             good_task = task_name(player.participant.pair1[0])
             bad_task = task_name(player.participant.pair1[1])
             task_info = task_name(player.participant.pair1[0])
+            if player.participant.treatment_used1:
+                treatment_template = "2nd"
+            else:
+                treatment_template = "1st"
         else:
             stage_for_template = "2nd"
             version_for_template = "B"
             good_task = task_name(player.participant.pair2[0])
             bad_task = task_name(player.participant.pair2[1])
             task_info = task_name(player.participant.pair2[0])
+            if player.participant.treatment_used2:
+                treatment_template = "2nd"
+            else:
+                treatment_template = "1st"
         return {
             'Good_Task': good_task,
             'Bad_Task': bad_task,
             'stage_for_template': stage_for_template,
             'Task_Info': task_info,
-            'version_for_template': version_for_template
+            'version_for_template': version_for_template,
+            'treatment_template': treatment_template
         }
 
 
