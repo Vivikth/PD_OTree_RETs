@@ -99,7 +99,7 @@ SESSION_CONFIGS = [
         name='Experiment',
         display_name='Experiment',
         num_demo_participants=1,
-        app_sequence=['Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
+        app_sequence=['Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
         debug=True,
     ),
     dict(
