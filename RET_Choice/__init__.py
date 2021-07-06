@@ -174,16 +174,11 @@ class RandomPick(Page):
             'treatment_template': treatment_template
         }
 
-
-class RetChoiceConc(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return 'opt_choice2' in player.participant.vars
-
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         opt_choice1 = player.participant.opt_choice1
-        return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage
+        if 'opt_choice2' in player.participant.vars:
+            return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage
 
 
-page_sequence = [RetChoiceIntroduction, ControlTaskSelection, TaskSelection, RandomPick, RetChoiceConc]
+page_sequence = [RetChoiceIntroduction, ControlTaskSelection, TaskSelection, RandomPick]

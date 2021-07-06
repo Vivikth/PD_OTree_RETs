@@ -76,10 +76,12 @@ class MenuSelectIntro(Page):
     def vars_for_template(player: Player):
         if player.participant.stage == '1b':
             menu_stage = 'first'
+            version = 'A'
             opt_choice = player.participant.opt_choice1
             task_info = task_name(player.participant.pair1[0])
         else:
             menu_stage = 'second'
+            version = 'B'
             opt_choice = player.participant.opt_choice2
             task_info = task_name(player.participant.pair2[0])
         return {
@@ -87,7 +89,8 @@ class MenuSelectIntro(Page):
             'Bad_Task': task_name(player.participant.pair[1]),
             'Prev_Opt': opt_choice + 1,
             'menu_stage': menu_stage,
-            'Task_Info': task_info
+            'Task_Info': task_info,
+            'version_for_template': version
         }
 
 
