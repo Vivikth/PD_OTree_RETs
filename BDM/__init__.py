@@ -59,6 +59,7 @@ def to_dict(trial: Trial):
         optionC=trial.optionC,
         optionD=trial.optionD,
         id=trial.id,
+        solution=trial.solution
     )
 
 

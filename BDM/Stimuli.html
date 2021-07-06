@@ -36,9 +36,6 @@ Switch-Point Questions (<span id="Qnumber"></span> of {{player.num_trials}})
 <br>
 <br>
 
-<h2> Switch-Point Procedure Information</h2>
-
-    {{ include 'BDM/BDM_Info_ShowHide.html' }}
 
 
 
@@ -61,17 +58,29 @@ Switch-Point Questions (<span id="Qnumber"></span> of {{player.num_trials}})
 
     function sendClick(btn) {
         let trialId = trials[trialIndex].id;
-        responses[trialId] = btn.value;
-        trialIndex++;
-        if (trialIndex === trials.length) {
-            document.getElementById('raw_responses').value = JSON.stringify(responses)
-            document.getElementById('form').submit();
+        if (responses[trialId] == null ) {
+            responses[trialId] = btn.value;
+        }
+
+        if (trials[trialIndex].solution === btn.value) {
+            trialIndex++;
+            if (trialIndex === trials.length) {
+                document.getElementById('raw_responses').value = JSON.stringify(responses)
+                document.getElementById('form').submit();
+            } else {
+                updateUI();
+                document.getElementById("Qnumber").innerHTML = trialIndex + 1;
+            }
         } else {
-            updateUI();
-            document.getElementById("Qnumber").innerHTML = trialIndex + 1;
+            window.alert("Your answer was incorrect. Please try again.");
         }
     }
     updateUI();
 </script>
+
+<h2> Switch-Point Procedure Information</h2>
+
+    {{ include 'BDM/BDM_Info_ShowHide.html' }}
+
 
 {{ endblock }}
