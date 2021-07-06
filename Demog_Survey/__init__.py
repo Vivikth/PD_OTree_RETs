@@ -22,8 +22,8 @@ class Player(BasePlayer):
     age = models.IntegerField(doc="Age", min=0, max=100,
                               label="What is your age?")
     gender = models.StringField(doc="Gender",
-                                choices=["Male", "Female", "Prefer to self-select", "Prefer not to answer"],
-                                label="What is your gender? Enter in the field below if you'd prefer to self-select.")
+                                choices=["Male", "Female", "Self-Report", "Prefer not to answer"],
+                                label="What is your gender? Enter in the field below if you'd prefer to Self-Report.")
     gender_self_select = models.StringField(doc="Gender_self_select",
                                             blank=True)
     study = models.StringField(doc="study", label="Which of the following best describes your field of study?")
@@ -53,16 +53,16 @@ class Survey(Page):
 
     @staticmethod
     def error_message(player, values):
-        if values['gender'] == "Prefer to self-select" and values['gender_self_select'] == '':
-            return 'You must type in a gender if you would prefer to self-select'
-        if values['gender'] != "Prefer to self-select" and values['gender_self_select'] != '':
-            return 'You can only type your gender if you selected Prefer to self-select'
+        if values['gender'] == "Self-Report" and values['gender_self_select'] == '':
+            return 'You must type in a gender if you selected Self-report'
+        if values['gender'] != "Self-Report" and values['gender_self_select'] != '':
+            return 'You can only type your gender if you selected Self-report'
 
 
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'gender_self_select_label': 'Please enter your gender if you would prefer to self-select'
+            'gender_self_select_label': 'Please enter your gender if you would prefer to self-report'
         }
 
 
