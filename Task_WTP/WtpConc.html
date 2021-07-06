@@ -5,17 +5,17 @@
 
 <p>
     Thanks for providing your valuations for those tasks! <br>
-    We won't be using the switch-point procedure anymore, so you can relax and forget about it! <br>
+    The switch-point procedure won't be used anymore, so you can relax and forget about it! <br>
 </p>
 <br>
 <p>
-    We will now be running the lottery that we specified. <br>
+    I will now be running the randomization previously specified. <br>
     There is a 5% chance that one of your switch-points will be selected. <br>
 </p>
 <br>
 
 
-<h3>Lottery Results</h3>
+<h3>Randomization Results</h3>
 
 
     {{ if player.Rand_Outcome == "C" }}
@@ -28,8 +28,8 @@
     {{ if player.Rand_Outcome == "BW" }}
 <p>
     One of your switch points was selected. <br>
-    We selected {{player.Rand_T}} as the task. <br>
-    We selected question number {{player.BDM_Num}} as the question. <br>
+    I randomly selected {{player.Rand_T}} as the task. <br>
+    I randomly selected question number {{player.BDM_Num}} as the question. <br>
     Your switch-point for this task was {{ switch_point }}. <br>
 </p>
 <br>
@@ -59,9 +59,8 @@
 
             {{if player.lot_outcome >= player.BDM_Num}}
             <p>
-                The outcome of the lottery was the worst task. <br>
-                This means that you have to read some boring information and answer some questions before continuing. <br>
-                Press the next button to read the boring information. <br>
+                The outcome of the lottery was the reading activity. <br>
+                Press the next button to complete the reading activity. <br>
             </p>
             {{endif}}
 

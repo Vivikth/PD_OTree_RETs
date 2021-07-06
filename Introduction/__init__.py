@@ -19,7 +19,14 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    Lowest_Task = models.StringField(doc="Worst_Task",
+                                    choices=["Tabulation", "Concealment",
+                                             "Interpretation", "Replication", "Organisation"],
+                                    widget=widgets.RadioSelect)
+    Highest_Task = models.StringField(doc="Worst_Task",
+                                    choices=["Tabulation", "Concealment",
+                                             "Interpretation", "Replication", "Organisation"],
+                                    widget=widgets.RadioSelect)
 
 
 # FUNCTIONS
@@ -31,6 +38,10 @@ def creating_session(subsession):
 
 # PAGES
 class Introduction(Page):
+    form_model = 'player'
+    form_fields = ['Lowest_Task', 'Highest_Task']
+
+
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         pass

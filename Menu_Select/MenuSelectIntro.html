@@ -10,7 +10,7 @@
 {% block content %}
 {{if player.participant.treatment == 'Post_Information' and player.participant.stage == '1b' and player.participant.treatment_used1}}
 <p>
-    As promised earlier, we will provide you some detailed information about a certain task before you make your choice. <br>
+As promised earlier, I am going to provide you with detailed information about a certain task before you make your choice.<br>
 </p>
 
 {{ include 'RET_Choice/RetChoiceInformation.html' }}
@@ -19,12 +19,12 @@
 
 {{if player.participant.treatment == 'Post_Information' and player.participant.stage == '2b' and player.participant.treatment_used2}}
 <p>
-    As promised earlier, we will provide you some detailed information about a certain task before you make your choice. <br>
+As promised earlier, I am going to provide you with detailed information about a certain task before you make your choice.<br>
 </p>
-
 {{ include 'RET_Choice/RetChoiceInformation.html' }}
 
 {{ endif }}
+<br>
 
 
 <p>
@@ -34,15 +34,14 @@
 
     {% formfield player.menu_task label=""%}
 
-
 <br>
     {% next_button %}
 
-<p>
-    Task descriptions are provided below if you'd like to refer to them.
-</p>
+<details>
+    <summary>Click here if you would like to see the task descriptions.</summary>
+    {{ include 'RET_Choice/Task_Descriptions.html'}}
 
-{{ include 'RET_Choice/Task_Descriptions.html'}}
+</details>
 
 
 

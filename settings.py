@@ -131,6 +131,7 @@ SESSION_CONFIGS = [
         app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
         debug=True,
         continuation_rv=0.01,
+        treatment="Substitution",
         lot_outcome=100
     ),
     dict(
