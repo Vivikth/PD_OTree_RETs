@@ -25,7 +25,7 @@ ul { display: inline-block; text-align: left; }
 
 
 {% block title %}
-    Choose your {{stage_for_template}} task-list pair (Version A)
+    Choose a task-list pair (Version {{ version_for_template }})
 {% endblock %}
 
 {% block content %}
@@ -45,7 +45,10 @@ ul { display: inline-block; text-align: left; }
 <p>
     You must pick one of the following options:
 </p>
+
+
 <div class = "opt1">
+    <h4>Option 1</h4>
     {{ if player.participant.treatment == 'Substitution' }}
     {{ include 'RET_Choice/Substitution_Opt1.html'}}
 {{ endif }}
@@ -59,6 +62,7 @@ ul { display: inline-block; text-align: left; }
 
 <br>
 <div class = "opt2">
+    <h4>Option 2</h4>
 {{ if player.participant.treatment == 'Substitution' }}
     {{ include 'RET_Choice/Substitution_Opt2.html'}}
 {{ endif }}

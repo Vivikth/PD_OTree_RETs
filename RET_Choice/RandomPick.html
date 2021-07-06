@@ -1,5 +1,26 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
+<style>
+
+div.remind {
+  border: 3px dashed red;
+  text-align: center;
+}
+div.opt1 {
+  border: 2px solid black;
+  text-align: center;
+}
+
+div.opt2 {
+  border: 2px solid black;
+  text-align: center;
+}
+
+ul { display: inline-block; text-align: left; }
+
+
+
+</style>
 
 {% block title %}
     Random Selection Results
@@ -11,15 +32,35 @@
 {{ if stage_for_template == "1st" }}
 
     {{ if player.participant.treatment_used1 }}
-        Treatment
+
+    <p> We randomly selected your second version A choice. This means you will have to complete</p>
+
 
     {{ else }}
-        Control
+<!--Control-->
+    <p> We randomly selected your first version A choice. This means you will have to complete the following task-list pair. </p>
+
+        {{ if player.Control_Task_Choice == "Option 1" }}
+            {% with control=True %}
+
+            <div class = "opt1">
+            {{ if player.participant.treatment == 'Substitution' }}
+            {{ include 'RET_Choice/Substitution_Opt1.html'}}
+            {{ endif }}
+            {{ if player.participant.treatment == 'Post_Information' }}
+            {{ include 'RET_Choice/Post_Opt1.html'}}
+            {{ endif }}
+            {{ if player.participant.treatment == 'Pre_Information' }}
+            {{ include 'RET_Choice/Pre_Opt1.html'}}
+            {{ endif }}
+            </div>
+            {% endwith %}
+        {{ endif}}
     {{ endif}}
 
 
 {{ endif }}
-
+<br>
     {% next_button %}
 
 

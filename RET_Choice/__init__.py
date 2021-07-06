@@ -75,11 +75,13 @@ class ControlTaskSelection(Page):
         control = True
         if 'stage' not in player.participant.vars:
             stage_for_template = "1st"
+            version_for_template = "A"
             good_task = task_name(player.participant.pair1[0])
             bad_task = task_name(player.participant.pair1[1])
             task_info = task_name(player.participant.pair1[0])
         else:
             stage_for_template = "2nd"
+            version_for_template = "B"
             good_task = task_name(player.participant.pair2[0])
             bad_task = task_name(player.participant.pair2[1])
             task_info = task_name(player.participant.pair2[0])
@@ -88,7 +90,8 @@ class ControlTaskSelection(Page):
             'Bad_Task': bad_task,
             'stage_for_template': stage_for_template,
             'Task_Info': task_info,
-            'control': control
+            'control': control,
+            'version_for_template': version_for_template
         }
 
 
@@ -119,11 +122,13 @@ class TaskSelection(Page):
         control = False
         if 'stage' not in player.participant.vars:
             stage_for_template = "1st"
+            version_for_template = "A"
             good_task = task_name(player.participant.pair1[0])
             bad_task = task_name(player.participant.pair1[1])
             task_info = task_name(player.participant.pair1[0])
         else:
             stage_for_template = "2nd"
+            version_for_template = "A"
             good_task = task_name(player.participant.pair2[0])
             bad_task = task_name(player.participant.pair2[1])
             task_info = task_name(player.participant.pair2[0])
@@ -132,7 +137,8 @@ class TaskSelection(Page):
             'Bad_Task': bad_task,
             'stage_for_template': stage_for_template,
             'Task_Info': task_info,
-            'control': control
+            'control': control,
+            'version_for_template': version_for_template
         }
 
 
@@ -141,10 +147,22 @@ class RandomPick(Page):
     def vars_for_template(player: Player):
         if 'opt_choice2' not in player.participant.vars:
             stage_for_template = "1st"
+            version_for_template = "A"
+            good_task = task_name(player.participant.pair1[0])
+            bad_task = task_name(player.participant.pair1[1])
+            task_info = task_name(player.participant.pair1[0])
         else:
             stage_for_template = "2nd"
+            version_for_template = "B"
+            good_task = task_name(player.participant.pair2[0])
+            bad_task = task_name(player.participant.pair2[1])
+            task_info = task_name(player.participant.pair2[0])
         return {
-            'stage_for_template': stage_for_template
+            'Good_Task': good_task,
+            'Bad_Task': bad_task,
+            'stage_for_template': stage_for_template,
+            'Task_Info': task_info,
+            'version_for_template': version_for_template
         }
 
 
