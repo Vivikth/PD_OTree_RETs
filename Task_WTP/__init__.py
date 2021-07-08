@@ -254,6 +254,7 @@ class WtpConc(Page):
         switch_point = value_function(player.Rand_T, player)
         return {
             'switch_point': switch_point,
+            'selected_task': task_name(player.Rand_T)
         }
 
 

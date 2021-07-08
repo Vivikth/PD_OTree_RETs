@@ -11,7 +11,7 @@
 <br>
 <p>
     I will now be running the randomization previously specified. <br>
-    There is a 5% chance that one of your switch-points will be selected. <br>
+    There is a 5% chance that one of the switch-point questions will be selected. <br>
 </p>
 <br>
 
@@ -29,7 +29,7 @@
     {{ if player.Rand_Outcome == "BW" }}
 <p>
     One of the switch-point questions was selected. <br>
-    I randomly selected {{player.Rand_T}} as the task. <br>
+    I randomly selected {{selected_task}} (level 1) as the task. <br>
     I randomly selected question number {{player.BDM_Num}} as the question. <br>
     Your switch-point for this task was {{ switch_point }}. <br>
 </p>
@@ -37,7 +37,7 @@
         {{if switch_point > player.BDM_Num}}
     <p>
         Your switch-point was higher than the selected question. <br>
-        This means you said that you prefer the task {{player.Rand_T}} to the lottery in that question <br>
+        This means you said that you prefer completing the {{selected_task}} (level 1) task to the lottery in that question <br>
         Click the next button to complete the task. <br>
     </p>
         {{endif}}
@@ -45,7 +45,7 @@
         {{if player.BDM_Num >= switch_point }}
     <p>
         Your switch-point was lower than the selected question. <br>
-        This means you said that you prefer the lottery to completing the task {{player.Rand_T}}. <br>
+        This means you said that you prefer the lottery to completing the {{selected_task}} (level 1) task. <br>
     </p>
 
 
