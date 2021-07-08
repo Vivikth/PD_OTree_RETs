@@ -3,7 +3,7 @@
 <style>
 
 div.remind {
-  border: 3px dashed red;
+  border: 3px dashed blue;
   text-align: center;
 }
 div.opt1 {
@@ -15,7 +15,9 @@ div.opt2 {
   border: 2px solid black;
   text-align: center;
 }
-
+div.info{
+  text-align: center;
+}
 
 
 ul { display: inline-block; text-align: left; }
@@ -40,9 +42,10 @@ ul { display: inline-block; text-align: left; }
 
 {{if player.participant.treatment == 'Pre_Information' }}
 <br>
-
-Before you make your choice, I am going to provide you with detailed information about a certain task.
+<div class = "info">
+    Before you make your choice, I am going to provide you with detailed information about a certain task.
 {{ include 'RET_Choice/RetChoiceInformation.html' }}
+</div>
 <br>
 {{ endif }}
 
