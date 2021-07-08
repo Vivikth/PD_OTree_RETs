@@ -99,7 +99,7 @@ SESSION_CONFIGS = [
         name='Experiment',
         display_name='Experiment',
         num_demo_participants=1,
-        app_sequence=['Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
+        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
         debug=True,
     ),
     dict(
@@ -169,6 +169,12 @@ SESSION_CONFIGS = [
         display_name='payment_info',
         num_demo_participants=1,
         app_sequence=['payment_info'],
+    ),
+    dict(
+        name='detect_mobile',
+        display_name='detect_mobile',
+        num_demo_participants=1,
+        app_sequence=['detect_mobile'],
     ),
 ]
 

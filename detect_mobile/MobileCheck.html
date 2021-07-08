@@ -1,0 +1,38 @@
+{{ block title }}
+This experiment cannot be completed on a mobile device
+{{ endblock }}
+{{ block content }}
+
+<input type="hidden" name="is_mobile" id="is_mobile">
+
+<p>
+    Unfortunately, this experiment was designed to be completed on a laptop or computer.
+    As such, we participants cannot complete this experiment if they are on a mobile device.
+    Please click next if you are not on a mobile device.
+</p>
+
+{{ next_button }}
+
+<script>
+    function isMobile() {
+        const toMatch = [
+            /Android/i,
+            /iPhone/i,
+            /iPad/i,
+        ];
+
+        return toMatch.some((toMatchItem) => {
+            return navigator.userAgent.match(toMatchItem);
+        });
+    }
+
+    // here is an alternative technique that checks screen resolution
+    // function isMobile() {
+    //     return ((window.innerWidth <= 800) && (window.innerHeight <= 600));
+    // }
+
+    document.getElementById('is_mobile').value = isMobile() ? 1 : 0;
+
+</script>
+
+{{ endblock }}
