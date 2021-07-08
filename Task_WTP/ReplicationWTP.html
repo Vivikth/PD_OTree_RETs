@@ -1,5 +1,5 @@
 {{ block title }}
-    How much do you value unknown tasks?
+    {{ Constants.Stage_Title }}
 {{ endblock }}
 
 {{ block content }}
@@ -8,9 +8,17 @@
 {{ include 'Task_WTP/PrefElicit.html' }}
 
 
-<div>
-    {% formfield player.Replication_Value %}
+{{ with Form_Value=form.Replication_Value }}
+
+
+<label style="font-size: 20px">  {{Form_Value.label }}</label>
+<div class="form-group">
+        <input name="Replication_Value">
+        <label style="text-align: right">%</label>
 </div>
+{{ formfield_errors 'Replication_Value' }}
+<br>
+{{endwith}}
 
 {{ include 'Task_WTP/Are_You_Sure.html' }}
 <br><br>

@@ -10,6 +10,7 @@ class Constants(BaseConstants):
     name_in_url = 'Task_WTP'
     players_per_group = None
     num_rounds = 1
+    Stage_Title = "Applying the Switch-Point Procedure"
 
 
 class Subsession(BaseSubsession):
@@ -279,7 +280,7 @@ class Boring(Page):
 class BoringConc(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        return "Demog_Survey"
+        return "RET_Choice"
 
 
 page_sequence = [WtpIntro, TabulationWTP, ConcealmentWTP, InterpretationWTP, ReplicationWTP, OrganisationWTP,

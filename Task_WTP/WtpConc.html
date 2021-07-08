@@ -1,6 +1,7 @@
 {{ block title }}
-    How much do you value unknown tasks?
+    {{ Constants.Stage_Title }}
 {{ endblock }}
+
 {{ block content }}
 
 <p>
@@ -20,14 +21,14 @@
 
     {{ if player.Rand_Outcome == "C" }}
 <p>
-    None of your switch-point questions were selected. <br>
+    None of the switch-point questions were selected. <br>
     Click the next button to proceed with the rest of the experiment.
 </p>
     {{ endif }}
 
     {{ if player.Rand_Outcome == "BW" }}
 <p>
-    One of your switch points was selected. <br>
+    One of the switch-point questions was selected. <br>
     I randomly selected {{player.Rand_T}} as the task. <br>
     I randomly selected question number {{player.BDM_Num}} as the question. <br>
     Your switch-point for this task was {{ switch_point }}. <br>
@@ -52,7 +53,7 @@
                 {{if player.lot_outcome < player.BDM_Num}}
             <p>
                 The outcome of the lottery was the best task! <br>
-                This means you get to leave the experiment without completing any tasks. <br>
+                This means you get to finish the experiment without completing any tasks. <br>
                 Press the next button to finish the experiment.
             </p>
             {{endif}}
