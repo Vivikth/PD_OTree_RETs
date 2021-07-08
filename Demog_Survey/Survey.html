@@ -27,9 +27,13 @@
 
     {% formfield player.GPA %}
 
-    {% formfield player.identify %}
+  <span>
+        For any of the tasks that you completed, were you able to correctly identify the nature of the task from it's vague description?
+        That is, were you able to identify what the task required <b>before</b> you completed the task?
+  </span>
+    {% formfield player.identify label=""%}
 
-    {% formfield player.identify_text label="Please enter the tasks you identified (if you correctly identified any tasks)." %}
+    {% formfield player.identify_text label="Please enter the tasks you correctly identified (if you correctly identified any tasks)." %}
 
     {% next_button %}
 

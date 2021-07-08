@@ -1,5 +1,6 @@
 from otree.api import *
 import random
+
 author = 'Vivikth'
 doc = """Introduction to Experiment"""
 
@@ -8,6 +9,7 @@ class Constants(BaseConstants):
     name_in_url = 'Introduction'
     players_per_group = None
     num_rounds = 1
+    payment_amount = 20
 
 
 class Subsession(BaseSubsession):
@@ -19,14 +21,14 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    Lowest_Task = models.StringField(doc="Worst_Task",
-                                    choices=["Tabulation", "Concealment",
-                                             "Interpretation", "Replication", "Organisation"],
-                                    widget=widgets.RadioSelect)
-    Highest_Task = models.StringField(doc="Worst_Task",
-                                    choices=["Tabulation", "Concealment",
-                                             "Interpretation", "Replication", "Organisation"],
-                                    widget=widgets.RadioSelect)
+    payment_question = models.FloatField(doc="payment_question")
+
+    visual_abilities = models.StringField(doc="visual_abilities",
+                                          choices=["Tabulation", "Concealment",
+                                                   "Interpretation", "Replication", "Organisation"],
+                                          widget=widgets.RadioSelect)
+    num_levels = models.IntegerField(doc="num_levels")
+    num_categories = models.IntegerField(doc="num_levels")
 
 
 # FUNCTIONS
@@ -36,16 +38,34 @@ def creating_session(subsession):
             player.participant.treatment = random.choice(["Substitution", "Pre_Information", "Post_Information"])
 
 
+def payment_question_error_message(_player, value):
+    if value != Constants.payment_amount:
+        return "Your answer was incorrect. Please try again."
+
+
+def visual_abilities_error_message(_player, value):
+    if value != "Interpretation":
+        return "Your answer was incorrect. Please try again."
+
+
+def num_levels_error_message(_player, value):
+    if value != 4:
+        return "Your answer was incorrect. Please try again."
+
+
+def num_categories_error_message(_player, value):
+    if value != 5:
+        return "Your answer was incorrect. Please try again."
+
+
 # PAGES
 class Introduction(Page):
     form_model = 'player'
-    form_fields = ['Lowest_Task', 'Highest_Task']
-
+    form_fields = ['payment_question', 'visual_abilities', 'num_levels', 'num_categories']
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         pass
-
 
 
 page_sequence = [Introduction]

@@ -9,15 +9,15 @@
 
 <p>
     You are about to participate in an experiment in the economics of decision-making. <br>
-    If you <b>complete</b> this experiment, you will earn <b>$20</b>, which will be paid to you via PayPal at the end of the experiment. <br>
-    On average, I believe that the experiment will take approximately 45 minutes. <br>
+    If you <b>complete</b> this experiment, you will earn <b>${{ Constants.payment_amount }}</b>, which will be paid to you via PayPal at the end of the experiment. <br>
+    On average, I expect that the experiment will take approximately 45 minutes. <br>
 </p>
 <br>
 <h3> The Basic Idea </h3>
 <p>
     In this experiment, you will have to complete several <b>computerized tasks</b> using your computer. <br>
     There will be 5 categories of computerized tasks in this experiment. <br>
-    Each category contains 4 different levels of tasks, with level 1 being the easiest, and level 4 being the hardest. <br>
+    Each category contains <b>4</b> different levels of tasks, with level 1 being the easiest, and level 4 being the hardest. <br>
     All task categories are designed to be equally difficult, but you may be able to complete tasks from one category quicker than others due to your own aptitudes and abilities.
 </p>
 <p>
@@ -41,9 +41,19 @@
     Before moving on, please answer the following questions.
 </p>
 
-    {{ formfield 'Highest_Task' label="Which category of task appeals to you the most?"}}
+    <label>   How much will you be paid if you <b>complete</b> the experiment?</label>
+<div>
+    <label>$</label>
+    <input name="payment_question">
+</div>
+{{ formfield_errors 'payment_question' }}
 
-    {{ formfield 'Lowest_Task' label="Which category of task appeals to you the least?"}}
+<br>
+{{ formfield 'visual_abilities' label="Which task requires the use of visual abilities to interpret signs?" }}
+
+{{ formfield 'num_levels' label="How many levels are in each task category?" }}
+
+{{ formfield 'num_categories' label="How many task categories are there?" }}
 
 
 <h3>What's Next?</h3>
@@ -62,7 +72,7 @@
 
 <h4>The next stage</h4>
 <p> As part of this experiment, I want to determine how much you value completing an unknown task. <br>
-    I will use the switch-point procedure for this purpose. <br>
+    I will use a procedure called the switch-point procedure for this purpose. <br>
     Click the next button to learn about the switch-point procedure.
 </p>
 
