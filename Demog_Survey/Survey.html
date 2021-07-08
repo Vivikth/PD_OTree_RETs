@@ -32,8 +32,15 @@
         That is, were you able to identify what the task required <b>before</b> you completed the task?
   </span>
     {% formfield player.identify label=""%}
+    <br>
+    <span>Please select the tasks you correctly identified (if you correctly identified any tasks).</span>
+    {% formfield player.identify_tabulation %}
+    {% formfield player.identify_organisation %}
+    {% formfield player.identify_replication %}
+    {% formfield player.identify_concealment %}
+    {% formfield player.identify_interpretation %}
 
-    {% formfield player.identify_text label="Please enter the tasks you correctly identified (if you correctly identified any tasks)." %}
+    <br> <br>
 
     {% next_button %}
 

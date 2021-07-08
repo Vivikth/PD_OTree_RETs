@@ -8,6 +8,8 @@ class Constants(BaseConstants):
     name_in_url = 'Demog_Survey'
     players_per_group = None
     num_rounds = 1
+    identify_tasks = ['identify_tabulation', 'identify_organisation',
+                      'identify_replication', 'identify_concealment', 'identify_interpretation']
 
 
 class Subsession(BaseSubsession):
@@ -35,8 +37,11 @@ class Player(BasePlayer):
     identify = models.StringField(doc="identify",
                                   choices=["Yes", "No"],
                                   label="Did you correctly identify any of the tasks before completing them?")
-    identify_text = models.StringField(doc="identify_text",
-                                       blank=True)
+    identify_tabulation = models.BooleanField(blank=True, label="Tabulation", widget=widgets.CheckboxInput)
+    identify_organisation = models.BooleanField(blank=True, label="Organisation", widget=widgets.CheckboxInput)
+    identify_replication = models.BooleanField(blank=True, label="Replication", widget=widgets.CheckboxInput)
+    identify_concealment = models.BooleanField(blank=True, label="Concealment", widget=widgets.CheckboxInput)
+    identify_interpretation = models.BooleanField(blank=True, label="Interpretation", widget=widgets.CheckboxInput)
 
 
 # FUNCTIONS
@@ -49,7 +54,7 @@ def study_choices(_player):
 class Survey(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'gender_self_select', 'study', 'econ_classes',
-                   'years', 'GPA', 'identify', 'identify_text']
+                   'years', 'GPA', 'identify'] + Constants.identify_tasks
 
     @staticmethod
     def error_message(player, values):
