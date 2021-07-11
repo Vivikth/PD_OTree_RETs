@@ -1,5 +1,4 @@
 from __future__ import division
-import time
 import random
 import imgkit
 import prettytable
@@ -119,10 +118,10 @@ def getting_text(player: Player, call_loc="Task"):
         player.in_round(player.round_number + 1 - dummy_sub).image_path = '/organising/table.png'
 
 
-def user_text_error_message(player: Player, value):
-    if not value == player.correct_text:
-        time.sleep(5)
-        return 'Answer is Incorrect'
+# def user_text_error_message(player: Player, value):
+#     if not value == player.correct_text:
+#         time.sleep(5)
+#         return 'Answer is Incorrect'
 
 
 def level_description(level):
@@ -204,6 +203,13 @@ class Task(Page):
             'display_text': temp_text,
             'tab_img': player.image_path,
         }
+
+    @staticmethod
+    def js_vars(player):
+        return {
+            'solution': player.correct_text
+        }
+
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):

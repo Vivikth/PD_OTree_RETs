@@ -4,7 +4,8 @@
         let form = document.getElementById('form');
         let formvalue = form.elements[0].value;
         let waiting = 5;
-        if (formvalue === solution) {
+        if (formvalue === solution ) {
+        } else if (formvalue === "" ) {
         } else {
             alert("Answer is Incorrect. Please wait " + waiting + " seconds to resubmit your answer");
             $("#button").hide();
