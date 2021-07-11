@@ -1,5 +1,5 @@
 
-<h2 id="TimerHead">Submit button will appear in  <span id="count"></span> seconds </h2>
+<!--<h2 id="TimerHead">Submit button will appear in  <span id="count"></span> seconds </h2>-->
 
 <div id="div1">
 <button type="button" class="btn btn-primary" onclick="checkSubmit()">Submit</button>
@@ -13,15 +13,18 @@
         function checkSubmit() {
             let form = document.getElementById('form');
             let isValid = form.reportValidity();
+            let formvalue = form.elements[0].value;
             if (!isValid) return;
 
             let warnings = [];
-
-             warnings.push("Please double-check your switch-point. Remember that your switch-point is a percentage between 0 and 100. Press OK to proceed.")
-             let confirmed = window.confirm(warnings.join('\r\n'));
-             if (!confirmed) return;
-
-            form.submit();
+            if (formvalue < 1 && formvalue > 0) {
+                warnings.push("Please double-check your switch-point. Remember that your switch-point is a percentage between 0 and 100. Press OK to proceed.")
+                let confirmed = window.confirm(warnings.join('\r\n'));
+                if (!confirmed) return;
+                form.submit();
+            } else {
+                form.submit();
+            }
         }
     </script>
 
@@ -30,43 +33,43 @@ window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.ke
     </script>
 
 
-<!--To hide div-->
-  <script>
-      $(document).ready(function () {
-          // Hide the div
-          $("#div1").hide();
-          // Show the div after 20s
-          $("#div1").delay(21000).fadeIn(100);
-      });
-  </script>
+<!--&lt;!&ndash;To hide div&ndash;&gt;-->
+<!--  <script>-->
+<!--      $(document).ready(function () {-->
+<!--          // Hide the div-->
+<!--          $("#div1").hide();-->
+<!--          // Show the div after 20s-->
+<!--          $("#div1").delay(21000).fadeIn(100);-->
+<!--      });-->
+<!--  </script>-->
 
-<script>
-    window.onload = function(){
+<!--<script>-->
+<!--    window.onload = function(){-->
 
-(function(){
-  var counter = 21;
+<!--(function(){-->
+<!--  var counter = 21;-->
 
-  setInterval(function() {
-    counter--;
-    if (counter >= 0) {
-      span = document.getElementById("count");
-      span.innerHTML = counter;
-    }
-    else
-      {
-          document.getElementById("count").style.display = "none";
+<!--  setInterval(function() {-->
+<!--    counter&#45;&#45;;-->
+<!--    if (counter >= 0) {-->
+<!--      span = document.getElementById("count");-->
+<!--      span.innerHTML = counter;-->
+<!--    }-->
+<!--    else-->
+<!--      {-->
+<!--          document.getElementById("count").style.display = "none";-->
 
-      }
-    // Display 'counter' wherever you want to display it.
-    if (counter === 0) {
-        clearInterval(counter);
-        $("#TimerHead").hide()
-    }
+<!--      }-->
+<!--    // Display 'counter' wherever you want to display it.-->
+<!--    if (counter === 0) {-->
+<!--        clearInterval(counter);-->
+<!--        $("#TimerHead").hide()-->
+<!--    }-->
 
-  }, 1000);
+<!--  }, 1000);-->
 
-})();
+<!--})();-->
 
-};
+<!--};-->
 
-</script>
+<!--</script>-->
