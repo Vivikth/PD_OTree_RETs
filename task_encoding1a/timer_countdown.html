@@ -1,0 +1,88 @@
+<script>
+    function validateForm() {
+        let solution = js_vars.solution;
+        let form = document.getElementById('form');
+        let formvalue = form.elements[0].value;
+        let waiting = 5;
+        if (formvalue === solution) {
+        } else {
+            alert("Answer is Incorrect. Please wait " + waiting + " seconds to resubmit your answer");
+            $("#button").hide();
+            $("#TimerHead").show();
+
+            var timeleft = waiting;
+            var downloadTimer = setInterval(function(){
+              if(timeleft <= 0){
+                clearInterval(downloadTimer);
+                document.getElementById("countdown").innerHTML = "";
+                document.getElementById("countdown").hide;
+              } else {
+                document.getElementById("countdown").innerHTML = timeleft + " seconds remaining until submit button reappears";
+              }
+              timeleft -= 1;
+            }, 1000);
+
+            $("#button").delay(1000 * (waiting + 1)).fadeIn(100);
+            return false;
+        }
+    }
+
+</script>
+
+<script>
+    window.onload = function(){
+        $("#TimerHead").hide();
+    }
+</script>
+
+
+<!--<script>-->
+<!--    function sendClick() {-->
+<!--        let solution = js_vars.solution;-->
+<!--        let form = document.getElementById('form');-->
+<!--        let formvalue = form.elements[0].value;-->
+
+<!--        if (solution === formvalue) {-->
+<!--        } else {-->
+
+<!--        }-->
+
+<!--    }-->
+<!--</script>-->
+
+
+
+<script>
+    window.onload = function(){
+
+(function(){
+  var counter = 5;
+
+  setInterval(function() {
+    counter--;
+    if (counter >= 0) {
+      span = document.getElementById("count");
+      span.innerHTML = counter;
+    }
+    else
+      {
+          document.getElementById("count").style.display = "none";
+      }
+    // Display 'counter' wherever you want to display it.
+    if (counter === 0) {
+        clearInterval(counter);
+        $("#TimerHead").hide()
+    }
+
+  }, 1000);
+
+})();
+
+};
+<!--if(document.getElementsByClassName("otree-btn-next btn btn-primary")[0].clicked == true)-->
+<!--{-->
+<!--   alert("button was clicked");-->
+<!--}-->
+
+</script>
+

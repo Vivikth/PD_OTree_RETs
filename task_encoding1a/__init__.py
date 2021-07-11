@@ -1,5 +1,4 @@
 from __future__ import division
-import time
 import random
 import imgkit
 import prettytable
@@ -155,10 +154,9 @@ def getting_text(player: Player, call_loc="Task"):
         player.in_round(player.round_number + 1 - dummy_sub).image_path = '/encoding/table_lev4.png'
 
 
-def user_text_error_message(player: Player, value):
-    if not value == player.correct_text:
-        time.sleep(5)
-        return 'Answer is Incorrect'
+# def user_text_error_message(player: Player, value):
+#     if not value == player.correct_text:
+#         return 'Answer is Incorrect'
 
 
 def level_description(level):
@@ -244,6 +242,12 @@ class Task(Page):
             'ex_encode': encrypt(
                 'a0!d', temp_key, temp_alphabet
             ),
+        }
+
+    @staticmethod
+    def js_vars(player):
+        return {
+            'solution': player.correct_text
         }
 
     @staticmethod
