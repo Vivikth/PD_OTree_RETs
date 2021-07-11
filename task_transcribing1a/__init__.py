@@ -2,7 +2,6 @@ from __future__ import division
 
 import random
 import string
-import time
 
 import unicodedata
 from otree.api import *
@@ -93,7 +92,9 @@ def getting_text(player: Player, call_loc="Task"):
     else:
         dummy_sub = 0
     if player.participant.lc1a == 1:
-        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[int(player.in_round(1).rand_string[player.round_number - dummy_sub])]
+        player.in_round(player.round_number + 1 - dummy_sub).correct_text = Constants.reference_texts_lev1[
+            int(player.in_round(1).rand_string[player.round_number - dummy_sub])
+        ]
         player.in_round(
             player.round_number + 1 - dummy_sub
         ).image_path = 'transcribing/Digits/{}.gif'.format(
@@ -149,10 +150,10 @@ def user_text_choices(player: Player):
         return Constants.reference_texts_lev4
 
 
-def user_text_error_message(player: Player, value):
-    if not value == player.correct_text:
-        time.sleep(5)
-        return 'Answer is Incorrect'
+# def user_text_error_message(player: Player, value):
+#     if not value == player.correct_text:
+#         time.sleep(5)
+#         return 'Answer is Incorrect'
 
 def level_description(level):
     if level == 1:
@@ -163,7 +164,6 @@ def level_description(level):
         return "letter from a non-English alphabet"
     elif level == 4:
         return "punctuation character"
-
 
 
 # PAGES
@@ -220,6 +220,14 @@ class Task(Page):
     def before_next_page(player: Player, timeout_happened):
         if player.round_number < Constants.num_rounds:
             getting_text(player)
+
+
+    @staticmethod
+    def js_vars(player):
+        return {
+            'solution': player.correct_text
+        }
+
 
 
 class Results(Page):

@@ -39,7 +39,8 @@
                 </th>
                 <th style="vertical-align:middle; text-align: left">
                     <br><br>
-                    {% next_button %}
+                    <div id="countdown"></div>
+                    <button id="button" class="otree-btn-next btn btn-primary" onclick="return validateForm()">Submit</button>
                     <br><br>
                 </th>
             </tr>
@@ -85,6 +86,9 @@
         $('#id_user_text').focus();
     });
 </script>
+
+{{ include 'task_encoding1a/timer_countdown.html' }}
+
 {% endblock %}
 
 

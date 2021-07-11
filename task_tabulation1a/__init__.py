@@ -2,7 +2,6 @@ from __future__ import division
 
 import random
 import string
-import time
 import imgkit
 import numpy as np
 import prettytable
@@ -130,10 +129,10 @@ def creating_session(subsession: Subsession):
 
 
 
-def user_text_error_message(player: Player, value):
-    if not value == player.correct_text:
-        time.sleep(5)
-        return 'Answer is Incorrect'
+# def user_text_error_message(player: Player, value):
+#     if not value == player.correct_text:
+#         time.sleep(5)
+#         return 'Answer is Incorrect'
 
 
 
@@ -257,6 +256,13 @@ class Task(Page):
     def before_next_page(player: Player, timeout_happened):
         if player.round_number < Constants.num_rounds:
             getting_text(player)
+
+
+    @staticmethod
+    def js_vars(player):
+        return {
+            'solution': str(player.correct_text)
+        }
 
 
 class Results(Page):

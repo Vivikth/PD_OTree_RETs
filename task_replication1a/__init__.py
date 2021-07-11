@@ -2,7 +2,6 @@ from __future__ import division
 from otree.api import *
 
 import random
-import time
 import string
 from Global_Functions import app_after_task
 
@@ -80,10 +79,10 @@ def getting_text(player: Player, call_loc="Task"):
         player.in_round(round_reference).correct_text = Constants.reference_texts_lev4[reference_number]
 
 
-def user_text_error_message(player: Player, value):
-    if not value == player.correct_text:
-        time.sleep(5)
-        return 'Answer is Incorrect'
+# def user_text_error_message(player: Player, value):
+#     if not value == player.correct_text:
+#         time.sleep(5)
+#         return 'Answer is Incorrect'
 
 
 def level_description(level):
@@ -157,6 +156,12 @@ class Task(Page):
     def before_next_page(player: Player, timeout_happened):
         if player.round_number < Constants.num_rounds:
             getting_text(player)
+
+    @staticmethod
+    def js_vars(player):
+        return {
+            'solution': player.correct_text
+        }
 
 
 class Results(Page):
