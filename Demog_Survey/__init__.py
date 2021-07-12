@@ -32,7 +32,7 @@ class Player(BasePlayer):
     econ_classes = models.IntegerField(doc="econ_classes",
                                        label="How many economics classes have you taken so far?")
     years = models.IntegerField(doc="years")
-    GPA = models.IntegerField(doc="GPA", label="What is your university GPA?")
+    GPA = models.FloatField(doc="GPA", label="What is your university GPA?")
 
     identify = models.StringField(doc="identify",
                                   choices=["Yes", "No"],
@@ -75,17 +75,20 @@ def custom_export(players):
     yield ['participant', 'label', 'BDM_Score',
            'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
            'Replication_Value', 'Organisation_Value', 'treatment',
-           'pair1', 'pair2', 'sub_menu1', 'sub_menu2']
+           'pair1', 'pair2', 'sub_menu1', 'sub_menu2',
+           'rand_task', 'path',
+           'time_started', 'time_finished']
 
     for player in players:
         participant = player.participant
         yield [participant.code, participant.label, participant.BDM_Score,
                participant.Concealment_Value, participant.Tabulation_Value, participant.Interpretation_Value,
                participant.Replication_Value, participant.Organisation_Value, participant.treatment,
-               participant.pair1, participant.pair2, participant.sub_menu1, participant.sub_menu2]
+               participant.pair1, participant.pair2, participant.sub_menu1, participant.sub_menu2,
+               participant.rand_task, participant.path,
+               player.participant.start_time, player.participant.end_time]
 
 
 
 page_sequence = [Survey]
-# Could include player level variables for convieince in custom export.
-# Add path taken, time taken.
+# Could include player level variables for convenience in custom export.

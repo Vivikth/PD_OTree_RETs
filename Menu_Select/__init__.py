@@ -66,9 +66,9 @@ class MenuSelectIntro(Page):
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        print(player.menu_task)
+        # print(player.menu_task)
         partitioned_string = player.menu_task.partition(' ')
-        print(partitioned_string)
+        # print(partitioned_string)
         player.participant.lc1a = int(partitioned_string[2][-2])
         return task_name_decoder(partitioned_string[0]) + player.participant.stage
 

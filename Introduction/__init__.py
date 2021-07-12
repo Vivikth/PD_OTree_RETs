@@ -1,6 +1,6 @@
 from otree.api import *
 import random
-
+import time
 author = 'Vivikth'
 doc = """Introduction to Experiment"""
 
@@ -66,7 +66,7 @@ class Introduction(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        pass
+        player.participant.start_time = time.time()
 
 
 page_sequence = [Introduction]

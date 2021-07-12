@@ -32,7 +32,7 @@ class Player(BasePlayer):
     Control_Task_Choice = models.CharField(
         doc="Control_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect,
     )
-    Treatment_Caused_Switch = models.IntegerField(
+    Treatment_Caused_Switch = models.BooleanField(
         doc="Treatment_Caused_Switch"
     )
 # Need to add calculations determining whether player switched.
@@ -107,10 +107,6 @@ class TaskSelection(Page):
     def before_next_page(player: Player, timeout_happened):
         player.participant.lc1a = 1
 
-        if player.Task_Choice == player.Control_Task_Choice:
-            player.Treatment_Caused_Switch = 0
-        else:
-            player.Treatment_Caused_Switch = 1
 
         if 'stage' not in player.participant.vars:
             player.participant.stage = '1a'
@@ -182,6 +178,15 @@ class RandomPick(Page):
             'version_for_template': version_for_template,
             'treatment_template': treatment_template
         }
+
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        if player.Task_Choice == player.Control_Task_Choice:
+            player.Treatment_Caused_Switch = False
+        else:
+            player.Treatment_Caused_Switch = True
+
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):

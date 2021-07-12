@@ -1,7 +1,6 @@
 def read_csv(filename):
     """Reads a CSV in random order"""
     import csv
-    import random
 
     f = open(filename, encoding='cp1252')
     rows = list(csv.DictReader(f))
@@ -63,6 +62,7 @@ def task_name(string):
 
 def app_after_task(player, _upcoming_apps):
     """Returns next app after player has completed task"""
+    import time
     if 'stage' not in player.participant.vars:
         return 'Demog_Survey'
     elif player.participant.stage == '1a':
@@ -77,6 +77,7 @@ def app_after_task(player, _upcoming_apps):
         return 'Menu_Select2'
     elif player.participant.stage == '2b':
         player.participant.stage = '3'
+        player.participant.end_time = time.time()
         return 'Demog_Survey'
 
 

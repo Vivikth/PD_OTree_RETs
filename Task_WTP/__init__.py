@@ -113,6 +113,7 @@ def creating_session(subsession: Subsession):
             p.Rand_T = p.session.config['Rand_T']
         else:
             p.Rand_T = random.choice(["T", "C", "I", "R", "O"])
+        p.participant.rand_task = p.Rand_T
 
         # Generate continuation_rv to determine whether program should continue or do best / worst task
         if 'continuation_rv' in p.session.config:
@@ -228,13 +229,13 @@ class WtpConc(Page):
     def before_next_page(player: Player, timeout_happened):
         player.participant.pair1, player.participant.pair2 = pair_generator(player, player.Rand_T)
         player.participant.pair = player.participant.pair1
-        if player.participant.treatment == "Substitution":
-            player.participant.sub_menu1 = sub_control_menu_generator(player.participant.pair1[1])
-            player.participant.sub_menu2 = sub_control_menu_generator(player.participant.pair2[1])
+        player.participant.sub_menu1 = sub_control_menu_generator(player.participant.pair1[1])
+        player.participant.sub_menu2 = sub_control_menu_generator(player.participant.pair2[1])
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         if player.Rand_Outcome == "C":  # Continue with experiment without best or worst task.
+            player.participant.path = "Regular"
             return 'RET_Choice'
         elif player.Rand_Outcome == "BW":
             # print("value is ", value_function(player.Rand_T, player), )
@@ -242,12 +243,14 @@ class WtpConc(Page):
             # print("lot outcome is ", player.lot_outcome)
             if value_function(player.Rand_T, player) > player.BDM_Num:  # Player values task more than lottery
                 player.participant.lc1a = 1  # Set task level to 1.
+                player.participant.path = "Single_Task"
                 return task_name_decoder(task_name(player.Rand_T)) + '0'
             else:
                 if player.lot_outcome < player.BDM_Num:  # Player gets best task as lottery outcome
+                    player.participant.task = "Best"
                     return "Demog_Survey"
                 else:  # Player gets worst task as lottery outcome
-                    pass
+                    player.participant.task = "Worst"
 
     @staticmethod
     def vars_for_template(player: Player):

@@ -23,3 +23,6 @@ class Player(BasePlayer):
     Control_Task_Choice = models.CharField(
         doc="Control_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect
     )
+    Treatment_Caused_Switch = models.BooleanField(
+        doc="Treatment_Caused_Switch"
+    )
