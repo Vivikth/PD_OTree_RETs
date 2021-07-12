@@ -4,6 +4,8 @@ import imgkit
 import prettytable
 from otree.api import *
 import string
+
+import settings
 from . import models
 from Global_Functions import app_after_task
 
@@ -232,7 +234,7 @@ class Task(Page):
 
         return {
             'round_count': (player.round_number - 1),
-            'debug': 1,
+            'debug': settings.DEBUG,
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
             'display_text': decrypt(
                 player.correct_text, temp_key, temp_alphabet

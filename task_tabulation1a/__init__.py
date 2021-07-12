@@ -7,6 +7,7 @@ import numpy as np
 import prettytable
 from otree.api import *
 
+import settings
 from . import models
 from Global_Functions import app_after_task
 
@@ -246,7 +247,7 @@ class Task(Page):
     def vars_for_template(player: Player):
         return {
             'round_count': (player.round_number - 1),
-            'debug': player.session.config['debug'],
+            'debug': settings.DEBUG,
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
             'tab_img': player.image_path,
             'level_description': level_description(player.participant.lc1a),

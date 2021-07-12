@@ -214,6 +214,6 @@ PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Int
 
 # For Debug False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
-    DEBUG = True   # This should be the opposite of below.
+    DEBUG = False   # This should be the opposite of below.
 else:
-    DEBUG = False   # This is the one that controls debug behaviour
+    DEBUG = True   # This is the one that controls debug behaviour
