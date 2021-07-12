@@ -5,12 +5,13 @@
 {{ block content }}
 
     <p>
-    You gave {{ player.num_correct }} correct answers.
+    You gave {{ player.participant.BDM_Score }} correct answers.
     </p>
 
     <table class="table">
         <tr>
             <th>question</th>
+            <th>question number</th>
             <th>optionA</th>
             <th>optionB</th>
             <th>optionC</th>
@@ -21,6 +22,7 @@
         {{ for trial in trials }}
         <tr>
             <td>{{ trial.question }}</td>
+            <td>Not working</td>
             <td>{{ trial.optionA }}</td>
             <td>{{ trial.optionB }}</td>
             <td>{{ trial.optionC }}</td>

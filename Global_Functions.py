@@ -6,7 +6,7 @@ def read_csv(filename):
     f = open(filename, encoding='cp1252')
     rows = list(csv.DictReader(f))
 
-    random.shuffle(rows)
+    # random.shuffle(rows)  # Randomisation is just a hindrance
     return rows
 
 

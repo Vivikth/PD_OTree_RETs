@@ -34,10 +34,14 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     raw_responses = models.LongStringField()
     num_trials = models.IntegerField()
+    Q1_Correct = models.BooleanField()
+    Q2_Correct = models.BooleanField()
+    Q3_Correct = models.BooleanField()
+    Q4_Correct = models.BooleanField()
+    Q5_Correct = models.BooleanField()
 
 
 # FUNCTIONS
-
 
 class Trial(ExtraModel):
     player = models.Link(Player)
@@ -47,6 +51,7 @@ class Trial(ExtraModel):
     optionC = models.StringField()
     optionD = models.StringField()
     solution = models.StringField()
+    Qnum = models.IntegerField()
     choice = models.StringField()
     is_correct = models.BooleanField()
 
@@ -59,6 +64,7 @@ def to_dict(trial: Trial):
         optionC=trial.optionC,
         optionD=trial.optionD,
         id=trial.id,
+        Qnum=trial.Qnum,
         solution=trial.solution
     )
 
@@ -77,6 +83,7 @@ class Stimuli(Page):
         stimuli = [to_dict(trial) for trial in Trial.filter(player=player)]
         return dict(trials=stimuli)
 
+
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         import json
@@ -87,8 +94,21 @@ class Stimuli(Page):
             trial.is_correct = trial.choice == trial.solution
             player.participant.BDM_Score += int(trial.is_correct)
 
+            # For getting question correct in horizontal data
+            if trial.Qnum == 1:
+                player.Q1_Correct = trial.is_correct
+            elif trial.Qnum == 2:
+                player.Q2_Correct = trial.is_correct
+            elif trial.Qnum == 3:
+                player.Q3_Correct = trial.is_correct
+            elif trial.Qnum == 4:
+                player.Q4_Correct = trial.is_correct
+            elif trial.Qnum == 5:
+                player.Q5_Correct = trial.is_correct
 
-class Results(Page):
+
+
+class Results(Page):  # This page is mainly for debugging purposes, it doesn't appear in page_sequence
     @staticmethod
     def vars_for_template(player: Player):
         return dict(trials=Trial.filter(player=player))
@@ -102,7 +122,7 @@ page_sequence = [BdmIntro, Stimuli, BdmConc]
 
 
 def custom_export(players):
-    yield ['participant', 'question', 'choice', 'is_correct', 'BDM_Score']
+    yield ['participant_code', 'participant_label', 'choice', 'is_correct', 'BDM_Score']
 
     for player in players:
         participant = player.participant
@@ -110,4 +130,4 @@ def custom_export(players):
         trials = Trial.filter(player=player)
 
         for t in trials:
-            yield [participant.code, t.question, t.choice, t.is_correct, participant.BDM_Score]
+            yield [participant.code, participant.label, t.question, t.choice, t.is_correct, participant.BDM_Score]

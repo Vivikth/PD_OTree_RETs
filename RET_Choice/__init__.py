@@ -32,6 +32,10 @@ class Player(BasePlayer):
     Control_Task_Choice = models.CharField(
         doc="Control_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect,
     )
+    Treatment_Caused_Switch = models.IntegerField(
+        doc="Treatment_Caused_Switch"
+    )
+# Need to add calculations determining whether player switched.
 
 
 # FUNCTIONS
@@ -102,6 +106,11 @@ class TaskSelection(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.lc1a = 1
+
+        if player.Task_Choice == player.Control_Task_Choice:
+            player.Treatment_Caused_Switch = 0
+        else:
+            player.Treatment_Caused_Switch = 1
 
         if 'stage' not in player.participant.vars:
             player.participant.stage = '1a'
