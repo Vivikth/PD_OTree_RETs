@@ -20,35 +20,30 @@ SESSION_CONFIGS = [
         display_name="task_transcribing1a",
         num_demo_participants=1,
         app_sequence=['task_transcribing1a'],
-        debug=True,
     ),
     dict(
         name='task_encoding1a',
         display_name="task_encoding1a",
         num_demo_participants=1,
         app_sequence=['task_encoding1a'],
-        debug=True,
     ),
     dict(
         name='task_encoding1b',
         display_name="task_encoding1b",
         num_demo_participants=1,
         app_sequence=['task_encoding1b'],
-        debug=True,
     ),
     dict(
         name='task_organising1a',
         display_name="task_organising1a",
         num_demo_participants=1,
         app_sequence=['task_organising1a'],
-        debug=True,
     ),
     dict(
         name='task_tabulation1a',
         display_name="task_tabulation1a",
         num_demo_participants=1,
         app_sequence=['task_tabulation1a'],
-        debug=True,
     ),
     dict(
         name='RET_Choice_Sub',
@@ -58,7 +53,6 @@ SESSION_CONFIGS = [
         treatment="Substitution",
         pair1=["T", "C"],
         pair2=["R", "I"],
-        debug=True,
         sub_menu1=[('Tabulation', 1), ('Replication', 2), ('Organisation', 3)],
         sub_menu2=[('Concealment', 1), ('Replication', 2), ('Tabulation', 3)],
         treatment_used2=False,
@@ -72,7 +66,6 @@ SESSION_CONFIGS = [
         treatment="Post_Information",
         pair1=["R", "I"],
         pair2=["C", "T"],
-        debug=True,
     ),
     dict(
         name='RET_Choice_Pre',
@@ -82,7 +75,6 @@ SESSION_CONFIGS = [
         treatment="Pre_Information",
         pair1=["R", "C"],
         pair2=["T", "I"],
-        debug=True,
     ),
     dict(
         name='RET_Choice_Sub2',
@@ -92,21 +84,18 @@ SESSION_CONFIGS = [
         treatment="Substitution",
         pair1=["T", "C"],
         pair2=["R", "I"],
-        debug=True,
     ),
     dict(
         name='Experiment',
         display_name='Experiment',
         num_demo_participants=1,
         app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
-        debug=True,
     ),
     dict(
         name='BDM',
         display_name='BDM',
         num_demo_participants=1,
         app_sequence=['BDM'],
-        debug=True,
     ),
     dict(
         name='Task_WTP',
@@ -120,7 +109,6 @@ SESSION_CONFIGS = [
         display_name='Experiment_BW',
         num_demo_participants=1,
         app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
-        debug=True,
         continuation_rv=0.01,
     ),
     dict(
@@ -128,7 +116,6 @@ SESSION_CONFIGS = [
         display_name='Experiment_Worst',
         num_demo_participants=1,
         app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
-        debug=True,
         continuation_rv=0.01,
         treatment="Substitution",
         lot_outcome=100
@@ -138,7 +125,6 @@ SESSION_CONFIGS = [
         display_name='Experiment_Best',
         num_demo_participants=1,
         app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
-        debug=True,
         continuation_rv=0.01,
         lot_outcome=0,
         Rand_T='I'
@@ -155,7 +141,6 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
         treatment="Substitution",
-        debug=True,
     ),
     dict(
         name='Ethics_Consent',
@@ -183,7 +168,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc="", debug=True
+    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
 # ISO-639 code

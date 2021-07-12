@@ -183,7 +183,7 @@ class LevelSelection(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'debug': player.session.config['debug'],
+            'debug': settings.DEBUG,
         }
 
 
@@ -199,7 +199,7 @@ class Start(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'debug': player.session.config['debug'],
+            'debug': settings.DEBUG,
             'level_description': level_description(player.participant.lc1a)
         }
 
