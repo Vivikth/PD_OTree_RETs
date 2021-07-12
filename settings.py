@@ -194,7 +194,7 @@ INSTALLED_APPS = ['otree']
 PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
                       'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'sub_menu1',
                       'sub_menu2', 'opt_choice1', 'opt_choice2', 'treatment_used1', 'treatment_used2',
-                      'lc1a', 'pair', 'stage']
+                      'lc1a', 'pair', 'stage', 'path', 'rand_task']
 
 # For Debug False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:

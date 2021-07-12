@@ -87,3 +87,5 @@ def custom_export(players):
 
 
 page_sequence = [Survey]
+# Could include player level variables for convieince in custom export.
+# Add path taken, time taken.
