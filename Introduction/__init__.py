@@ -36,6 +36,7 @@ def creating_session(subsession):
     if subsession.round_number == 1:
         for player in subsession.get_players():
             player.participant.treatment = random.choice(["Substitution", "Pre_Information", "Post_Information"])
+            player.session.label = player.session.config['session_label']
 
 
 def payment_question_error_message(_player, value):

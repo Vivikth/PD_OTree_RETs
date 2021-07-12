@@ -168,7 +168,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00, participation_fee=0.00, doc="", session_label="DUMMY"
 )
 
 # ISO-639 code
@@ -202,3 +202,10 @@ if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
     DEBUG = False   # This should be the opposite of below.
 else:
     DEBUG = True   # This is the one that controls debug behaviour
+
+ROOMS = [
+    dict(
+        name='econ_lab',
+        display_name='Experimental Economics Lab'
+    ),
+]
