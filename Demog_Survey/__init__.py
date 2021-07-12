@@ -71,6 +71,13 @@ class Survey(Page):
         }
 
 
+def custom_export(players):
+    yield ['participant', 'question', 'choice', 'is_correct', 'BDM_Score']
+
+    for player in players:
+        participant = player.participant
+        yield [participant.code, participant.BDM_Score]
+
 
 
 page_sequence = [Survey]

@@ -3,6 +3,8 @@ from otree.api import *
 
 import random
 import string
+
+import settings
 from Global_Functions import app_after_task
 
 
@@ -147,7 +149,7 @@ class Task(Page):
     def vars_for_template(player: Player):
         return {
             'round_count': (player.round_number - 1),
-            'debug': 1,
+            'debug': settings.DEBUG,
             'rounds_remaining': (Constants.num_rounds - player.round_number + 1),
             'display_text': player.correct_text,
         }

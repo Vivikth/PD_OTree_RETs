@@ -14,7 +14,6 @@ SESSION_CONFIGS = [
         display_name="task_replication1a",
         num_demo_participants=1,
         app_sequence=['task_replication1a'],
-        debug=True,
     ),
     dict(
         name='task_transcribing1a',
@@ -184,7 +183,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00, participation_fee=0.00, doc="", debug=True
 )
 
 # ISO-639 code
@@ -212,3 +211,9 @@ PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Int
                       'sub_menu2', 'c_opt_choice1', 'c_opt_choice2', 'opt_choice1', 'opt_choice2',
                       'opt_choice', 'lc1a', 'pair', 'stage', 'treatment_used1', 'treatment_used2']
 # I should be able to delete c_opt_choice1, c_opt_choice2 - these variables don't seem to be used anywhere.
+
+# For Debug False
+if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
+    DEBUG = True   # This should be the opposite of below.
+else:
+    DEBUG = False   # This is the one that controls debug behaviour
