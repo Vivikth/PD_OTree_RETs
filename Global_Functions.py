@@ -103,3 +103,6 @@ def dict_product(dicts):
     """
     import itertools
     return (dict(zip(dicts, x)) for x in itertools.product(*dicts.values()))
+
+
+global_cases = list(dict_product(global_cases_dict))

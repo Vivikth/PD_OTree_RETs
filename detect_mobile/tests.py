@@ -1,13 +1,11 @@
 from . import *
 from otree.api import Bot
-from Global_Functions import dict_product, global_cases_dict
+from Global_Functions import dict_product, global_cases
 
 
 class PlayerBot(Bot):
 
-    case_dict = global_cases_dict
-
-    cases = list(dict_product(case_dict))
+    cases = global_cases
 
     def play_round(self):
         if self.case['detect_mobile'] == 'mobile':
