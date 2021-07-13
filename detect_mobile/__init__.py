@@ -28,8 +28,7 @@ class MobileCheck(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.participant.mobile = False
-        print(player.participant.mobile)
+        player.participant.mobile = player.is_mobile
 
 
 class SorryNoMobile(Page):
