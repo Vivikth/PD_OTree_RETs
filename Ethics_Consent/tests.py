@@ -1,12 +1,11 @@
 from . import *
 from otree.api import Bot, SubmissionMustFail
-from Global_Functions import dict_product
+from Global_Functions import dict_product, global_cases_dict
 
 
 class PlayerBot(Bot):
 
-    case_dict = {'detect_mobile': ['non_mobile', 'mobile'],
-                 'Ethics_Consent': ['Consent', 'No_Consent']}
+    case_dict = global_cases_dict
 
     cases = list(dict_product(case_dict))
 
