@@ -40,9 +40,5 @@ class SorryNoMobile(Page):
     def before_next_page(player: Player, timeout_happened):
         player.participant.mobile = True
 
-    @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        return "payment_info"
-
 
 page_sequence = [MobileCheck, SorryNoMobile]
