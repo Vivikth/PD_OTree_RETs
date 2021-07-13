@@ -56,9 +56,9 @@ class InformationSheet(Page):
         'name',
     ]
 
-
-class WaitToStart(Page):
-    pass
+    # @staticmethod
+    # def app_after_this_page(player: Player, upcoming_apps):
+    #     return 'Introduction'
 
 
 page_sequence = [SonaId, InformationSheet]

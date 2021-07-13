@@ -154,6 +154,7 @@ SESSION_CONFIGS = [
         display_name='payment_info',
         num_demo_participants=1,
         app_sequence=['payment_info'],
+        mobile=False
     ),
     dict(
         name='detect_mobile',
