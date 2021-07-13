@@ -160,15 +160,8 @@ SESSION_CONFIGS = [
         name='detect_mobile',
         display_name='detect_mobile',
         num_demo_participants=1,
-        app_sequence=['detect_mobile', 'Ethics_Consent', 'finalapp'],
+        app_sequence=['detect_mobile', 'Ethics_Consent'],
     ),
-    dict(
-        name='finalapp',
-        display_name='final',
-        num_demo_participants=1,
-        app_sequence=['finalapp'],
-    ),
-
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
