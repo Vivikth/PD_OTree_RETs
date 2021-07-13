@@ -18,7 +18,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    is_mobile = models.BooleanField()
+    is_mobile = models.BooleanField(initial=False, blank=True)
 
 
 # PAGES
@@ -29,6 +29,7 @@ class MobileCheck(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.mobile = False
+        print(player.participant.mobile)
 
 
 class SorryNoMobile(Page):
@@ -39,10 +40,11 @@ class SorryNoMobile(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.mobile = True
+        print(player.participant.mobile)
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        return "payment_info"
+        return "finalapp"
 
 
 page_sequence = [MobileCheck, SorryNoMobile]
