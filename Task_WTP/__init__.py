@@ -266,6 +266,11 @@ class Boring(Page):
     form_fields = ['raw_responses']
 
     @staticmethod
+    def is_displayed(player: Player):
+        return not player.participant._is_bot
+
+
+    @staticmethod
     def js_vars(player: Player):
         stimuli = [to_dict(trial) for trial in Trial.filter(player=player)]
         return dict(trials=stimuli)
