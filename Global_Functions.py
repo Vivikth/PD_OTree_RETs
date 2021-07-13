@@ -87,3 +87,17 @@ def option_index(option):
         return 1
     elif option == "Option 2":
         return 2
+
+
+
+
+def dict_product(dicts):
+    """
+    >>> list(dict_product(dict(number=[1,2], character='ab')))
+    [{'character': 'a', 'number': 1},
+     {'character': 'a', 'number': 2},
+     {'character': 'b', 'number': 1},
+     {'character': 'b', 'number': 2}]
+    """
+    import itertools
+    return (dict(zip(dicts, x)) for x in itertools.product(*dicts.values()))
