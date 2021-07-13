@@ -160,7 +160,7 @@ SESSION_CONFIGS = [
         name='detect_mobile',
         display_name='detect_mobile',
         num_demo_participants=1,
-        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction'],
+        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM'],
     ),
 ]
 

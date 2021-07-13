@@ -32,7 +32,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    raw_responses = models.LongStringField()
+    raw_responses = models.LongStringField(blank=True)
     num_trials = models.IntegerField()
     Q1_Correct = models.BooleanField()
     Q2_Correct = models.BooleanField()
@@ -79,14 +79,21 @@ class Stimuli(Page):
     form_fields = ['raw_responses']
 
     @staticmethod
+    def is_displayed(player: Player):
+        return not player.participant._is_bot  # I have no clue how to make a bot that runs through the JS submissions,
+        # and I don't have time to figure it out
+
+    @staticmethod
     def js_vars(player: Player):
         stimuli = [to_dict(trial) for trial in Trial.filter(player=player)]
         return dict(trials=stimuli)
 
-
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         import json
+        # print(player.raw_responses, Trial.filter(player=player)[0].id)
+        # print(type(player.raw_responses))
+        # print(Trial.filter(player=player)[0].solution)
         responses = json.loads(player.raw_responses)
         for trial in Trial.filter(player=player):
             # have to use str() because Javascript implicitly converts keys to strings
@@ -105,7 +112,6 @@ class Stimuli(Page):
                 player.Q4_Correct = trial.is_correct
             elif trial.Qnum == 5:
                 player.Q5_Correct = trial.is_correct
-
 
 
 class Results(Page):  # This page is mainly for debugging purposes, it doesn't appear in page_sequence

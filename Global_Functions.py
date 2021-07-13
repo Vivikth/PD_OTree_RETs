@@ -91,7 +91,8 @@ def option_index(option):
 
 global_cases_dict = {'detect_mobile': ['non_mobile', 'mobile'],
                      'Ethics_Consent': ['Consent', 'No_Consent'],
-                     'Introduction': ['all_correct', 'incorrect']}
+                     'Introduction': ['all_correct', 'incorrect'],
+                     'BDM': ['success']}
 
 
 def dict_product(dicts):
