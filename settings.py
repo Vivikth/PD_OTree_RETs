@@ -26,6 +26,7 @@ SESSION_CONFIGS = [
         display_name="task_encoding1a",
         num_demo_participants=1,
         app_sequence=['task_encoding1a'],
+        use_browser_bots=True,
     ),
     dict(
         name='task_encoding1b',
