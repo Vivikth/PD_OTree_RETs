@@ -1,6 +1,6 @@
 from . import *
 from otree.api import Bot, SubmissionMustFail
-from Global_Functions import dict_product, global_cases
+from Global_Functions import global_cases
 
 
 class PlayerBot(Bot):
