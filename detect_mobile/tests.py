@@ -1,5 +1,5 @@
 from . import *
-from otree.api import Bot
+from otree.api import Bot, Submission
 
 
 
@@ -11,6 +11,6 @@ class PlayerBot(Bot):
 
         if self.case == 'mobile':
             yield MobileCheck, dict(is_mobile=True)
+            yield Submission(SorryNoMobile, check_html=False)
         if self.case == 'non-mobile':
             yield MobileCheck, dict(is_mobile=False)
-
