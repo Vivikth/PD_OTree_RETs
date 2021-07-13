@@ -28,13 +28,21 @@ class MobileCheck(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.participant.start_time = player.participant.time_started_utc
+        player.participant.mobile = False
 
 
 class SorryNoMobile(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.is_mobile
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        player.participant.mobile = True
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        return "payment_info"
 
 
 page_sequence = [MobileCheck, SorryNoMobile]

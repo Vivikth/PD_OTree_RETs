@@ -32,6 +32,10 @@ class Player(BasePlayer):
 
 class PaymentInfo(Page):
     @staticmethod
+    def is_displayed(player: Player):
+        return not player.participant.mobile
+
+    @staticmethod
     def vars_for_template(player: Player):
         participant = player.participant
         return {
