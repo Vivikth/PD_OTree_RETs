@@ -11,7 +11,8 @@ class PlayerBot(Bot):
     def play_round(self):
         if self.case['detect_mobile'] == 'non_mobile' and self.case['Ethics_Consent'] == 'Consent'\
                 and self.case['Introduction'] == 'all_correct':
-            yield RetChoiceIntroduction
+            if 'stage' not in self.player.participant.vars:
+                yield RetChoiceIntroduction
 
             # Need to draw agent's type.
             type_draw = random.random()
@@ -28,10 +29,10 @@ class PlayerBot(Bot):
             treatment_choice = bot_treatment_choice(bot_type)
 
             control_tremble_draw = random.random()
-            if control_tremble_draw < self.case['tremble_prob'][0]:
+            if control_tremble_draw < self.case['tremble_prob']:
                 control_choice = 3 - control_choice
             treatment_tremble_draw = random.random()
-            if treatment_tremble_draw < self.case['tremble_prob'][0]:
+            if treatment_tremble_draw < self.case['tremble_prob']:
                 treatment_choice = 3 - treatment_choice
 
             yield ControlTaskSelection, dict(Control_Task_Choice="Option %i" % control_choice)

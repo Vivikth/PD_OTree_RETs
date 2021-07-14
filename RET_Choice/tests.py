@@ -11,7 +11,8 @@ class PlayerBot(Bot):
     def play_round(self):
         if self.case['detect_mobile'] == 'non_mobile' and self.case['Ethics_Consent'] == 'Consent'\
                 and self.case['Introduction'] == 'all_correct':
-            yield RetChoiceIntroduction
+            if 'stage' not in self.player.participant.vars:
+                yield RetChoiceIntroduction
 
             # Need to draw agent's type.
             type_draw = random.random()
