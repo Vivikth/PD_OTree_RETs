@@ -3,3 +3,6 @@ otree browser_bots detect_mobile --server-url=https://anu-pd-experiment.herokuap
 otree browser_bots Task_WTP --server-url=https://anu-pd-experiment.herokuapp.com/demo
 otree browser_bots payment_info --server-url=https://anu-pd-experiment.herokuapp.com/demo
 otree browser_bots Survey --server-url=https://anu-pd-experiment.herokuapp.com/demo
+otree browser_bots RET_Choice_Sub --server-url=https://anu-pd-experiment.herokuapp.com/demo
+otree browser_bots RET_Choice_Post --server-url=https://anu-pd-experiment.herokuapp.com/demo
+otree browser_bots RET_Choice_Pre --server-url=https://anu-pd-experiment.herokuapp.com/demo
