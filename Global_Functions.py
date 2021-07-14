@@ -92,7 +92,10 @@ def option_index(option):
 global_cases_dict = {'detect_mobile': ['non_mobile', 'mobile'],
                      'Ethics_Consent': ['Consent', 'No_Consent'],
                      'Introduction': ['all_correct', 'incorrect'],
-                     'BDM': ['success']}
+                     'BDM': ['success'],
+                     'Task_WTP': ['random'],
+                     'Exp_Prob': [[0.3, 0.5, 0.1, 0.1]], # [(O1,O1), (O1,O2), (O2, O1), (O2,O2)]
+                     'tremble_prob': [0.05]}
 
 
 def dict_product(dicts):
@@ -108,3 +111,17 @@ def dict_product(dicts):
 
 
 global_cases = list(dict_product(global_cases_dict))
+
+
+def bot_control_choice(bot_type):
+    if bot_type == 'Never_Experiment' or bot_type == 'Switch_to_Experiment':
+        return 1
+    if bot_type == 'Switch_from_Experiment' or bot_type == 'Always_Experiment':
+        return 2
+
+
+def bot_treatment_choice(bot_type):
+    if bot_type == 'Never_Experiment' or bot_type == 'Switch_from_Experiment':
+        return 1
+    if bot_type == 'Switch_to_Experiment' or bot_type == 'Always_Experiment':
+        return 2

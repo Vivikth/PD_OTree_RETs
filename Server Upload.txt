@@ -2,3 +2,4 @@ otree browser_bots <session_config_name> --server-url=https://anu-pd-experiment.
 otree browser_bots detect_mobile --server-url=https://anu-pd-experiment.herokuapp.com/demo
 otree browser_bots Task_WTP --server-url=https://anu-pd-experiment.herokuapp.com/demo
 otree browser_bots payment_info --server-url=https://anu-pd-experiment.herokuapp.com/demo
+otree browser_bots Survey --server-url=https://anu-pd-experiment.herokuapp.com/demo
