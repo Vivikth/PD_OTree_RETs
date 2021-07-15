@@ -94,7 +94,7 @@ global_cases_dict = {'detect_mobile': ['non_mobile', 'mobile'],
                      'Introduction': ['all_correct', 'incorrect'],
                      'BDM': ['success'],
                      'Task_WTP': ['random'],
-                     'Exp_Prob': [[0.3, 0.5, 0.1, 0.1]], # [(O1,O1), (O1,O2), (O2, O1), (O2,O2)]
+                     'Exp_Prob': [[0.3, 0.5, 0.1, 0.1]],  # [(O1,O1), (O1,O2), (O2, O1), (O2,O2)]
                      'tremble_prob': [0.05]}
 
 
@@ -131,5 +131,9 @@ def bot_should_play_app(self, app):
     """Determines whether bot should play app"""
     if app == 'detect_mobile':
         return True
-    if app == 'Ethics_Consent':
-        return self.case['detect_mobile'] == 'non_mobile'  # Only non-mobile users can continue.
+    if app == 'Ethics_Consent':  # Only non-mobile users can continue.
+        return self.case['detect_mobile'] == 'non_mobile'
+    if app == 'Introduction':  # User must consent to continue
+        return bot_should_play_app(self, 'Ethics_Consent') and self.case['Ethics_Consent'] == 'Consent'
+    if app == 'BDM':  # User must get introduction questions correct to continue.
+        return bot_should_play_app(self, 'Introduction') and self.case['Introduction'] == 'all_correct'

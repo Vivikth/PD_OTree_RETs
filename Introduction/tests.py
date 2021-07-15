@@ -1,6 +1,6 @@
 from . import *
 from otree.api import Bot, SubmissionMustFail
-from Global_Functions import global_cases
+from Global_Functions import global_cases, bot_should_play_app
 import random
 
 
@@ -9,7 +9,7 @@ class PlayerBot(Bot):
     cases = global_cases
 
     def play_round(self):
-        if not self.player.participant.mobile and self.case['Ethics_Consent'] == 'Consent':
+        if bot_should_play_app(self, Constants.name_in_url):
             if self.case['Introduction'] == 'all_correct':
                 yield Introduction, dict(payment_question=Constants.payment_amount,
                                          visual_abilities="Interpretation",
