@@ -127,6 +127,9 @@ def bot_treatment_choice(bot_type):
         return 2
 
 
-def should_bot_play_app(self, app):
+def bot_should_play_app(self, app):
+    """Determines whether bot should play app"""
     if app == 'detect_mobile':
-        return self.case['detect_mobile'] == 'non_mobile'
+        return True
+    if app == 'Ethics_Consent':
+        return self.case['detect_mobile'] == 'non_mobile'  # Only non-mobile users can continue.

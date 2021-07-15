@@ -6,7 +6,7 @@ from . import models
 
 
 class Constants(BaseConstants):
-    name_in_url = 'ethics_consent'
+    name_in_url = 'Ethics_Consent'
     players_per_group = None
     num_rounds = 1
 
