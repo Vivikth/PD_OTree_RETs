@@ -2,7 +2,7 @@ from task_tabulation1a import *
 
 
 class Constants(Constants):
-    name_in_url = 'task_counting0'
+    name_in_url = 'task_tabulation0'
 
 
 class Subsession(BaseSubsession):

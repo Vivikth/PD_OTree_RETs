@@ -31,8 +31,8 @@ class Interim(Page):
     def app_after_this_page(player: Player, upcoming_apps):
         opt_choice2 = player.participant.opt_choice2
         player.participant.lc1a = 1
+        player.participant.task_to_complete = task_name_decoder(task_name(player.participant.pair[opt_choice2])) + player.participant.stage
         return task_name_decoder(task_name(player.participant.pair[opt_choice2])) + player.participant.stage
-
 
 
 page_sequence = [Interim]

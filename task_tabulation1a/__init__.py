@@ -16,7 +16,7 @@ doc = """Tabulation Real Effort Task - Subjects must count zeros in a grid"""
 
 
 class Constants(BaseConstants):
-    name_in_url = 'task_counting1a'
+    name_in_url = 'task_tabulation1a'
     players_per_group = None
     num_rounds = 3
     grid_size = 8  # Could vary between levels.

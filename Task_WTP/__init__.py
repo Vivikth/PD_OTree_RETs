@@ -242,6 +242,7 @@ class WtpConc(Page):
             # print("BDM Num is ", player.BDM_Num)
             # print("lot outcome is ", player.lot_outcome)
             if value_function(player.Rand_T, player) > player.BDM_Num:  # Player values task more than lottery
+                player.participant.task_to_complete = task_name_decoder(task_name(player.Rand_T)) + '0'
                 player.participant.lc1a = 1  # Set task level to 1.
                 player.participant.path = "Single_Task"
                 return task_name_decoder(task_name(player.Rand_T)) + '0'

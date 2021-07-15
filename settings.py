@@ -63,7 +63,7 @@ SESSION_CONFIGS = [
         name='RET_Choice_Post',
         display_name="RET_Choice_Post",
         num_demo_participants=1,
-        app_sequence=["RET_Choice"] + ["RET_Choice_2"],
+        app_sequence=RET_LIST,
         treatment="Post_Information",
         pair1=["R", "I"],
         pair2=["C", "T"],
@@ -72,7 +72,7 @@ SESSION_CONFIGS = [
         name='RET_Choice_Pre',
         display_name="RET_Choice_Pre",
         num_demo_participants=1,
-        app_sequence=["RET_Choice"] + ["RET_Choice_2"],
+        app_sequence=RET_LIST,
         treatment="Pre_Information",
         pair1=["R", "C"],
         pair2=["T", "I"],
@@ -196,7 +196,8 @@ INSTALLED_APPS = ['otree']
 PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
                       'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'sub_menu1',
                       'sub_menu2', 'opt_choice1', 'opt_choice2', 'treatment_used1', 'treatment_used2',
-                      'lc1a', 'pair', 'stage', 'path', 'rand_task', 'start_time', 'end_time', 'mobile']
+                      'lc1a', 'pair', 'stage', 'path', 'task_to_complete',
+                      'rand_task', 'start_time', 'end_time', 'mobile']
 
 # For Debug False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:

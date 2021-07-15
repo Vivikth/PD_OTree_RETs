@@ -70,6 +70,7 @@ class MenuSelectIntro(Page):
         partitioned_string = player.menu_task.partition(' ')
         # print(partitioned_string)
         player.participant.lc1a = int(partitioned_string[2][-2])
+        player.participant.task_to_complete = task_name_decoder(partitioned_string[0]) + player.participant.stage
         return task_name_decoder(partitioned_string[0]) + player.participant.stage
 
     @staticmethod

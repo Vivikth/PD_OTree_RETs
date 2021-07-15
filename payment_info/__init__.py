@@ -28,16 +28,9 @@ class Player(BasePlayer):
 
 
 # Functions
-def creating_session(subsession):
-    for player in subsession.get_players():
-        if 'mobile' in player.session.config:
-            player.participant.mobile = player.session.config['mobile']
 
 
 class PaymentInfo(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return not player.participant.mobile
 
     @staticmethod
     def vars_for_template(player: Player):

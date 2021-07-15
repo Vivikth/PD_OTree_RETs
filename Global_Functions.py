@@ -125,3 +125,8 @@ def bot_treatment_choice(bot_type):
         return 1
     if bot_type == 'Switch_to_Experiment' or bot_type == 'Always_Experiment':
         return 2
+
+
+def should_bot_play_app(self, app):
+    if app == 'detect_mobile':
+        return self.case['detect_mobile'] == 'non_mobile'
