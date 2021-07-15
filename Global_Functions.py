@@ -155,4 +155,4 @@ def bot_should_play_app(self, app):
         if 'path' not in self.player.participant.vars:  # Depends if we want to test survey alone
             return bot_should_play_app(self, 'BDM')
         else:
-            bot_should_play_app(self, 'BDM')
+            return bot_should_play_app(self, 'BDM')
