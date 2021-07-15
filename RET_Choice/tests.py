@@ -1,6 +1,6 @@
 from . import *
 from otree.api import Bot
-from Global_Functions import global_cases, bot_control_choice, bot_treatment_choice
+from Global_Functions import global_cases, bot_control_choice, bot_treatment_choice, bot_should_play_app
 import random
 
 
@@ -9,11 +9,9 @@ class PlayerBot(Bot):
     cases = global_cases
 
     def play_round(self):
-        if self.case['detect_mobile'] == 'non_mobile' and self.case['Ethics_Consent'] == 'Consent'\
-                and self.case['Introduction'] == 'all_correct':
+        if bot_should_play_app(self, Constants.name_in_url):
             if 'stage' not in self.player.participant.vars:
                 yield RetChoiceIntroduction
-
             # Need to draw agent's type.
             type_draw = random.random()
             if type_draw < self.case['Exp_Prob'][0]:

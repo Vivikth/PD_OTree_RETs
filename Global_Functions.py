@@ -128,7 +128,9 @@ def bot_treatment_choice(bot_type):
 
 
 def bot_should_play_app(self, app):
-    """Determines whether bot should play app"""
+    """Determines whether bot should play app
+    parameter app should correspond to Constants.name_in_url
+    """
     if app == 'detect_mobile':
         return True
     if app == 'Ethics_Consent':  # Only non-mobile users can continue.
@@ -137,3 +139,20 @@ def bot_should_play_app(self, app):
         return bot_should_play_app(self, 'Ethics_Consent') and self.case['Ethics_Consent'] == 'Consent'
     if app == 'BDM':  # User must get introduction questions correct to continue.
         return bot_should_play_app(self, 'Introduction') and self.case['Introduction'] == 'all_correct'
+    if app == 'Task_WTP':  # No additional requirements
+        return bot_should_play_app(self, 'BDM')
+    if 'task' in app:
+        return bot_should_play_app(self, 'BDM')
+    if 'RET' in app:
+        if 'path' not in self.player.participant.vars:  # Depends if we want to test RET_Choice alone or not
+            return bot_should_play_app(self, 'BDM')
+        else:
+            return bot_should_play_app(self, 'BDM') and \
+                   (self.player.participant.path == 'Worst' or self.player.participant.path == 'Regular')
+    if 'Menu' in app or app == 'Interim':
+        return bot_should_play_app(self, 'RET')
+    if app == 'Demog_Survey' or app == 'payment_info':
+        if 'path' not in self.player.participant.vars:  # Depends if we want to test survey alone
+            return bot_should_play_app(self, 'BDM')
+        else:
+            bot_should_play_app(self, 'BDM')
