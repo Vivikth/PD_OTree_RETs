@@ -2,30 +2,13 @@
 <!--<h2 id="TimerHead">Submit button will appear in  <span id="count"></span> seconds </h2>-->
 
 <div id="div1">
-<button type="button" class="btn btn-primary" onclick="checkSubmit()">Submit</button>
     <p>
-    Note: You will have to click the submit button to enter your switch-point.
+    Note: You will have to click the next button to enter your switch-point.
 </p>
 
 </div>
 
     <script>
-        function checkSubmit() {
-            let form = document.getElementById('form');
-            let isValid = form.reportValidity();
-            let formvalue = form.elements[0].value;
-            if (!isValid) return;
-
-            let warnings = [];
-            if (formvalue < 1 && formvalue > 0) {
-                warnings.push("Please double-check your switch-point. Remember that your switch-point is a percentage between 0 and 100. Press OK to proceed.")
-                let confirmed = window.confirm(warnings.join('\r\n'));
-                if (!confirmed) return;
-                form.submit();
-            } else {
-                form.submit();
-            }
-        }
     </script>
 
     <script type="text/javascript">

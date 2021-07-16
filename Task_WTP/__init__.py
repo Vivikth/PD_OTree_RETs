@@ -139,8 +139,23 @@ class WtpIntro(Page):
     pass
 
 
-class PrefElicit(Page):
-    pass
+class Instruction_Page(Page):
+    form_model = 'player'
+    form_fields = ['Tabulation_Value']
+
+    @staticmethod
+    def live_method(player, data):
+        if 'Tabulation_Value' in data:
+            player.Tabulation_Value = data['Tabulation_Value']
+
+
+    # @staticmethod
+    # def vars_for_template(player: Player):
+    #     return {
+    #         'Task_name': 'Tabulation',
+    #         'Task_description': 'Subjects must use their mathematical abilities to tabulate quantities'
+    #     }
+
 
 
 class TabulationWTP(Page):
@@ -293,7 +308,7 @@ class BoringConc(Page):
         return "RET_Choice"
 
 
-page_sequence = [WtpIntro, TabulationWTP, ConcealmentWTP, InterpretationWTP, ReplicationWTP, OrganisationWTP,
+page_sequence = [WtpIntro, Instruction_Page, TabulationWTP, ConcealmentWTP, InterpretationWTP, ReplicationWTP, OrganisationWTP,
                  WtpConc, Boring, BoringConc]
 
 

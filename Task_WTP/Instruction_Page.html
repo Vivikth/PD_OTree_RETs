@@ -1,0 +1,196 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{{ block title }}
+Applying the Switch-Point Procedure
+{{ endblock }}
+
+
+{% block scripts %}
+
+<script src="{% static 'back_button_v2/js/prev_next_button.js' %}"></script>
+
+{% endblock %}
+
+
+{% block styles %}
+
+<link href="{% static 'back_button_v2/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Tab navigation -->
+<ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
+  
+
+  <li class="nav-item" >
+    <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()"> Tab 1
+</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
+  </li>
+
+
+<li class="nav-item">
+    <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3" onclick="topFunction()">Tab 3</a>
+  </li>
+
+
+<li class="nav-item">
+    <a class="nav-link" id="part4-tab" data-toggle="tab" href="#part4" role="tab" aria-controls="part4" onclick="topFunction()">Tab 4</a>
+  </li>
+
+<li class="nav-item">
+    <a class="nav-link" id="part5-tab" data-toggle="tab" href="#part5" role="tab" aria-controls="part5" onclick="topFunction()">Tab 5</a>
+  </li>
+
+<li class="nav-item">
+    <a class="nav-link" id="part6-tab" data-toggle="tab" href="#part6" role="tab" aria-controls="part6" onclick="topFunction()">Tab 6</a>
+  </li>
+
+</ul>
+
+
+
+<!-- Tab content -->
+<div class="tab-content" id="myTabContent">
+
+  <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+
+            {{ with Task_name='Tabulation' }}
+                {{with Task_description='Subjects must use their mathematical abilities to tabulate quantities' }}
+                    {{ include 'Task_WTP/PrefElicit.html'}}
+                {{ endwith }}
+            {{endwith}}
+
+
+            {{ with Form_Value=form.Tabulation_Value }}
+
+                <label style="font-size: 20px">  {{Form_Value.label }}</label>
+                <div class="form-group">
+                        <input type="number" step="any" id="tabulation_form" name="Tabulation_Value" min="0" oninput="this.value =
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
+                        <label style="text-align: right">%</label>
+                </div>
+                {{ formfield_errors 'Tabulation_Value' }}
+
+            {{endwith}}
+            {{ include 'Task_WTP/Are_You_Sure.html' }}
+      <button type="button" hidden onclick="topFunction()" id="tabulation_next_hidden" class="nexttab tabulation_form"></button>
+      <button onclick="checkSubmit(this)" type="button" id="tabulation_next" name="tabulation_form" class="btn-primary btn next">Next</button>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+
+
+<!--<div class="card-header bg-transparent mainheader" >-->
+ <h3 class="card-title font-weight-bold"> Tab 2 </h3>
+<!--  </div>-->
+<br>
+
+<p>
+    TAB 2 Content
+</p>
+
+    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+  </div>
+
+
+
+
+
+  <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+ 
+
+<div class="card-header bg-transparent mainheader" >
+ <h3 class="card-title font-weight-bold">Tab 3 </h3>
+  </div>
+<br>
+    
+<p>
+    TAB 3 Content
+</p>
+
+    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+  </div>
+
+
+  <div class="tab-pane" id="part4" role="tabpanel" aria-labelledby="part4-tab">
+
+
+<div class="card-header bg-transparent mainheader" >
+ <h3 class="card-title font-weight-bold">Tab 4 </h3>
+  </div>
+<br>
+
+<p>
+    TAB 4 Content
+</p>
+
+    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+  </div>
+
+
+ <div class="tab-pane" id="part5" role="tabpanel" aria-labelledby="part5-tab">
+
+
+<div class="card-header bg-transparent mainheader" >
+ <h3 class="card-title font-weight-bold">Tab 5 </h3>
+  </div>
+<br>
+
+<p>
+    TAB 5 Content
+</p>
+
+
+    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+  </div>
+
+
+ <div class="tab-pane" id="part6" role="tabpanel" aria-labelledby="part6-tab">
+
+
+<div class="card-header bg-transparent mainheader" >
+ <h3 class="card-title font-weight-bold">Tab 6 </h3>
+  </div>
+<br>
+
+<p>
+    TAB 6 Content
+</p>
+
+
+    <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button class="nexttab btn-primary btn next">Next</button>
+  </div>
+
+</div>
+<br> <br> <br> <br> <br>
+<h2> Switch-Point Procedure Information</h2>
+
+    {{ include 'BDM/BDM_Info_ShowHide.html' }}
+
+
+{% endblock %}
+
+
+
