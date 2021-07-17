@@ -55,6 +55,11 @@ function checkSubmit(btn) {
     var formInput = form.value;
     var sendDict = {};
 
+    if (formInput.length == 0) {
+        alert("You must enter a switch-point");
+        return;
+    }
+
     var formValue = parseFloat(formInput);
     if (formValue < 0 || formValue > 100) {
         alert("Your switch-point must be between 0 and 100");
@@ -71,4 +76,13 @@ function checkSubmit(btn) {
         document.getElementsByClassName("nexttab ".concat(btn.name))[0].click();
         topFunction();
     }
+}
+
+function liveRecv(data) {
+    // your code goes here
+    document.getElementById("Task1").innerHTML = data[0];
+    document.getElementById("Task2").innerHTML = data[1];
+    document.getElementById("Task3").innerHTML = data[2];
+    document.getElementById("Task4").innerHTML = data[3];
+    document.getElementById("Task5").innerHTML = data[4];
 }

@@ -1,6 +1,7 @@
 from otree.api import *
 import random
 from Global_Functions import read_csv, value_function, list_subtract, task_name_decoder, task_name
+from more_itertools import sort_together
 
 author = "Vivikth"
 doc = """ Determines subject's valuations for level-1 tasks """
@@ -134,28 +135,43 @@ def creating_session(subsession: Subsession):
             p.lot_outcome = 0
 
 
+def get_nullable(obj, field_name):
+    try:
+        return getattr(obj, field_name)
+    except TypeError:
+        return None
+
+
 # PAGES
 class WtpIntro(Page):
     pass
 
 
-class Instruction_Page(Page):
+class InstructionPage(Page):
     form_model = 'player'
-    form_fields = ['Tabulation_Value']
+    form_fields = ['Tabulation_Value', 'Concealment_Value', 'Replication_Value',
+                   'Interpretation_Value', 'Organisation_Value']
 
     @staticmethod
     def live_method(player, data):
         if 'Tabulation_Value' in data:
             player.Tabulation_Value = data['Tabulation_Value']
+        if 'Concealment_Value' in data:
+            player.Concealment_Value = data['Concealment_Value']
+        if 'Interpretation_Value' in data:
+            player.Interpretation_Value = data['Interpretation_Value']
+        if 'Replication_Value' in data:
+            player.Replication_Value = data['Replication_Value']
+        if 'Organisation_Value' in data:
+            player.Organisation_Value = data['Organisation_Value']
 
-
-    # @staticmethod
-    # def vars_for_template(player: Player):
-    #     return {
-    #         'Task_name': 'Tabulation',
-    #         'Task_description': 'Subjects must use their mathematical abilities to tabulate quantities'
-    #     }
-
+        if all(get_nullable(player, value) is not None for value in ['Tabulation_Value', 'Concealment_Value',
+                                                                     'Replication_Value',
+                                                                     'Interpretation_Value', 'Organisation_Value']):
+            names = ['Tabulation', 'Concealment', 'Replication', 'Interpretation', 'Organisation']
+            values = [player.Tabulation_Value, player.Concealment_Value, player.Replication_Value,
+                      player.Interpretation_Value, player.Organisation_Value]
+            return {player.id_in_group: sort_together([values, names])[1][::-1]}
 
 
 class TabulationWTP(Page):
@@ -308,8 +324,7 @@ class BoringConc(Page):
         return "RET_Choice"
 
 
-page_sequence = [WtpIntro, Instruction_Page, TabulationWTP, ConcealmentWTP, InterpretationWTP, ReplicationWTP, OrganisationWTP,
-                 WtpConc, Boring, BoringConc]
+page_sequence = [WtpIntro, InstructionPage, WtpConc, Boring, BoringConc]
 
 
 def custom_export(players):
