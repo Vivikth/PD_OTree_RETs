@@ -8,7 +8,7 @@
 
 
 {% block content %}
-{{if player.participant.treatment == 'Post_Information' and player.participant.stage == '1b' and player.participant.treatment_used1}}
+{{if player.participant.treatment == 'Post_Information' and player.participant.stage == '1b' and player.participant.treatment_used1 == 'Treatment'}}
 <p>
 As promised earlier, I am going to provide you with detailed information about a certain task before you make your choice.<br>
 </p>
@@ -17,7 +17,7 @@ As promised earlier, I am going to provide you with detailed information about a
 
 {{ endif }}
 
-{{if player.participant.treatment == 'Post_Information' and player.participant.stage == '2b' and player.participant.treatment_used2}}
+{{if player.participant.treatment == 'Post_Information' and player.participant.stage == '2b' and player.participant.treatment_used2 == "Treatment"}}
 <p>
 As promised earlier, I am going to provide you with detailed information about a certain task before you make your choice.<br>
 </p>

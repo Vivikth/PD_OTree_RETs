@@ -34,7 +34,7 @@ ul { display: inline-block; text-align: left; }
     This means you will have to complete the following task-list pair:
 </p>
 
-{{ if player.participant.treatment_used1 }}
+{{ if player.participant.treatment_used1 == 'Treatment' }}
     {% with control=False %}
         {{ if player.Task_Choice == "Option 1" }}
             {{ include 'RET_Choice/Option1.html'}}

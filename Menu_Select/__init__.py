@@ -37,7 +37,7 @@ class Player(BasePlayer):
 def menu_task_choices(player):
     if player.participant.treatment == "Substitution":
         if player.participant.stage == '1b':
-            if player.participant.treatment_used1:
+            if player.participant.treatment_used1 == "Treatment":
                 pref_opt = task_name(player.participant.pair[1])
                 return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
             else:
@@ -46,7 +46,7 @@ def menu_task_choices(player):
                 item3 = player.participant.sub_menu1[2][0] + " (level %i)" % (player.participant.sub_menu1[2][1])
                 return [item1, item2, item3]
         elif player.participant.stage == '2b':
-            if player.participant.treatment_used2:
+            if player.participant.treatment_used2 == "Treatment":
                 pref_opt = task_name(player.participant.pair[1])
                 return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
             else:

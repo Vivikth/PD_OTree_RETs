@@ -56,11 +56,11 @@ def creating_session(subsession):
             if 'treatment_used1' in player.session.config:
                 player.participant.treatment_used1 = player.session.config['treatment_used1']
             else:
-                player.participant.treatment_used1 = random.choice([True, False])
+                player.participant.treatment_used1 = random.choice(["Control", "Treatment"])
             if 'treatment_used2' in player.session.config:
                 player.participant.treatment_used2 = player.session.config['treatment_used2']
             else:
-                player.participant.treatment_used2 = random.choice([True, False])
+                player.participant.treatment_used2 = random.choice(["Control", "Treatment"])
 
 
 # PAGES
@@ -110,13 +110,13 @@ class TaskSelection(Page):
 
         if 'stage' not in player.participant.vars:
             player.participant.stage = '1a'
-            if player.participant.treatment_used1:
+            if player.participant.treatment_used1 == "Treatment":
                 option = option_index(player.Task_Choice) - 1
             else:
                 option = option_index(player.Control_Task_Choice) - 1
             player.participant.opt_choice1 = option
         elif player.participant.vars['stage'] == '1a':
-            if player.participant.treatment_used2:
+            if player.participant.treatment_used2 == "Treatment":
                 option = option_index(player.Task_Choice) - 1
             else:
                 option = option_index(player.Control_Task_Choice) - 1
@@ -156,7 +156,7 @@ class RandomPick(Page):
             good_task = task_name(player.participant.pair1[0])
             bad_task = task_name(player.participant.pair1[1])
             task_info = task_name(player.participant.pair1[0])
-            if player.participant.treatment_used1:
+            if player.participant.treatment_used1 == "Treatment":
                 treatment_template = "2nd"
             else:
                 treatment_template = "1st"
@@ -166,7 +166,7 @@ class RandomPick(Page):
             good_task = task_name(player.participant.pair2[0])
             bad_task = task_name(player.participant.pair2[1])
             task_info = task_name(player.participant.pair2[0])
-            if player.participant.treatment_used2:
+            if player.participant.treatment_used2 == "Treatment":
                 treatment_template = "2nd"
             else:
                 treatment_template = "1st"
