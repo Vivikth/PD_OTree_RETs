@@ -1,5 +1,7 @@
 from otree.api import *
 
+import settings
+
 author = 'Vivikth'
 doc = """Demographic Survey to be completed at the end of experiment"""
 
@@ -98,6 +100,11 @@ def custom_export(players):
 
     for player in players:
         participant = player.participant
+
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
+
         yield [participant.code, participant.label, participant.session.label,  # Global Vars
                participant.treatment, participant.start_time, participant.end_time,  # Introduction
                participant.BDM_Score, participant.Q1_Correct, participant.Q2_Correct,  # BDM
