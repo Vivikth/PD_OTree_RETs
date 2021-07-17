@@ -279,10 +279,10 @@ class WtpConc(Page):
                 return task_name_decoder(task_name(player.Rand_T)) + '0'
             else:
                 if player.lot_outcome < player.BDM_Num:  # Player gets best task as lottery outcome
-                    player.participant.task = "Best"
+                    player.participant.path = "Best"
                     return "Demog_Survey"
                 else:  # Player gets worst task as lottery outcome
-                    player.participant.task = "Worst"
+                    player.participant.path = "Worst"
 
     @staticmethod
     def vars_for_template(player: Player):

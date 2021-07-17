@@ -1,8 +1,8 @@
-import random
-
 from otree.api import *
-
 from . import models
+
+author = 'Vivikth'  # This app was based off Evan Calford's Ethics_Consent app
+doc = """Ethical Consent"""
 
 
 class Constants(BaseConstants):
@@ -34,7 +34,7 @@ class Player(BasePlayer):
 
 
 # FUNCTIONS
-def agreement_error_message(player: Player, value):
+def agreement_error_message(_player: Player, value):
     if value is False:
         return 'You must agree to participate in this experiment to continue.'
 
@@ -55,10 +55,6 @@ class InformationSheet(Page):
         'agreement',
         'name',
     ]
-
-    # @staticmethod
-    # def app_after_this_page(player: Player, upcoming_apps):
-    #     return 'Introduction'
 
 
 page_sequence = [SonaId, InformationSheet]

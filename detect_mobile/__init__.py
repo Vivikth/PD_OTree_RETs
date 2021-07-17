@@ -28,7 +28,7 @@ class MobileCheck(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.participant.mobile = player.is_mobile
+        pass
 
 
 class SorryNoMobile(Page):
@@ -38,7 +38,7 @@ class SorryNoMobile(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.participant.mobile = True
+        pass
 
 
 page_sequence = [MobileCheck, SorryNoMobile]
