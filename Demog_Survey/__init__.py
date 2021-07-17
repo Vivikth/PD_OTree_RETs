@@ -72,7 +72,10 @@ class Survey(Page):
 
 
 def custom_export(players):
-    yield ['participant', 'label', 'BDM_Score',
+    yield ['participant_code', 'participant_label', 'session_label', 'treatment',
+
+
+           'BDM_Score',
            'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
            'Replication_Value', 'Organisation_Value', 'treatment',
            'pair1', 'pair2', 'sub_menu1', 'sub_menu2',
@@ -81,7 +84,12 @@ def custom_export(players):
 
     for player in players:
         participant = player.participant
-        yield [participant.code, participant.label, participant.BDM_Score,
+        yield [participant.code, participant.label, participant.session.label, participant.treatment,
+
+
+
+
+               participant.BDM_Score,
                participant.Concealment_Value, participant.Tabulation_Value, participant.Interpretation_Value,
                participant.Replication_Value, participant.Organisation_Value, participant.treatment,
                participant.pair1, participant.pair2, participant.sub_menu1, participant.sub_menu2,

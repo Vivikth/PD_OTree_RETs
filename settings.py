@@ -162,6 +162,13 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM'],
     ),
+    dict(
+        name='Introduction',
+        display_name='Introduction',
+        num_demo_participants=1,
+        app_sequence=['Introduction'],
+        session_label='Introduction_TEST'
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -193,7 +200,8 @@ SECRET_KEY = '=56(oy3rxv5n+gd-c2%yi$@_!ii^7l$*1lwnc-663iq&j&s=r#'
 INSTALLED_APPS = ['otree']
 
 # Debug
-PARTICIPANT_FIELDS = ['BDM_Score', 'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
+PARTICIPANT_FIELDS = ['BDM_Score', 'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct', 'Q5_Correct',
+                      'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
                       'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'sub_menu1',
                       'sub_menu2', 'opt_choice1', 'opt_choice2', 'treatment_used1', 'treatment_used2',
                       'lc1a', 'pair', 'stage', 'path', 'task_to_complete',

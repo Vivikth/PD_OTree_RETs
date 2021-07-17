@@ -70,3 +70,10 @@ class Introduction(Page):
 
 
 page_sequence = [Introduction]
+
+
+# def custom_export(players):
+#     yield ['participant_code', 'participant_label', 'session_label']
+#     for player in players:
+#         participant = player.participant
+#         yield [participant.code, participant.label, participant.session.label]

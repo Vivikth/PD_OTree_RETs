@@ -104,14 +104,19 @@ class Stimuli(Page):
             # For getting question correct in horizontal data
             if trial.Qnum == 1:
                 player.Q1_Correct = trial.is_correct
+                player.participant.Q1_Correct = player.Q1_Correct
             elif trial.Qnum == 2:
                 player.Q2_Correct = trial.is_correct
+                player.participant.Q2_Correct = player.Q2_Correct
             elif trial.Qnum == 3:
                 player.Q3_Correct = trial.is_correct
+                player.participant.Q3_Correct = player.Q3_Correct
             elif trial.Qnum == 4:
                 player.Q4_Correct = trial.is_correct
+                player.participant.Q4_Correct = player.Q4_Correct
             elif trial.Qnum == 5:
                 player.Q5_Correct = trial.is_correct
+                player.participant.Q5_Correct = player.Q5_Correct
 
 
 class Results(Page):  # This page is mainly for debugging purposes, it doesn't appear in page_sequence
@@ -128,12 +133,14 @@ page_sequence = [BdmIntro, Stimuli, BdmConc]
 
 
 def custom_export(players):
-    yield ['participant_code', 'participant_label', 'choice', 'is_correct', 'BDM_Score']
+    yield ['participant_code', 'participant_label', 'session_label', 'BDM_Score',
+           'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct',
+           'Q5_Correct']
 
     for player in players:
         participant = player.participant
+        yield [participant.code, participant.label, participant.session.label, participant.BDM_Score,
+               participant.Q1_Correct, participant.Q2_Correct, participant.Q3_Correct, participant.Q4_Correct,
+               participant.Q5_Correct]
 
-        trials = Trial.filter(player=player)
 
-        for t in trials:
-            yield [participant.code, participant.label, t.question, t.choice, t.is_correct, participant.BDM_Score]
