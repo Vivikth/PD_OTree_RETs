@@ -200,12 +200,15 @@ SECRET_KEY = '=56(oy3rxv5n+gd-c2%yi$@_!ii^7l$*1lwnc-663iq&j&s=r#'
 INSTALLED_APPS = ['otree']
 
 # Debug
-PARTICIPANT_FIELDS = ['BDM_Score', 'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct', 'Q5_Correct',
-                      'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
-                      'Replication_Value', 'Organisation_Value', 'pair1', 'pair2', 'treatment', 'sub_menu1',
-                      'sub_menu2', 'opt_choice1', 'opt_choice2', 'treatment_used1', 'treatment_used2',
-                      'lc1a', 'pair', 'stage', 'path', 'task_to_complete',
-                      'rand_task', 'start_time', 'end_time']
+PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time'
+                      'BDM_Score', 'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct', 'Q5_Correct',  # BDM
+                      'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',  # Task_WTP
+                      'Replication_Value', 'Organisation_Value',
+                      'pair1', 'pair2', 'sub_menu1', 'sub_menu2', 'path', 'rand_task',
+                      'treatment_used1', 'treatment_used2', 'blunder_choice1', 'blunder_choice2',  # RET_Choice
+                      'treatment_choice1', 'treatment_choice2', 'control_choice1', 'control_choice2',
+                      'switched1', 'switched2',
+                      'lc1a', 'pair', 'stage', 'task_to_complete', 'opt_choice1', 'opt_choice2']  # Dynamic Vars
 
 # For Debug False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:

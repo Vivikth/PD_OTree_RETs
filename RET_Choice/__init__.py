@@ -148,6 +148,9 @@ class TaskSelection(Page):
             else:
                 option = option_index(player.Control_Task_Choice) - 1
             player.participant.opt_choice1 = option
+            player.participant.blunder_choice1 = player.Blunder_Task_Choice
+            player.participant.treatment_choice1 = player.Task_Choice
+            player.participant.control_choice1 = player.Control_Task_Choice
         elif player.participant.vars['stage'] == '1a':
             if player.participant.treatment_used2 == "Treatment":
                 option = option_index(player.Task_Choice) - 1
@@ -156,6 +159,9 @@ class TaskSelection(Page):
             else:
                 option = option_index(player.Control_Task_Choice) - 1
             player.participant.opt_choice2 = option
+            player.participant.blunder_choice2 = player.Blunder_Task_Choice
+            player.participant.treatment_choice2 = player.Task_Choice
+            player.participant.control_choice2 = player.Control_Task_Choice
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -225,6 +231,10 @@ class RandomPick(Page):
             player.Treatment_Caused_Switch = False
         else:
             player.Treatment_Caused_Switch = True
+        if 'opt_choice2' not in player.participant.vars:
+            player.participant.switched1 = player.Treatment_Caused_Switch
+        else:
+            player.participant.switched2 = player.Treatment_Caused_Switch
 
 
     @staticmethod
@@ -237,3 +247,21 @@ class RandomPick(Page):
 
 
 page_sequence = [RetChoiceIntroduction, BlunderTaskSelection, ControlTaskSelection, TaskSelection, RandomPick]
+
+
+def custom_export(players):
+    yield ['participant_code', 'participant_label', 'session_label',
+           'treatment_used1', 'treatment_used2',
+           'blunder_choice1', 'blunder_choice2',
+           'treatment_choice1', 'treatment_choice2',
+           'control_choice1', 'control_choice2',
+           'switched1', 'switched2']
+
+    for player in players:
+        participant = player.participant
+        yield [participant.code, participant.label, participant.session.label,
+               participant.treatment_used1, participant.treatment_used2,
+               participant.blunder_choice1, participant.blunder_choice2,
+               participant.treatment_choice1, participant.treatment_choice2,
+               participant.control_choice1, participant.control_choice2,
+               participant.switched1, participant.switched2]
