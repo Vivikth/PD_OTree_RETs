@@ -79,7 +79,7 @@ class Survey(Page):
 
 
 def custom_export(players):
-    yield ['participant_code', 'participant_label', 'session_label',  # Global Variables
+    yield ['participant_code', 'participant_label', 'session_label', '_is_bot', # Global Variables
            'treatment', 'start_time', 'end_time',  # Introduction
            'BDM_Score', 'Q1_Correct', 'Q2_Correct',  # BDM
            'Q3_Correct', 'Q4_Correct', 'Q5_Correct',
@@ -105,7 +105,7 @@ def custom_export(players):
             if field not in participant.vars:
                 setattr(participant, field, None)
 
-        yield [participant.code, participant.label, participant.session.label,  # Global Vars
+        yield [participant.code, participant.label, participant.session.label, participant._is_bot,  # Global Vars
                participant.treatment, participant.start_time, participant.end_time,  # Introduction
                participant.BDM_Score, participant.Q1_Correct, participant.Q2_Correct,  # BDM
                participant.Q3_Correct, participant.Q4_Correct, participant.Q5_Correct,

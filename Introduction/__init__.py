@@ -29,6 +29,7 @@ class Player(BasePlayer):
                                           widget=widgets.RadioSelect)
     num_levels = models.IntegerField(doc="num_levels")
     num_categories = models.IntegerField(doc="num_levels")
+    treatment = models.StringField()
 
 
 # FUNCTIONS
@@ -37,6 +38,7 @@ def creating_session(subsession):
         for player in subsession.get_players():
             player.participant.treatment = random.choice(["Substitution", "Pre_Information", "Post_Information"])
             player.session.label = player.session.config['session_label']
+            player.treatment = player.participant.treatment
 
 
 def payment_question_error_message(_player, value):
