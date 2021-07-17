@@ -58,3 +58,13 @@ class InformationSheet(Page):
 
 
 page_sequence = [SonaId, InformationSheet]
+
+
+def custom_export(players):
+    yield ['participant_code', 'participant_label', 'session_label',
+           'agreement', 'name']
+
+    for player in players:
+        participant = player.participant
+        yield [participant.code, participant.label, participant.session.label,
+               player.agreement, player.name]

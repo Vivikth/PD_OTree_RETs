@@ -200,7 +200,7 @@ SECRET_KEY = '=56(oy3rxv5n+gd-c2%yi$@_!ii^7l$*1lwnc-663iq&j&s=r#'
 INSTALLED_APPS = ['otree']
 
 # Debug
-PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time'
+PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time',
                       'BDM_Score', 'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct', 'Q5_Correct',  # BDM
                       'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',  # Task_WTP
                       'Replication_Value', 'Organisation_Value',
@@ -208,6 +208,7 @@ PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time'
                       'treatment_used1', 'treatment_used2', 'blunder_choice1', 'blunder_choice2',  # RET_Choice
                       'treatment_choice1', 'treatment_choice2', 'control_choice1', 'control_choice2',
                       'switched1', 'switched2',
+                      'menu_choice1', 'menu_choice2',  # Menu_Select
                       'lc1a', 'pair', 'stage', 'task_to_complete', 'opt_choice1', 'opt_choice2']  # Dynamic Vars
 
 # For Debug False

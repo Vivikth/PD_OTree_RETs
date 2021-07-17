@@ -113,6 +113,13 @@ class MenuSelectIntro(Page):
             'version_for_template': version
         }
 
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        if player.participant.stage == '1b':
+            player.participant.menu_choice1 = player.menu_task
+        else:
+            player.participant.menu_choice2 = player.menu_task
+
 
 class MenuSelectInfo(Page):
 
@@ -128,3 +135,13 @@ class MenuSelectInfo(Page):
 
 
 page_sequence = [MenuSelectIntro]
+
+
+def custom_export(players):
+    yield ['participant_code', 'participant_label', 'session_label',
+           'menu_choice1', 'menu_choice2']
+
+    for player in players:
+        participant = player.participant
+        yield [participant.code, participant.label, participant.session.label,
+               participant.menu_choice1, participant.menu_choice2]

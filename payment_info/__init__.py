@@ -49,3 +49,13 @@ class FinalPage(Page):
 
 
 page_sequence = [PaymentInfo, FinalPage]
+
+
+def custom_export(players):
+    yield ['participant_code', 'participant_label', 'session_label',
+           'first_name', 'last_name', 'uni_id', 'email_address']
+
+    for player in players:
+        participant = player.participant
+        yield [participant.code, participant.label, participant.session.label,
+               player.first_name, player.last_name, player.uni_id, player.email_address]
