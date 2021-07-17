@@ -47,35 +47,35 @@ ul { display: inline-block; text-align: left; }
 
 <div class = "opt1">
     <h4>Option 1</h4>
-    {{ if player.participant.treatment == 'Substitution' }}
-    {{ include 'RET_Choice/Substitution_Opt1.html'}}
-{{ endif }}
-{{ if player.participant.treatment == 'Post_Information' }}
-    {{ include 'RET_Choice/Post_Opt1.html'}}
-{{ endif }}
-{{ if player.participant.treatment == 'Pre_Information' }}
-    {{ include 'RET_Choice/Pre_Opt1.html'}}
-{{ endif }}
+<p>
+    Complete the <strong>{{Good_Task}} (level 1)</strong> task. <br>
+    After completing the <strong>{{Good_Task}} (level 1)</strong> task, you must complete <strong>one</strong> of the following tasks:
+</p>
+    <ul>
+        <li>{{remaining_tasks.0}} (level 1)</li>
+        <li>{{remaining_tasks.1}} (level 1)</li>
+        <li>{{remaining_tasks.2}} (level 1)</li>
+    </ul>
 </div>
 
 <br>
 <div class = "opt2">
     <h4>Option 2</h4>
-{{ if player.participant.treatment == 'Substitution' }}
-    {{ include 'RET_Choice/Substitution_Opt2.html'}}
-{{ endif }}
-{{ if player.participant.treatment == 'Post_Information' }}
-    {{ include 'RET_Choice/Post_Opt2.html'}}
-{{ endif }}
-{{ if player.participant.treatment == 'Pre_Information' }}
-    {{ include 'RET_Choice/Pre_Opt2.html'}}
-{{ endif }}
+<p>
+    Complete the <strong>{{Bad_Task}} (level 1)</strong> task. <br>
+    After completing the <strong>{{Bad_Task}} (level 1)</strong> task, you must complete <strong>one</strong> of the following tasks:
+</p>
+    <ul>
+        <li>{{remaining_tasks.0}} (level 1)</li>
+        <li>{{remaining_tasks.1}} (level 1)</li>
+        <li>{{remaining_tasks.2}} (level 1)</li>
+    </ul>
 </div>
 
 <br>
 <p>
 </p>
-    {% formfield player.Control_Task_Choice label="Please select one of the above options"
+    {% formfield player.Blunder_Task_Choice label="Please select one of the above options"
 %}
 
 

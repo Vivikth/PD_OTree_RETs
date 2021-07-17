@@ -1,6 +1,6 @@
 from otree.api import *
 from . import models
-from Global_Functions import task_name, task_name_decoder
+from Global_Functions import task_name, task_name_decoder, list_subtract
 
 # Treatment, Pair1, pair2 are inputted before.
 
@@ -40,6 +40,12 @@ def menu_task_choices(player):
             if player.participant.treatment_used1 == "Treatment":
                 pref_opt = task_name(player.participant.pair[1])
                 return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
+            elif player.participant.treatment_used1 == "Blunder":
+                all_tasks = ['Tabulation', 'Concealment', 'Interpretation', 'Replication', 'Organisation']
+                good_task = task_name(player.participant.pair[0])
+                bad_task = task_name(player.participant.pair[1])
+                remaining_tasks = list_subtract(all_tasks, [good_task, bad_task])
+                return [task + " (level 1)" for task in remaining_tasks]
             else:
                 item1 = player.participant.sub_menu1[0][0] + " (level %i)" % (player.participant.sub_menu1[0][1])
                 item2 = player.participant.sub_menu1[1][0] + " (level %i)" % (player.participant.sub_menu1[1][1])
@@ -49,14 +55,27 @@ def menu_task_choices(player):
             if player.participant.treatment_used2 == "Treatment":
                 pref_opt = task_name(player.participant.pair[1])
                 return [pref_opt + " (level 2)", pref_opt + " (level 3)", pref_opt + " (level 4)"]
+            elif player.participant.treatment_used1 == "Blunder":
+                all_tasks = ['Tabulation', 'Concealment', 'Interpretation', 'Replication', 'Organisation']
+                good_task = task_name(player.participant.pair[0])
+                bad_task = task_name(player.participant.pair[1])
+                remaining_tasks = list_subtract(all_tasks, [good_task, bad_task])
+                return [task + " (level 1)" for task in remaining_tasks]
             else:
                 item1 = player.participant.sub_menu2[0][0] + " (level %i)" % (player.participant.sub_menu2[0][1])
                 item2 = player.participant.sub_menu2[1][0] + " (level %i)" % (player.participant.sub_menu2[1][1])
                 item3 = player.participant.sub_menu2[2][0] + " (level %i)" % (player.participant.sub_menu2[2][1])
                 return [item1, item2, item3]
     else:
-        return [task_name(player.participant.pair[0]) + " (level 1)",
-                task_name(player.participant.pair[1]) + " (level 1)"]
+        if player.participant.treatment_used1 == "Blunder":
+            all_tasks = ['Tabulation', 'Concealment', 'Interpretation', 'Replication', 'Organisation']
+            good_task = task_name(player.participant.pair[0])
+            bad_task = task_name(player.participant.pair[1])
+            remaining_tasks = list_subtract(all_tasks, [good_task, bad_task])
+            return [task + " (level 1)" for task in remaining_tasks]
+        else:
+            return [task_name(player.participant.pair[0]) + " (level 1)",
+                    task_name(player.participant.pair[1]) + " (level 1)"]
 
 
 # PAGES

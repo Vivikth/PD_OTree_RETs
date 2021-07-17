@@ -26,3 +26,6 @@ class Player(BasePlayer):
     Treatment_Caused_Switch = models.BooleanField(
         doc="Treatment_Caused_Switch"
     )
+    Blunder_Task_Choice = models.CharField(
+        doc="Blunder_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect,
+    )

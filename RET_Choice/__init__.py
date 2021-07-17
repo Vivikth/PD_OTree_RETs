@@ -3,7 +3,7 @@ import random
 from otree.api import *
 
 from . import models
-from Global_Functions import task_name, task_name_decoder, option_index
+from Global_Functions import task_name, task_name_decoder, option_index, list_subtract
 # Treatment, Pair1, pair2 are inputted before.
 
 author = 'Vivikth'
@@ -35,6 +35,9 @@ class Player(BasePlayer):
     Treatment_Caused_Switch = models.BooleanField(
         doc="Treatment_Caused_Switch"
     )
+    Blunder_Task_Choice = models.CharField(
+        doc="Blunder_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect,
+    )
 # Need to add calculations determining whether player switched.
 
 
@@ -56,11 +59,11 @@ def creating_session(subsession):
             if 'treatment_used1' in player.session.config:
                 player.participant.treatment_used1 = player.session.config['treatment_used1']
             else:
-                player.participant.treatment_used1 = random.choice(["Control", "Treatment"])
+                player.participant.treatment_used1 = random.choice(["Control", "Treatment", "Blunder"])
             if 'treatment_used2' in player.session.config:
                 player.participant.treatment_used2 = player.session.config['treatment_used2']
             else:
-                player.participant.treatment_used2 = random.choice(["Control", "Treatment"])
+                player.participant.treatment_used2 = random.choice(["Control", "Treatment", "Blunder"])
 
 
 # PAGES
@@ -68,6 +71,34 @@ class RetChoiceIntroduction(Page):
     @staticmethod
     def is_displayed(player: Player):
         return 'stage' not in player.participant.vars
+
+
+class BlunderTaskSelection(Page):
+    form_model = 'player'
+    form_fields = ['Blunder_Task_Choice']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        all_tasks = ['Tabulation', 'Concealment', 'Interpretation', 'Replication', 'Organisation']
+        if 'stage' not in player.participant.vars:
+            stage_for_template = "1st"
+            version_for_template = "A"
+            good_task = task_name(player.participant.pair1[0])
+            bad_task = task_name(player.participant.pair1[1])
+            remaining_tasks = list_subtract(all_tasks, [good_task, bad_task])
+        else:
+            stage_for_template = "2nd"
+            version_for_template = "B"
+            good_task = task_name(player.participant.pair2[0])
+            bad_task = task_name(player.participant.pair2[1])
+            remaining_tasks = list_subtract(all_tasks, [good_task, bad_task])
+        return {
+            'Good_Task': good_task,
+            'Bad_Task': bad_task,
+            'stage_for_template': stage_for_template,
+            'version_for_template': version_for_template,
+            'remaining_tasks': remaining_tasks
+        }
 
 
 class ControlTaskSelection(Page):
@@ -112,12 +143,16 @@ class TaskSelection(Page):
             player.participant.stage = '1a'
             if player.participant.treatment_used1 == "Treatment":
                 option = option_index(player.Task_Choice) - 1
+            elif player.participant.treatment_used1 == "Blunder":
+                option = option_index(player.Blunder_Task_Choice) - 1
             else:
                 option = option_index(player.Control_Task_Choice) - 1
             player.participant.opt_choice1 = option
         elif player.participant.vars['stage'] == '1a':
             if player.participant.treatment_used2 == "Treatment":
                 option = option_index(player.Task_Choice) - 1
+            elif player.participant.treatment_used2 == "Blunder":
+                option = option_index(player.Blunder_Task_Choice) - 1
             else:
                 option = option_index(player.Control_Task_Choice) - 1
             player.participant.opt_choice2 = option
@@ -150,6 +185,7 @@ class TaskSelection(Page):
 class RandomPick(Page):
     @staticmethod
     def vars_for_template(player: Player):
+        all_tasks = ['Tabulation', 'Concealment', 'Interpretation', 'Replication', 'Organisation']
         if 'opt_choice2' not in player.participant.vars:
             stage_for_template = "1st"
             version_for_template = "A"
@@ -160,6 +196,7 @@ class RandomPick(Page):
                 treatment_template = "2nd"
             else:
                 treatment_template = "1st"
+            remaining_tasks = list_subtract(all_tasks, [good_task, bad_task])
         else:
             stage_for_template = "2nd"
             version_for_template = "B"
@@ -170,13 +207,15 @@ class RandomPick(Page):
                 treatment_template = "2nd"
             else:
                 treatment_template = "1st"
+            remaining_tasks = list_subtract(all_tasks, [good_task, bad_task])
         return {
             'Good_Task': good_task,
             'Bad_Task': bad_task,
             'stage_for_template': stage_for_template,
             'Task_Info': task_info,
             'version_for_template': version_for_template,
-            'treatment_template': treatment_template
+            'treatment_template': treatment_template,
+            'remaining_tasks': remaining_tasks
         }
 
 
@@ -194,8 +233,7 @@ class RandomPick(Page):
         if 'opt_choice2' in player.participant.vars:
             player.participant.task_to_complete = task_name_decoder(task_name(player.participant.pair[opt_choice1])) \
                                                   + player.participant.stage
-            print(player.participant.task_to_complete)
             return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage
 
 
-page_sequence = [RetChoiceIntroduction, ControlTaskSelection, TaskSelection, RandomPick]
+page_sequence = [RetChoiceIntroduction, BlunderTaskSelection, ControlTaskSelection, TaskSelection, RandomPick]
