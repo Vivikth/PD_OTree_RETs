@@ -174,84 +174,14 @@ class InstructionPage(Page):
             return {player.id_in_group: sort_together([values, names])[1][::-1]}
 
 
-class TabulationWTP(Page):
-    form_model = 'player'
-    form_fields = ['Tabulation_Value']
-
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.Tabulation_Value = player.Tabulation_Value
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'Task_name': 'Tabulation',
-            'Task_description': 'Subjects must use their mathematical abilities to tabulate quantities'
-        }
-
-
-class ConcealmentWTP(Page):
-    form_model = 'player'
-    form_fields = ['Concealment_Value']
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
         player.participant.Concealment_Value = player.Concealment_Value
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'Task_name': 'Concealment',
-            'Task_description': 'Subjects must use their analytical capabilities to conceal content. '
-        }
-
-
-class InterpretationWTP(Page):
-    form_model = 'player'
-    form_fields = ['Interpretation_Value']
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
         player.participant.Interpretation_Value = player.Interpretation_Value
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'Task_name': 'Interpretation',
-            'Task_description': 'Subjects must use their visual abilities to interpret signs. '
-        }
-
-
-class ReplicationWTP(Page):
-    form_model = 'player'
-    form_fields = ['Replication_Value']
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
         player.participant.Replication_Value = player.Replication_Value
-
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'Task_name': 'Replication',
-            'Task_description': 'Subjects must use their technological  abilities to replicate items.'
-        }
-
-
-class OrganisationWTP(Page):
-    form_model = 'player'
-    form_fields = ['Organisation_Value']
-
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
         player.participant.Organisation_Value = player.Organisation_Value
 
-    @staticmethod
-    def vars_for_template(player: Player):
-        return {
-            'Task_name': 'Organisation',
-            'Task_description': 'Subjects must use their categorization abilities to rearrange items.'
-        }
 
 
 class WtpConc(Page):
@@ -328,12 +258,16 @@ page_sequence = [WtpIntro, InstructionPage, WtpConc, Boring, BoringConc]
 
 
 def custom_export(players):
-    yield ['participant', 'question', 'choice', 'is_correct']
+    yield ['participant_code', 'participant_label', 'session_label',
+           'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
+           'Replication_Value', 'Organisation_Value',
+           'pair1', 'pair2', 'sub_menu1', 'sub_menu2',
+           'path', 'rand_task']
 
     for player in players:
         participant = player.participant
-
-        trials = Trial.filter(player=player)
-
-        for t in trials:
-            yield [participant.code, t.question, t.choice, t.is_correct]
+        yield [participant.code, participant.label, participant.session.label,
+               participant.Concealment_Value, participant.Tabulation_Value, participant.Interpretation_Value,
+               participant.Replication_Value, participant.Organisation_Value,
+               participant.pair1, participant.pair2, participant.sub_menu1, participant.sub_menu2,
+               participant.path, participant.rand_task]
