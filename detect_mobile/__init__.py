@@ -1,5 +1,7 @@
 from otree.api import *
 
+import settings
+
 doc = """Detect and block mobile browsers"""
 
 
@@ -19,6 +21,13 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     is_mobile = models.BooleanField(initial=False, blank=True)
+
+
+# Functions
+def creating_session(subsession):
+    for player in subsession.get_players():  # Custom Exports don't work if ANY field isn't initialised - p stupid.
+        for field in settings.PARTICIPANT_FIELDS:
+            setattr(player.participant, field, None)
 
 
 # PAGES

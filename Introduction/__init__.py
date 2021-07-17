@@ -67,13 +67,14 @@ class Introduction(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.start_time = time.time()
+        print(player.participant.start_time)
 
 
 page_sequence = [Introduction]
 
 
-# def custom_export(players):
-#     yield ['participant_code', 'participant_label', 'session_label']
-#     for player in players:
-#         participant = player.participant
-#         yield [participant.code, participant.label, participant.session.label]
+def custom_export(players):
+    yield ['participant_code', 'participant_label', 'session_label', 'time']
+    for player in players:
+        participant = player.participant
+        yield [participant.code, participant.label, participant.session.label, participant.start_time]

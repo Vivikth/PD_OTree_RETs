@@ -19,6 +19,7 @@ class Subsession(BaseSubsession):
 
 
 def creating_session(subsession: Subsession):
+    print("BDM creating_session running!")
     for p in subsession.get_players():
         stimuli = read_csv('BDM/BDMQs.csv')
         p.num_trials = len(stimuli)
@@ -79,11 +80,6 @@ class Stimuli(Page):
     form_fields = ['raw_responses']
 
     @staticmethod
-    def is_displayed(player: Player):
-        return not player.participant._is_bot  # I have no clue how to make a bot that runs through the JS submissions,
-        # and I don't have time to figure it out
-
-    @staticmethod
     def js_vars(player: Player):
         stimuli = [to_dict(trial) for trial in Trial.filter(player=player)]
         return dict(trials=stimuli)
@@ -142,5 +138,3 @@ def custom_export(players):
         yield [participant.code, participant.label, participant.session.label, participant.BDM_Score,
                participant.Q1_Correct, participant.Q2_Correct, participant.Q3_Correct, participant.Q4_Correct,
                participant.Q5_Correct]
-
-

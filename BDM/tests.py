@@ -1,3 +1,5 @@
+import json
+
 from . import *
 from otree.api import Bot, Submission
 from Global_Functions import global_cases, bot_should_play_app
@@ -10,6 +12,15 @@ class PlayerBot(Bot):
     def play_round(self):
         if bot_should_play_app(self, Constants.name_in_url):
             yield BdmIntro  # Could Check HTML later on.
+
+            # print(Trial.filter(player=self.player))
+            test_dict = {Trial.filter(player=self.player)[0].id: "D",
+                         Trial.filter(player=self.player)[1].id: "D",
+                         Trial.filter(player=self.player)[2].id: "A",
+                         Trial.filter(player=self.player)[3].id: "C",
+                         Trial.filter(player=self.player)[4].id: "A"}
+
+            yield Submission(Stimuli, dict(raw_responses=json.dumps(test_dict)))
 
             # I have no clue how to make bot test JS of stimuli page
             # Solution - skip page if bot. Will revisit issue if I get time.

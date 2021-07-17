@@ -50,6 +50,11 @@ def study_choices(_player):
             'Arts and Social Sciences', 'Law', 'Other']
 
 
+def creating_session(subsession):
+    for player in subsession.get_players():
+        participant = player.participant
+
+
 # PAGES
 class Survey(Page):
     form_model = 'player'
@@ -72,31 +77,45 @@ class Survey(Page):
 
 
 def custom_export(players):
-    yield ['participant_code', 'participant_label', 'session_label', 'treatment',
-
-
-           'BDM_Score',
-           'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',
-           'Replication_Value', 'Organisation_Value', 'treatment',
+    yield ['participant_code', 'participant_label', 'session_label',  # Global Variables
+           'treatment', 'start_time', 'end_time',  # Introduction
+           'BDM_Score', 'Q1_Correct', 'Q2_Correct',  # BDM
+           'Q3_Correct', 'Q4_Correct', 'Q5_Correct',
+           'Concealment_Value', 'Tabulation_Value',  # Task_WTP
+           'Interpretation_Value', 'Replication_Value', 'Organisation_Value',
            'pair1', 'pair2', 'sub_menu1', 'sub_menu2',
-           'rand_task', 'path',
-           'time_started', 'time_finished']
+           'path', 'rand_task',
+           'treatment_used1', 'treatment_used2',  # RET_Choice
+           'blunder_choice1', 'blunder_choice2',
+           'treatment_choice1', 'treatment_choice2',
+           'control_choice1', 'control_choice2',
+           'switched1', 'switched2',
+           'menu_choice1', 'menu_choice2',  # Menu_Select
+           'age', 'gender', 'gender_self_select',  # Demographic
+           'study', 'econ_classes', 'years', 'GPA',
+           'identify', 'identify_tabulation', 'identify_organisation',
+           'identify_replication', 'identify_concealment', 'identify_interpretation']
 
     for player in players:
         participant = player.participant
-        yield [participant.code, participant.label, participant.session.label, participant.treatment,
-
-
-
-
-               participant.BDM_Score,
-               participant.Concealment_Value, participant.Tabulation_Value, participant.Interpretation_Value,
-               participant.Replication_Value, participant.Organisation_Value, participant.treatment,
+        yield [participant.code, participant.label, participant.session.label,  # Global Vars
+               participant.treatment, participant.start_time, participant.end_time,  # Introduction
+               participant.BDM_Score, participant.Q1_Correct, participant.Q2_Correct,  # BDM
+               participant.Q3_Correct, participant.Q4_Correct, participant.Q5_Correct,
+               participant.Concealment_Value, participant.Tabulation_Value,  # Task_WTP
+               participant.Interpretation_Value, participant.Replication_Value, participant.Organisation_Value,
                participant.pair1, participant.pair2, participant.sub_menu1, participant.sub_menu2,
-               participant.rand_task, participant.path,
-               player.participant.start_time, player.participant.end_time]
-
+               participant.path, participant.rand_task,
+               participant.treatment_used1, participant.treatment_used2,  # RET_Choice
+               participant.blunder_choice1, participant.blunder_choice2,
+               participant.treatment_choice1, participant.treatment_choice2,
+               participant.control_choice1, participant.control_choice2,
+               participant.switched1, participant.switched2,
+               participant.menu_choice1, participant.menu_choice2,  # Menu_Select
+               player.age, player.gender, player.gender_self_select,  # Demographic
+               player.study, player.econ_classes, player.years, player.GPA,
+               player.identify, player.identify_tabulation, player.identify_organisation,
+               player.identify_replication, player.identify_concealment, player.identify_interpretation]
 
 
 page_sequence = [Survey]
-# Could include player level variables for convenience in custom export.
