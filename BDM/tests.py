@@ -20,7 +20,7 @@ class PlayerBot(Bot):
                          Trial.filter(player=self.player)[3].id: "C",
                          Trial.filter(player=self.player)[4].id: "A"}
 
-            yield Submission(Stimuli, dict(raw_responses=json.dumps(test_dict)))
+            yield Submission(Stimuli, dict(raw_responses=json.dumps(test_dict)), check_html=False)
 
             # I have no clue how to make bot test JS of stimuli page
             # Solution - skip page if bot. Will revisit issue if I get time.

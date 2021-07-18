@@ -1,5 +1,7 @@
 from otree.api import *
 import random
+
+import settings
 from Global_Functions import read_csv, value_function, list_subtract, task_name_decoder, task_name
 from more_itertools import sort_together
 
@@ -266,6 +268,9 @@ def custom_export(players):
 
     for player in players:
         participant = player.participant
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label,
                participant.Concealment_Value, participant.Tabulation_Value, participant.Interpretation_Value,
                participant.Replication_Value, participant.Organisation_Value,

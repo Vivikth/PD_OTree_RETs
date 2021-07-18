@@ -1,4 +1,6 @@
 from otree.api import *
+
+import settings
 from Global_Functions import read_csv
 
 author = 'Vivikth'  # This app was based off questions_from_csv in Otree Snippets
@@ -52,7 +54,7 @@ class Trial(ExtraModel):
     optionC = models.StringField()
     optionD = models.StringField()
     solution = models.StringField()
-    Qnum = models.IntegerField()
+    Qnum = models.StringField()
     choice = models.StringField()
     is_correct = models.BooleanField()
 
@@ -96,21 +98,21 @@ class Stimuli(Page):
             trial.choice = responses[str(trial.id)]
             trial.is_correct = trial.choice == trial.solution
             player.participant.BDM_Score += int(trial.is_correct)
-
+            print(trial.Qnum)
             # For getting question correct in horizontal data
-            if trial.Qnum == 1:
+            if trial.Qnum == str(1.0):
                 player.Q1_Correct = trial.is_correct
                 player.participant.Q1_Correct = player.Q1_Correct
-            elif trial.Qnum == 2:
+            elif trial.Qnum == str(2.0):
                 player.Q2_Correct = trial.is_correct
                 player.participant.Q2_Correct = player.Q2_Correct
-            elif trial.Qnum == 3:
+            elif trial.Qnum == str(3.0):
                 player.Q3_Correct = trial.is_correct
                 player.participant.Q3_Correct = player.Q3_Correct
-            elif trial.Qnum == 4:
+            elif trial.Qnum == str(4.0):
                 player.Q4_Correct = trial.is_correct
                 player.participant.Q4_Correct = player.Q4_Correct
-            elif trial.Qnum == 5:
+            elif trial.Qnum == str(5.0):
                 player.Q5_Correct = trial.is_correct
                 player.participant.Q5_Correct = player.Q5_Correct
 
@@ -133,8 +135,14 @@ def custom_export(players):
            'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct',
            'Q5_Correct']
 
+
     for player in players:
         participant = player.participant
+
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
+
         yield [participant.code, participant.label, participant.session.label, participant.BDM_Score,
                participant.Q1_Correct, participant.Q2_Correct, participant.Q3_Correct, participant.Q4_Correct,
                participant.Q5_Correct]

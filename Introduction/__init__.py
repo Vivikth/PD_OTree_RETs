@@ -1,6 +1,9 @@
 from otree.api import *
 import random
 import time
+
+import settings
+
 author = 'Vivikth'
 doc = """Introduction to Experiment"""
 
@@ -79,4 +82,7 @@ def custom_export(players):
     yield ['participant_code', 'participant_label', 'session_label', 'time']
     for player in players:
         participant = player.participant
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label, participant.start_time]

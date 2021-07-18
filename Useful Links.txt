@@ -1,0 +1,1 @@
+How to turn off debug mode: https://stackoverflow.com/questions/34909382/how-can-i-turn-off-the-debug-mode-in-otree

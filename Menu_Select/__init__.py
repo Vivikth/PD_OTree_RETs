@@ -1,4 +1,6 @@
 from otree.api import *
+
+import settings
 from . import models
 from Global_Functions import task_name, task_name_decoder, list_subtract
 
@@ -143,5 +145,8 @@ def custom_export(players):
 
     for player in players:
         participant = player.participant
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label,
                participant.menu_choice1, participant.menu_choice2]

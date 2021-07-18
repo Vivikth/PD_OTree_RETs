@@ -1,5 +1,6 @@
 from otree.api import *
 
+import settings
 
 doc = """Your app description"""
 
@@ -55,7 +56,11 @@ def custom_export(players):
     yield ['participant_code', 'participant_label', 'session_label',
            'first_name', 'last_name', 'uni_id', 'email_address']
 
+
     for player in players:
         participant = player.participant
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label,
                player.first_name, player.last_name, player.uni_id, player.email_address]

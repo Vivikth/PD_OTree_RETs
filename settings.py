@@ -1,4 +1,6 @@
 from os import environ
+import psycopg2
+
 Task_0_list = ["task_transcribing0", "task_tabulation0", "task_encoding0", "task_replication0", "task_organising0"]
 Task1a_list = ["task_transcribing1a", "task_tabulation1a", "task_encoding1a", "task_replication1a", "task_organising1a"]
 Task1b_list = ["task_transcribing1b", "task_tabulation1b", "task_encoding1b", "task_replication1b", "task_organising1b"]

@@ -1,4 +1,6 @@
 from otree.api import *
+
+import settings
 from . import models
 
 author = 'Vivikth'  # This app was based off Evan Calford's Ethics_Consent app
@@ -66,5 +68,8 @@ def custom_export(players):
 
     for player in players:
         participant = player.participant
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label,
                player.agreement, player.name]

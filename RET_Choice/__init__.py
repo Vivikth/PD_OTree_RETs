@@ -2,6 +2,7 @@ import random
 
 from otree.api import *
 
+import settings
 from . import models
 from Global_Functions import task_name, task_name_decoder, option_index, list_subtract
 # Treatment, Pair1, pair2 are inputted before.
@@ -259,6 +260,9 @@ def custom_export(players):
 
     for player in players:
         participant = player.participant
+        for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
+            if field not in participant.vars:
+                setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label,
                participant.treatment_used1, participant.treatment_used2,
                participant.blunder_choice1, participant.blunder_choice2,
