@@ -1,6 +1,6 @@
 from otree.api import *
 import random
-
+import time
 import settings
 from Global_Functions import read_csv, value_function, list_subtract, task_name_decoder, task_name
 from more_itertools import sort_together
@@ -212,6 +212,7 @@ class WtpConc(Page):
             else:
                 if player.lot_outcome < player.BDM_Num:  # Player gets best task as lottery outcome
                     player.participant.path = "Best"
+                    player.participant.end_time = time.time()
                     return "Demog_Survey"
                 else:  # Player gets worst task as lottery outcome
                     player.participant.path = "Worst"

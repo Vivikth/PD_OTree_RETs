@@ -64,6 +64,7 @@ def app_after_task(player, _upcoming_apps):
     """Returns next app after player has completed task"""
     import time
     if 'stage' not in player.participant.vars:
+        player.participant.end_time = time.time()
         return 'Demog_Survey'
     elif player.participant.stage == '1a':
         player.participant.stage = '1b'
