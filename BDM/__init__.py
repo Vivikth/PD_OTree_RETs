@@ -21,7 +21,7 @@ class Subsession(BaseSubsession):
 
 
 def creating_session(subsession: Subsession):
-    print("BDM creating_session running!")
+    # print("BDM creating_session running!")
     for p in subsession.get_players():
         stimuli = read_csv('BDM/BDMQs.csv')
         p.num_trials = len(stimuli)
@@ -98,7 +98,7 @@ class Stimuli(Page):
             trial.choice = responses[str(trial.id)]
             trial.is_correct = trial.choice == trial.solution
             player.participant.BDM_Score += int(trial.is_correct)
-            print(trial.Qnum)
+            # print(trial.Qnum)
             # For getting question correct in horizontal data
             if trial.Qnum == str(1.0):
                 player.Q1_Correct = trial.is_correct

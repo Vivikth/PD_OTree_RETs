@@ -72,7 +72,7 @@ class Introduction(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.participant.start_time = time.time()
-        print(player.participant.start_time)
+        # print(player.participant.start_time)
 
 
 page_sequence = [Introduction]
