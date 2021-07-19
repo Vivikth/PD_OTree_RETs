@@ -7,6 +7,7 @@ otree browser_bots RET_Choice_Sub --server-url=https://anu-pd-experiment.herokua
 otree browser_bots RET_Choice_Post --server-url=https://anu-pd-experiment.herokuapp.com/demo
 otree browser_bots RET_Choice_Pre --server-url=https://anu-pd-experiment.herokuapp.com/demo
 otree browser_bots Experiment --server-url=https://anu-pd-experiment.herokuapp.com/demo
+otree browser_bots Experiment_Bot 20 --server-url=https://anu-pd-experiment.herokuapp.com/demo
 
 
 

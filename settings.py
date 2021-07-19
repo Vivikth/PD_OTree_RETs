@@ -234,4 +234,8 @@ ROOMS = [
         name='econ_lab',
         display_name='Experimental Economics Lab'
     ),
+    dict(
+        name='Pre_Pilot',
+        display_name='Pre_Pilot'
+    ),
 ]
