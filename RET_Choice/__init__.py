@@ -1,5 +1,5 @@
 import random
-
+import time
 from otree.api import *
 
 import settings
@@ -242,6 +242,7 @@ class RandomPick(Page):
     def app_after_this_page(player: Player, upcoming_apps):
         opt_choice1 = player.participant.opt_choice1
         if 'opt_choice2' in player.participant.vars:
+            player.participant.time_before_tasks = time.time()
             player.participant.task_to_complete = task_name_decoder(task_name(player.participant.pair[opt_choice1])) \
                                                   + player.participant.stage
             return task_name_decoder(task_name(player.participant.pair[opt_choice1])) + player.participant.stage

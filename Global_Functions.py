@@ -65,6 +65,7 @@ def app_after_task(player, _upcoming_apps):
     import time
     if 'stage' not in player.participant.vars:
         player.participant.end_time = time.time()
+        player.participant.time_taken = player.participant.end_time - player.participant.start_time
         return 'Demog_Survey'
     elif player.participant.stage == '1a':
         player.participant.stage = '1b'
@@ -79,6 +80,7 @@ def app_after_task(player, _upcoming_apps):
     elif player.participant.stage == '2b':
         player.participant.stage = '3'
         player.participant.end_time = time.time()
+        player.participant.time_taken = player.participant.end_time - player.participant.start_time
         return 'Demog_Survey'
 
 

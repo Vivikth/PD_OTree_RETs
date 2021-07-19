@@ -81,6 +81,7 @@ class Survey(Page):
 def custom_export(players):
     yield ['participant_code', 'participant_label', 'session_label', '_is_bot', # Global Variables
            'treatment', 'start_time', 'end_time',  # Introduction
+           'time_before_tasks', 'time_taken',
            'BDM_Score', 'Q1_Correct', 'Q2_Correct',  # BDM
            'Q3_Correct', 'Q4_Correct', 'Q5_Correct',
            'Concealment_Value', 'Tabulation_Value',  # Task_WTP
@@ -107,6 +108,7 @@ def custom_export(players):
 
         yield [participant.code, participant.label, participant.session.label, participant._is_bot,  # Global Vars
                participant.treatment, participant.start_time, participant.end_time,  # Introduction
+               participant.time_before_tasks, participant.time_taken,
                participant.BDM_Score, participant.Q1_Correct, participant.Q2_Correct,  # BDM
                participant.Q3_Correct, participant.Q4_Correct, participant.Q5_Correct,
                participant.Concealment_Value, participant.Tabulation_Value,  # Task_WTP

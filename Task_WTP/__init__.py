@@ -213,6 +213,7 @@ class WtpConc(Page):
                 if player.lot_outcome < player.BDM_Num:  # Player gets best task as lottery outcome
                     player.participant.path = "Best"
                     player.participant.end_time = time.time()
+                    player.participant.time_taken = player.participant.end_time - player.participant.start_time
                     return "Demog_Survey"
                 else:  # Player gets worst task as lottery outcome
                     player.participant.path = "Worst"

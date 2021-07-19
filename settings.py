@@ -212,7 +212,7 @@ INSTALLED_APPS = ['otree']
 # DATABASE_URL = environ.get('DATABASE_URL')
 
 # Debug
-PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time',
+PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time', 'time_before_tasks', 'time_taken',
                       'BDM_Score', 'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct', 'Q5_Correct',  # BDM
                       'Concealment_Value', 'Tabulation_Value', 'Interpretation_Value',  # Task_WTP
                       'Replication_Value', 'Organisation_Value',
