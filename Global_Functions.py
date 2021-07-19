@@ -89,13 +89,22 @@ def option_index(option):
         return 2
 
 
-global_cases_dict = {'detect_mobile': ['non_mobile', 'mobile'],
-                     'Ethics_Consent': ['Consent', 'No_Consent'],
-                     'Introduction': ['all_correct', 'incorrect'],
+global_cases_dict = {'detect_mobile': ['non_mobile'],
+                     'Ethics_Consent': ['Consent'],
+                     'Introduction': ['all_correct'],
                      'BDM': ['success'],
                      'Task_WTP': ['random'],
                      'Exp_Prob': [[0.3, 0.5, 0.1, 0.1]],  # [(O1,O1), (O1,O2), (O2, O1), (O2,O2)]
                      'tremble_prob': [0.05]}
+
+# global_cases_dict = {'detect_mobile': ['non_mobile', 'mobile'],  # Full version
+#                      'Ethics_Consent': ['Consent', 'No_Consent'],
+#                      'Introduction': ['all_correct', 'incorrect'],
+#                      'BDM': ['success'],
+#                      'Task_WTP': ['random'],
+#                      'Exp_Prob': [[0.3, 0.5, 0.1, 0.1]],  # [(O1,O1), (O1,O2), (O2, O1), (O2,O2)]
+#                      'tremble_prob': [0.05]}
+
 
 
 def dict_product(dicts):

@@ -95,6 +95,13 @@ SESSION_CONFIGS = [
         app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
     ),
     dict(
+        name='Experiment_Bot',
+        display_name='Experiment_Bot',
+        num_demo_participants=1,
+        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
+        session_label="Bot_Experiment"
+    ),
+    dict(
         name='BDM',
         display_name='BDM',
         num_demo_participants=1,
@@ -218,9 +225,9 @@ PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time',
 
 # For Debug False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
-    DEBUG = True   # This should be the opposite of below.
+    DEBUG = False   # This should be the opposite of below.
 else:
-    DEBUG = False   # This is the one that controls debug behaviour
+    DEBUG = True   # This is the one that controls debug behaviour
 
 ROOMS = [
     dict(
