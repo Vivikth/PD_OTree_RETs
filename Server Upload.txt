@@ -11,6 +11,6 @@ otree browser_bots Experiment --server-url=https://anu-pd-experiment.herokuapp.c
 
 
 heroku pg:pull DATABASE_URL mylocaldb --app anu-pd-experiment
- heroku pg:pull DATABASE_URL mylocaldb --app anu-pd-experiment
+heroku pg:pull DATABASE_URL mylocaldb --app anu-pd-experiment
 
 SET PGUSER=postgres

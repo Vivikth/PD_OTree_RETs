@@ -13,6 +13,7 @@ class PlayerBot(Bot):
             if self.player.round_number == 1 and 'lc1a' not in self.player.participant.vars and\
                     'path' not in self.player.participant.vars:
                 yield LevelSelection, dict(level=1)
+                self.player.participant.task_to_complete = Constants.name_in_url
             if 'task_to_complete' in self.player.participant.vars:
                 if self.player.participant.task_to_complete == Constants.name_in_url:
                     if self.player.round_number == 1:

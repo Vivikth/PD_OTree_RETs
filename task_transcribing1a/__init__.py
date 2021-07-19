@@ -17,7 +17,7 @@ doc = """Transcribing Real Effort Task - Subjects must identify a blurry charact
 class Constants(BaseConstants):
     name_in_url = 'task_transcribing1a'
     players_per_group = None
-    num_rounds = 3
+    num_rounds = 10
 
     #  Reference Texts
     reference_texts_lev1 = list(string.digits)  # Might make 2 digits

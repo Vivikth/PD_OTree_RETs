@@ -1,3 +1,4 @@
+import os
 from os import environ
 import psycopg2
 
@@ -28,7 +29,6 @@ SESSION_CONFIGS = [
         display_name="task_encoding1a",
         num_demo_participants=1,
         app_sequence=['task_encoding1a'],
-        use_browser_bots=True,
     ),
     dict(
         name='task_encoding1b',
@@ -201,6 +201,9 @@ SECRET_KEY = '=56(oy3rxv5n+gd-c2%yi$@_!ii^7l$*1lwnc-663iq&j&s=r#'
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
 
+#
+# DATABASE_URL = environ.get('DATABASE_URL')
+
 # Debug
 PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time',
                       'BDM_Score', 'Q1_Correct', 'Q2_Correct', 'Q3_Correct', 'Q4_Correct', 'Q5_Correct',  # BDM
@@ -215,9 +218,9 @@ PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time',
 
 # For Debug False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
-    DEBUG = False   # This should be the opposite of below.
+    DEBUG = True   # This should be the opposite of below.
 else:
-    DEBUG = True   # This is the one that controls debug behaviour
+    DEBUG = False   # This is the one that controls debug behaviour
 
 ROOMS = [
     dict(

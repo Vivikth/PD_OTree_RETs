@@ -16,8 +16,8 @@ doc = """Encoding Real Effort Task.  """
 class Constants(BaseConstants):
     name_in_url = 'task_encoding1a'
     players_per_group = None
-    num_rounds = 3
-    string_length = 4
+    num_rounds = 10
+    string_length = 5
 
     # Characters to create strings from.
     characters_lev1 = string.ascii_lowercase[0:6]

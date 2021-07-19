@@ -15,7 +15,7 @@ doc = """Replication Real Effort Task - Subjects must type the given string"""
 class Constants(BaseConstants):
     name_in_url = 'task_replication1a'
     players_per_group = None
-    num_rounds = 3
+    num_rounds = 10
     string_length = 20  # This could be modified to vary between levels.
 
     # Characters to create strings from.
