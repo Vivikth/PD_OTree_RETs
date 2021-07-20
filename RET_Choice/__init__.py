@@ -241,8 +241,8 @@ class RandomPick(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         opt_choice1 = player.participant.opt_choice1
-        print(Constants.name_in_url)
-        print('opt_choice2' in player.participant.vars)
+        # print(Constants.name_in_url)
+        # print('opt_choice2' in player.participant.vars)
         if 'opt_choice2' in player.participant.vars:
             player.participant.time_before_tasks = time.time()
             player.participant.task_to_complete = task_name_decoder(task_name(player.participant.pair[opt_choice1])) \
