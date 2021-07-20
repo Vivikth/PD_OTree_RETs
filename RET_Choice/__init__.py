@@ -5,6 +5,7 @@ from otree.api import *
 import settings
 from . import models
 from Global_Functions import task_name, task_name_decoder, option_index, list_subtract
+
 # Treatment, Pair1, pair2 are inputted before.
 
 author = 'Vivikth'
@@ -39,6 +40,8 @@ class Player(BasePlayer):
     Blunder_Task_Choice = models.CharField(
         doc="Blunder_Task_Choice", choices=Constants.task_list, widget=widgets.RadioSelect,
     )
+
+
 # Need to add calculations determining whether player switched.
 
 
@@ -139,7 +142,6 @@ class TaskSelection(Page):
     def before_next_page(player: Player, timeout_happened):
         player.participant.lc1a = 1
 
-
         if 'stage' not in player.participant.vars:
             player.participant.stage = '1a'
             if player.participant.treatment_used1 == "Treatment":
@@ -225,7 +227,6 @@ class RandomPick(Page):
             'remaining_tasks': remaining_tasks
         }
 
-
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         if player.Task_Choice == player.Control_Task_Choice:
@@ -237,10 +238,11 @@ class RandomPick(Page):
         else:
             player.participant.switched2 = player.Treatment_Caused_Switch
 
-
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         opt_choice1 = player.participant.opt_choice1
+        print(Constants.name_in_url)
+        print('opt_choice2' in player.participant.vars)
         if 'opt_choice2' in player.participant.vars:
             player.participant.time_before_tasks = time.time()
             player.participant.task_to_complete = task_name_decoder(task_name(player.participant.pair[opt_choice1])) \
@@ -263,7 +265,8 @@ def custom_export(players):
         participant = player.participant
         for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
             if field not in participant.vars:
-                setattr(participant, field, None)
+                if field not in ['lc1a', 'pair', 'stage', 'task_to_complete', 'opt_choice1', 'opt_choice2']:
+                    setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label,
                participant.treatment_used1, participant.treatment_used2,
                participant.blunder_choice1, participant.blunder_choice2,

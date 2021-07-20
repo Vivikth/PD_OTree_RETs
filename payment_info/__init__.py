@@ -61,6 +61,7 @@ def custom_export(players):
         participant = player.participant
         for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
             if field not in participant.vars:
-                setattr(participant, field, None)
+                if field not in ['lc1a', 'pair', 'stage', 'task_to_complete', 'opt_choice1', 'opt_choice2']:
+                    setattr(participant, field, None)
         yield [participant.code, participant.label, participant.session.label,
                player.first_name, player.last_name, player.uni_id, player.email_address]

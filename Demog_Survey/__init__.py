@@ -79,7 +79,7 @@ class Survey(Page):
 
 
 def custom_export(players):
-    yield ['participant_code', 'participant_label', 'session_label', '_is_bot', # Global Variables
+    yield ['participant_code', 'participant_label', 'session_label', '_is_bot',  # Global Variables
            'treatment', 'start_time', 'end_time',  # Introduction
            'time_before_tasks', 'time_taken',
            'BDM_Score', 'Q1_Correct', 'Q2_Correct',  # BDM
@@ -104,7 +104,8 @@ def custom_export(players):
 
         for field in settings.PARTICIPANT_FIELDS:  # Custom Export doesn't like empty fields
             if field not in participant.vars:
-                setattr(participant, field, None)
+                if field not in ['lc1a', 'pair', 'stage', 'task_to_complete', 'opt_choice1', 'opt_choice2']:
+                    setattr(participant, field, None)
 
         yield [participant.code, participant.label, participant.session.label, participant._is_bot,  # Global Vars
                participant.treatment, participant.start_time, participant.end_time,  # Introduction
