@@ -62,8 +62,14 @@
             document.getElementById("NextHead").style.visibility = "hidden";
         }
     }
-    </script>
+    function loadNewVid(vidID){
+        player.destroy();
+        playerParams.videoId = vidID;
+        player = new YT.Player('player', playerParams);
+    }
 
+    </script>
+<br>
 <h3>Text Instructions</h3>
 
 <p>
@@ -133,11 +139,10 @@
     I will use a procedure called the switch-point procedure for this purpose. <br>
     Click the next button to learn about the switch-point procedure.
 </p>
-
-
-<h2 id="NextHead">Next Button will appear once video has been watched </h2>
-
 <div id="div1" style="visibility: hidden;">
         {% next_button %}
 </div>
+
+<h2 id="NextHead">Next Button will appear once video has been watched </h2>
+
 {% endblock %}
