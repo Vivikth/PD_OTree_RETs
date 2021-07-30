@@ -97,7 +97,7 @@ SESSION_CONFIGS = [
     dict(
         name='Experiment_Bot',
         display_name='Experiment_Bot',
-        num_demo_participants=10,
+        num_demo_participants=100,
         app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
         session_label="Bot_Experiment"
     ),

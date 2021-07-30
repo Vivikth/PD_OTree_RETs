@@ -207,6 +207,7 @@ class WtpConc(Page):
             if value_function(player.Rand_T, player) > player.BDM_Num:  # Player values task more than lottery
                 player.participant.task_to_complete = task_name_decoder(task_name(player.Rand_T)) + '0'
                 player.participant.lc1a = 1  # Set task level to 1.
+                player.participant.time_before_tasks = time.time()
                 player.participant.path = "Single_Task"
                 return task_name_decoder(task_name(player.Rand_T)) + '0'
             else:
