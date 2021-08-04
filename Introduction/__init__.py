@@ -12,7 +12,7 @@ class Constants(BaseConstants):
     name_in_url = 'Introduction'
     players_per_group = None
     num_rounds = 1
-    payment_amount = 20
+    payment_amount = 25
 
 
 class Subsession(BaseSubsession):
