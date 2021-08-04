@@ -238,4 +238,40 @@ ROOMS = [
         name='Pre_Pilot',
         display_name='Pre_Pilot'
     ),
+    dict(
+        name='Pilot',
+        display_name='Pilot'
+    ),
+    dict(
+        name='Session_Tues_10_Aug_1pm',
+        display_name='Session_Tues_10_Aug_1pm',
+    ),
+    dict(
+        name='Session_Wed_10_Aug_11am',
+        display_name='Session_Wed_10_Aug_11am'
+    ),
+    dict(
+        name='Session_Wed_10_Aug_130pm',
+        display_name='Session_Wed_10_Aug_130pm'
+    ),
+    dict(
+        name='Session_Wed_10_Aug_4pm',
+        display_name='Session_Wed_10_Aug_4pm'
+    ),
+    dict(
+        name='Session_Wed_10_Aug_630pm',
+        display_name='Session_Wed_10_Aug_630pm'
+    ),
+    dict(
+        name='Session_Thur_11_Aug_11am',
+        display_name='Session_Thur_11_Aug_11am'
+    ),
+    dict(
+        name='Session_Thur_11_Aug_130pm',
+        display_name='Session_Thur_11_Aug_130pm'
+    ),
+    dict(
+        name='Session_Thur_11_Aug_4pm',
+        display_name='Session_Thur_11_Aug_4pm'
+    ),
 ]

@@ -38,8 +38,10 @@ class Player(BasePlayer):
 # FUNCTIONS
 def creating_session(subsession):
     if subsession.round_number == 1:
+        import itertools
+        treatments = itertools.cycle(["Substitution", "Pre_Information", "Post_Information"])
         for player in subsession.get_players():
-            player.participant.treatment = random.choice(["Substitution", "Pre_Information", "Post_Information"])
+            player.participant.treatment = next(treatments)
             player.session.label = player.session.config['session_label']
             player.treatment = player.participant.treatment
 
