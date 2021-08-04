@@ -247,31 +247,31 @@ ROOMS = [
         display_name='Session_Tues_10_Aug_1pm',
     ),
     dict(
-        name='Session_Wed_10_Aug_11am',
-        display_name='Session_Wed_10_Aug_11am'
+        name='Session_Wed_11_Aug_11am',
+        display_name='Session_Wed_11_Aug_11am'
     ),
     dict(
-        name='Session_Wed_10_Aug_130pm',
-        display_name='Session_Wed_10_Aug_130pm'
+        name='Session_Wed_11_Aug_130pm',
+        display_name='Session_Wed_11_Aug_130pm'
     ),
     dict(
-        name='Session_Wed_10_Aug_4pm',
-        display_name='Session_Wed_10_Aug_4pm'
+        name='Session_Wed_11_Aug_4pm',
+        display_name='Session_Wed_11_Aug_4pm'
     ),
     dict(
-        name='Session_Wed_10_Aug_630pm',
-        display_name='Session_Wed_10_Aug_630pm'
+        name='Session_Wed_11_Aug_630pm',
+        display_name='Session_Wed_11_Aug_630pm'
     ),
     dict(
-        name='Session_Thur_11_Aug_11am',
-        display_name='Session_Thur_11_Aug_11am'
+        name='Session_Thur_12_Aug_11am',
+        display_name='Session_Thur_12_Aug_11am'
     ),
     dict(
-        name='Session_Thur_11_Aug_130pm',
-        display_name='Session_Thur_11_Aug_130pm'
+        name='Session_Thur_12_Aug_130pm',
+        display_name='Session_Thur_12_Aug_130pm'
     ),
     dict(
-        name='Session_Thur_11_Aug_4pm',
-        display_name='Session_Thur_11_Aug_4pm'
+        name='Session_Thur_12_Aug_4pm',
+        display_name='Session_Thur_12_Aug_4pm'
     ),
 ]
