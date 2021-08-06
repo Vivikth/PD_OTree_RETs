@@ -7,22 +7,22 @@
         if (formvalue === solution ) {
         } else if (formvalue === "" ) {
         } else {
-            alert("Answer is Incorrect. Please wait " + waiting + " seconds to resubmit your answer");
+            alert("Answer is Incorrect. Please wait " + waiting + " seconds to resubmit your answer.");
+            $('#id_user_text').keydown(false);
             $("#button").hide();
             $("#TimerHead").show();
-
             var timeleft = waiting;
             var downloadTimer = setInterval(function(){
               if(timeleft <= 0){
                 clearInterval(downloadTimer);
                 document.getElementById("countdown").innerHTML = "";
                 document.getElementById("countdown").hide;
+                $('#id_user_text').unbind('keydown');
               } else {
                 document.getElementById("countdown").innerHTML = timeleft + " seconds remaining until submit button reappears";
               }
               timeleft -= 1;
             }, 1000);
-
             $("#button").delay(1000 * (waiting + 1)).fadeIn(100);
             return false;
         }
