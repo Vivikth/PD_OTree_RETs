@@ -232,7 +232,9 @@ else:
 ROOMS = [
     dict(
         name='econ_lab',
-        display_name='Experimental Economics Lab'
+        display_name='Experimental Economics Lab',
+        participant_label_file='rooms/test.txt',
+        use_secure_urls=True,
     ),
     dict(
         name='Pre_Pilot',
@@ -245,33 +247,41 @@ ROOMS = [
     dict(
         name='Session_Tues_10_Aug_1pm',
         display_name='Session_Tues_10_Aug_1pm',
+        participant_label_file='rooms/Session_Tues_10_Aug_1pm.txt',
     ),
     dict(
         name='Session_Wed_11_Aug_11am',
-        display_name='Session_Wed_11_Aug_11am'
+        display_name='Session_Wed_11_Aug_11am',
+        participant_label_file='rooms/Session_Wed_11_Aug_11am.txt',
     ),
     dict(
         name='Session_Wed_11_Aug_130pm',
-        display_name='Session_Wed_11_Aug_130pm'
+        display_name='Session_Wed_11_Aug_130pm',
+        participant_label_file='rooms/Session_Wed_11_Aug_130pm.txt',
     ),
     dict(
         name='Session_Wed_11_Aug_4pm',
-        display_name='Session_Wed_11_Aug_4pm'
+        display_name='Session_Wed_11_Aug_4pm',
+        participant_label_file='rooms/Session_Wed_11_Aug_4pm.txt',
     ),
     dict(
         name='Session_Wed_11_Aug_630pm',
-        display_name='Session_Wed_11_Aug_630pm'
+        display_name='Session_Wed_11_Aug_630pm',
+        participant_label_file='rooms/Session_Wed_11_Aug_630pm.txt',
     ),
     dict(
         name='Session_Thur_12_Aug_11am',
-        display_name='Session_Thur_12_Aug_11am'
+        display_name='Session_Thur_12_Aug_11am',
+        participant_label_file='rooms/Session_Thur_12_Aug_11am.txt',
     ),
     dict(
         name='Session_Thur_12_Aug_130pm',
-        display_name='Session_Thur_12_Aug_130pm'
+        display_name='Session_Thur_12_Aug_130pm',
+        participant_label_file='rooms/Session_Thur_12_Aug_130pm.txt',
     ),
     dict(
         name='Session_Thur_12_Aug_4pm',
-        display_name='Session_Thur_12_Aug_4pm'
+        display_name='Session_Thur_12_Aug_4pm',
+        participant_label_file='rooms/Session_Thur_12_Aug_4pm.txt',
     ),
 ]
