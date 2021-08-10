@@ -221,7 +221,8 @@ PARTICIPANT_FIELDS = ['treatment', 'start_time', 'end_time', 'time_before_tasks'
                       'treatment_choice1', 'treatment_choice2', 'control_choice1', 'control_choice2',
                       'switched1', 'switched2',
                       'menu_choice1', 'menu_choice2',  # Menu_Select
-                      'lc1a', 'pair', 'stage', 'task_to_complete', 'opt_choice1', 'opt_choice2']  # Dynamic Vars
+                      'lc1a', 'pair', 'stage', 'task_to_complete', 'opt_choice1', 'opt_choice2',  # Dynamic Vars
+                      'uniID']  # ID Vars
 
 # For Debug False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
@@ -234,7 +235,6 @@ ROOMS = [
         name='econ_lab',
         display_name='Experimental Economics Lab',
         participant_label_file='rooms/test.txt',
-        use_secure_urls=True,
     ),
     dict(
         name='Pre_Pilot',

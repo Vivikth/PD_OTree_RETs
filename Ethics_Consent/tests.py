@@ -11,6 +11,6 @@ class PlayerBot(Bot):
         if bot_should_play_app(self, Constants.name_in_url):
             yield SonaId, dict(sona_id=1234567890)
             if self.case['Ethics_Consent'] == 'Consent':
-                yield InformationSheet, dict(name='Robot', agreement=True)
+                yield InformationSheet, dict(name='Robot', agreement=True, uni_id='u00000')
             if self.case['Ethics_Consent'] == 'No_Consent':
                 yield SubmissionMustFail(InformationSheet, dict(name='Non Consenting Robot', agreement=False))
