@@ -284,4 +284,44 @@ ROOMS = [
         display_name='Session_Thur_12_Aug_4pm',
         participant_label_file='rooms/Session_Thur_12_Aug_4pm.txt',
     ),
+    dict(
+        name='Session_Tues_24_Aug_1pm',
+        display_name='Session_Tues_24_Aug_1pm',
+        participant_label_file='rooms/Session_Tues_24_Aug_1pm.txt',
+    ),
+    dict(
+        name='Session_Wed_25_Aug_1pm',
+        display_name='Session_Wed_25_Aug_1pm',
+        participant_label_file='rooms/Session_Wed_25_Aug_1pm.txt',
+    ),
+    dict(
+        name='Session_Wed_25_Aug_330pm',
+        display_name='Session_Wed_25_Aug_330pm',
+        participant_label_file='rooms/Session_Wed_25_Aug_330pm.txt',
+    ),
+    dict(
+        name='Session_Thur_26_Aug_2pm',
+        display_name='Session_Thur_26_Aug_2pm',
+        participant_label_file='rooms/Session_Thur_26_Aug_2pm.txt',
+    ),
+    dict(
+        name='Session_Thurs_26_Aug_430pm',
+        display_name='Session_Thurs_26_Aug_430pm',
+        participant_label_file='rooms/Session_Thur_26_Aug_430pm.txt',
+    ),
+    dict(
+        name='Session_Fri_27_Aug_2pm',
+        display_name='Session_Fri_27_Aug_2pm',
+        participant_label_file='rooms/Session_Fri_27_Aug_12pm.txt',
+    ),
+    dict(
+        name='Session_Sat_28_Aug_2pm',
+        display_name='Session_Sat_28_Aug_2pm',
+        participant_label_file='rooms/Session_Sat_28_Aug_2pm.txt',
+    ),
+    dict(
+        name='Session_Sun_29_Aug_2pm',
+        display_name='Session_Sun_29_Aug_2pm',
+        participant_label_file='rooms/Session_Sun_29_Aug_2pm.txt',
+    ),
 ]
