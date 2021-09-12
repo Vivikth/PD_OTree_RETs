@@ -14,37 +14,37 @@ RET_LIST = ["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + T
 SESSION_CONFIGS = [
     dict(
         name='task_replication1a',
-        display_name="task_replication1a",
+        display_name="Replication Task (Demo)",
         num_demo_participants=1,
         app_sequence=['task_replication1a'],
     ),
     dict(
         name='task_transcribing1a',
-        display_name="task_transcribing1a",
+        display_name="Interpretation Task (Demo)",
         num_demo_participants=1,
         app_sequence=['task_transcribing1a'],
     ),
     dict(
         name='task_encoding1a',
-        display_name="task_encoding1a",
+        display_name="Concealment Task (Demo)",
         num_demo_participants=1,
         app_sequence=['task_encoding1a'],
     ),
-    dict(
-        name='task_encoding1b',
-        display_name="task_encoding1b",
-        num_demo_participants=1,
-        app_sequence=['task_encoding1b'],
-    ),
+    # dict(
+    #     name='task_encoding1b',
+    #     display_name="task_encoding1b",
+    #     num_demo_participants=1,
+    #     app_sequence=['task_encoding1b'],
+    # ),
     dict(
         name='task_organising1a',
-        display_name="task_organising1a",
+        display_name="Organising Task (Demo)",
         num_demo_participants=1,
         app_sequence=['task_organising1a'],
     ),
     dict(
         name='task_tabulation1a',
-        display_name="task_tabulation1a",
+        display_name="Tabulation Task (Demo)",
         num_demo_participants=1,
         app_sequence=['task_tabulation1a'],
     ),
