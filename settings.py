@@ -14,19 +14,19 @@ RET_LIST = ["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + T
 SESSION_CONFIGS = [
     dict(
         name='task_replication1a',
-        display_name="Replication Task (Demo)",
+        display_name="t1",
         num_demo_participants=1,
         app_sequence=['task_replication1a'],
     ),
     dict(
         name='task_transcribing1a',
-        display_name="Interpretation Task (Demo)",
+        display_name="t2",
         num_demo_participants=1,
         app_sequence=['task_transcribing1a'],
     ),
     dict(
         name='task_encoding1a',
-        display_name="Concealment Task (Demo)",
+        display_name="t3",
         num_demo_participants=1,
         app_sequence=['task_encoding1a'],
     ),
@@ -38,13 +38,13 @@ SESSION_CONFIGS = [
     # ),
     dict(
         name='task_organising1a',
-        display_name="Organising Task (Demo)",
+        display_name="t4",
         num_demo_participants=1,
         app_sequence=['task_organising1a'],
     ),
     dict(
         name='task_tabulation1a',
-        display_name="Tabulation Task (Demo)",
+        display_name="t5",
         num_demo_participants=1,
         app_sequence=['task_tabulation1a'],
     ),
@@ -229,99 +229,99 @@ if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
     DEBUG = False   # This should be the opposite of below.
 else:
     DEBUG = True   # This is the one that controls debug behaviour
-
-ROOMS = [
-    dict(
-        name='econ_lab',
-        display_name='Experimental Economics Lab',
-        participant_label_file='rooms/test.txt',
-    ),
-    dict(
-        name='Pre_Pilot',
-        display_name='Pre_Pilot'
-    ),
-    dict(
-        name='Pilot',
-        display_name='Pilot'
-    ),
-    dict(
-        name='Session_Tues_10_Aug_1pm',
-        display_name='Session_Tues_10_Aug_1pm',
-        participant_label_file='rooms/Session_Tues_10_Aug_1pm.txt',
-    ),
-    dict(
-        name='Session_Wed_11_Aug_11am',
-        display_name='Session_Wed_11_Aug_11am',
-        participant_label_file='rooms/Session_Wed_11_Aug_11am.txt',
-    ),
-    dict(
-        name='Session_Wed_11_Aug_130pm',
-        display_name='Session_Wed_11_Aug_130pm',
-        participant_label_file='rooms/Session_Wed_11_Aug_130pm.txt',
-    ),
-    dict(
-        name='Session_Wed_11_Aug_4pm',
-        display_name='Session_Wed_11_Aug_4pm',
-        participant_label_file='rooms/Session_Wed_11_Aug_4pm.txt',
-    ),
-    dict(
-        name='Session_Wed_11_Aug_630pm',
-        display_name='Session_Wed_11_Aug_630pm',
-        participant_label_file='rooms/Session_Wed_11_Aug_630pm.txt',
-    ),
-    dict(
-        name='Session_Thur_12_Aug_11am',
-        display_name='Session_Thur_12_Aug_11am',
-        participant_label_file='rooms/Session_Thur_12_Aug_11am.txt',
-    ),
-    dict(
-        name='Session_Thur_12_Aug_130pm',
-        display_name='Session_Thur_12_Aug_130pm',
-        participant_label_file='rooms/Session_Thur_12_Aug_130pm.txt',
-    ),
-    dict(
-        name='Session_Thur_12_Aug_4pm',
-        display_name='Session_Thur_12_Aug_4pm',
-        participant_label_file='rooms/Session_Thur_12_Aug_4pm.txt',
-    ),
-    dict(
-        name='Session_Tues_24_Aug_1pm',
-        display_name='Session_Tues_24_Aug_1pm',
-        participant_label_file='rooms/Session_Tues_24_Aug_1pm.txt',
-    ),
-    dict(
-        name='Session_Wed_25_Aug_1pm',
-        display_name='Session_Wed_25_Aug_1pm',
-        participant_label_file='rooms/Session_Wed_25_Aug_1pm.txt',
-    ),
-    dict(
-        name='Session_Wed_25_Aug_330pm',
-        display_name='Session_Wed_25_Aug_330pm',
-        participant_label_file='rooms/Session_Wed_25_Aug_330pm.txt',
-    ),
-    dict(
-        name='Session_Thur_26_Aug_2pm',
-        display_name='Session_Thur_26_Aug_2pm',
-        participant_label_file='rooms/Session_Thur_26_Aug_2pm.txt',
-    ),
-    dict(
-        name='Session_Thurs_26_Aug_430pm',
-        display_name='Session_Thurs_26_Aug_430pm',
-        participant_label_file='rooms/Session_Thur_26_Aug_430pm.txt',
-    ),
-    dict(
-        name='Session_Fri_27_Aug_2pm',
-        display_name='Session_Fri_27_Aug_2pm',
-        participant_label_file='rooms/Session_Fri_27_Aug_12pm.txt',
-    ),
-    dict(
-        name='Session_Sat_28_Aug_2pm',
-        display_name='Session_Sat_28_Aug_2pm',
-        participant_label_file='rooms/Session_Sat_28_Aug_2pm.txt',
-    ),
-    dict(
-        name='Session_Sun_29_Aug_2pm',
-        display_name='Session_Sun_29_Aug_2pm',
-        participant_label_file='rooms/Session_Sun_29_Aug_2pm.txt',
-    ),
-]
+#
+# ROOMS = [
+#     dict(
+#         name='econ_lab',
+#         display_name='Experimental Economics Lab',
+#         participant_label_file='rooms/test.txt',
+#     ),
+#     dict(
+#         name='Pre_Pilot',
+#         display_name='Pre_Pilot'
+#     ),
+#     dict(
+#         name='Pilot',
+#         display_name='Pilot'
+#     ),
+#     dict(
+#         name='Session_Tues_10_Aug_1pm',
+#         display_name='Session_Tues_10_Aug_1pm',
+#         participant_label_file='rooms/Session_Tues_10_Aug_1pm.txt',
+#     ),
+#     dict(
+#         name='Session_Wed_11_Aug_11am',
+#         display_name='Session_Wed_11_Aug_11am',
+#         participant_label_file='rooms/Session_Wed_11_Aug_11am.txt',
+#     ),
+#     dict(
+#         name='Session_Wed_11_Aug_130pm',
+#         display_name='Session_Wed_11_Aug_130pm',
+#         participant_label_file='rooms/Session_Wed_11_Aug_130pm.txt',
+#     ),
+#     dict(
+#         name='Session_Wed_11_Aug_4pm',
+#         display_name='Session_Wed_11_Aug_4pm',
+#         participant_label_file='rooms/Session_Wed_11_Aug_4pm.txt',
+#     ),
+#     dict(
+#         name='Session_Wed_11_Aug_630pm',
+#         display_name='Session_Wed_11_Aug_630pm',
+#         participant_label_file='rooms/Session_Wed_11_Aug_630pm.txt',
+#     ),
+#     dict(
+#         name='Session_Thur_12_Aug_11am',
+#         display_name='Session_Thur_12_Aug_11am',
+#         participant_label_file='rooms/Session_Thur_12_Aug_11am.txt',
+#     ),
+#     dict(
+#         name='Session_Thur_12_Aug_130pm',
+#         display_name='Session_Thur_12_Aug_130pm',
+#         participant_label_file='rooms/Session_Thur_12_Aug_130pm.txt',
+#     ),
+#     dict(
+#         name='Session_Thur_12_Aug_4pm',
+#         display_name='Session_Thur_12_Aug_4pm',
+#         participant_label_file='rooms/Session_Thur_12_Aug_4pm.txt',
+#     ),
+#     dict(
+#         name='Session_Tues_24_Aug_1pm',
+#         display_name='Session_Tues_24_Aug_1pm',
+#         participant_label_file='rooms/Session_Tues_24_Aug_1pm.txt',
+#     ),
+#     dict(
+#         name='Session_Wed_25_Aug_1pm',
+#         display_name='Session_Wed_25_Aug_1pm',
+#         participant_label_file='rooms/Session_Wed_25_Aug_1pm.txt',
+#     ),
+#     dict(
+#         name='Session_Wed_25_Aug_330pm',
+#         display_name='Session_Wed_25_Aug_330pm',
+#         participant_label_file='rooms/Session_Wed_25_Aug_330pm.txt',
+#     ),
+#     dict(
+#         name='Session_Thur_26_Aug_2pm',
+#         display_name='Session_Thur_26_Aug_2pm',
+#         participant_label_file='rooms/Session_Thur_26_Aug_2pm.txt',
+#     ),
+#     dict(
+#         name='Session_Thurs_26_Aug_430pm',
+#         display_name='Session_Thurs_26_Aug_430pm',
+#         participant_label_file='rooms/Session_Thur_26_Aug_430pm.txt',
+#     ),
+#     dict(
+#         name='Session_Fri_27_Aug_2pm',
+#         display_name='Session_Fri_27_Aug_2pm',
+#         participant_label_file='rooms/Session_Fri_27_Aug_12pm.txt',
+#     ),
+#     dict(
+#         name='Session_Sat_28_Aug_2pm',
+#         display_name='Session_Sat_28_Aug_2pm',
+#         participant_label_file='rooms/Session_Sat_28_Aug_2pm.txt',
+#     ),
+#     dict(
+#         name='Session_Sun_29_Aug_2pm',
+#         display_name='Session_Sun_29_Aug_2pm',
+#         participant_label_file='rooms/Session_Sun_29_Aug_2pm.txt',
+#     ),
+# ]
