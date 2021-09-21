@@ -13,6 +13,12 @@ RET_LIST = ["RET_Choice"] + ["RET_Choice_2"] + Task1a_list + ["Menu_Select"] + T
 
 SESSION_CONFIGS = [
     dict(
+        name='Experiment',
+        display_name='Experiment',
+        num_demo_participants=1,
+        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
+    ),
+    dict(
         name='task_replication1a',
         display_name="Replication Task",
         num_demo_participants=1,
@@ -30,12 +36,6 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['task_encoding1a'],
     ),
-    # dict(
-    #     name='task_encoding1b',
-    #     display_name="task_encoding1b",
-    #     num_demo_participants=1,
-    #     app_sequence=['task_encoding1b'],
-    # ),
     dict(
         name='task_organising1a',
         display_name="Organising Task",
@@ -49,8 +49,46 @@ SESSION_CONFIGS = [
         app_sequence=['task_tabulation1a'],
     ),
     dict(
+        name='Experiment_W',
+        display_name='Reading Activity - Enter 0 for all switch-points',
+        num_demo_participants=1,
+        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
+        continuation_rv=0.01,
+        treatment="Substitution",
+        lot_outcome=100
+    ),
+    dict(
+        name='Experiment_B',
+        display_name='Best Task - Enter 0 for all switch-points',
+        num_demo_participants=1,
+        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
+        continuation_rv=0.01,
+        lot_outcome=0,
+        Rand_T='I'
+    ),
+    dict(
+        name='Introduction',
+        display_name='Introduction',
+        num_demo_participants=1,
+        app_sequence=['Introduction'],
+        session_label='Introduction_TEST'
+    ),
+    dict(
+        name='BDM',
+        display_name='BDM',
+        num_demo_participants=1,
+        app_sequence=['BDM'],
+    ),
+    dict(
+        name='Task_WTP',
+        display_name='Preference Elicitation App',
+        num_demo_participants=1,
+        app_sequence=['Task_WTP'],
+        debug=True,
+    ),
+    dict(
         name='RET_Choice_Sub',
-        display_name="RET_Choice_Sub",
+        display_name="Stage 3 App: Substitution Treatment",
         num_demo_participants=1,
         app_sequence=RET_LIST,
         treatment="Substitution",
@@ -63,7 +101,7 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='RET_Choice_Post',
-        display_name="RET_Choice_Post",
+        display_name="Stage 3 App: Post Information Treatment",
         num_demo_participants=1,
         app_sequence=RET_LIST,
         treatment="Post_Information",
@@ -72,27 +110,46 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='RET_Choice_Pre',
-        display_name="RET_Choice_Pre",
+        display_name="Stage 3 App: Pre-Information Treatment",
         num_demo_participants=1,
         app_sequence=RET_LIST,
         treatment="Pre_Information",
         pair1=["R", "C"],
         pair2=["T", "I"],
     ),
+    # dict(
+    #     name='RET_Choice_Sub2',
+    #     display_name="RET_Choice_Sub2",
+    #     num_demo_participants=1,
+    #     app_sequence=["RET_Choice_2"],
+    #     treatment="Substitution",
+    #     pair1=["T", "C"],
+    #     pair2=["R", "I"],
+    # ),
     dict(
-        name='RET_Choice_Sub2',
-        display_name="RET_Choice_Sub2",
+        name='Survey',
+        display_name='Demographic Survey',
         num_demo_participants=1,
-        app_sequence=["RET_Choice_2"],
-        treatment="Substitution",
-        pair1=["T", "C"],
-        pair2=["R", "I"],
+        app_sequence=['Demog_Survey'],
     ),
     dict(
-        name='Experiment',
-        display_name='Experiment',
+        name='Ethics_Consent',
+        display_name='Ethics Consent App',
         num_demo_participants=1,
-        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
+        app_sequence=['Ethics_Consent'],
+    ),
+    dict(
+        name='payment_info',
+        display_name='Payment Information App',
+        num_demo_participants=1,
+        app_sequence=['payment_info'],
+        mobile=False
+    ),
+    dict(
+        name='detect_mobile',
+        display_name='Mobile Detection App',
+        num_demo_participants=1,
+        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM'],
     ),
     dict(
         name='Experiment_Bot',
@@ -101,83 +158,20 @@ SESSION_CONFIGS = [
         app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM', 'Task_WTP'] + Task_0_list + RET_LIST,
         session_label="Bot_Experiment"
     ),
-    dict(
-        name='BDM',
-        display_name='BDM',
-        num_demo_participants=1,
-        app_sequence=['BDM'],
-    ),
-    dict(
-        name='Task_WTP',
-        display_name='Task_WTP',
-        num_demo_participants=1,
-        app_sequence=['Task_WTP'],
-        debug=True,
-    ),
-    dict(
-        name='Experiment_BW',
-        display_name='Experiment_BW',
-        num_demo_participants=1,
-        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
-        continuation_rv=0.01,
-    ),
-    dict(
-        name='Experiment_W',
-        display_name='Experiment_Worst',
-        num_demo_participants=1,
-        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
-        continuation_rv=0.01,
-        treatment="Substitution",
-        lot_outcome=100
-    ),
-    dict(
-        name='Experiment_B',
-        display_name='Experiment_Best',
-        num_demo_participants=1,
-        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
-        continuation_rv=0.01,
-        lot_outcome=0,
-        Rand_T='I'
-    ),
-    dict(
-        name='Survey',
-        display_name='Survey',
-        num_demo_participants=1,
-        app_sequence=['Demog_Survey'],
-    ),
-    dict(
-        name='Task_WTP_Sub',
-        display_name='Task_WTP_Sub',
-        num_demo_participants=1,
-        app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
-        treatment="Substitution",
-    ),
-    dict(
-        name='Ethics_Consent',
-        display_name='Ethics_Consent',
-        num_demo_participants=1,
-        app_sequence=['Ethics_Consent'],
-    ),
-    dict(
-        name='payment_info',
-        display_name='payment_info',
-        num_demo_participants=1,
-        app_sequence=['payment_info'],
-        mobile=False
-    ),
-    dict(
-        name='detect_mobile',
-        display_name='detect_mobile',
-        num_demo_participants=1,
-        app_sequence=['detect_mobile', 'Ethics_Consent', 'Introduction', 'BDM'],
-    ),
-    dict(
-        name='Introduction',
-        display_name='Introduction',
-        num_demo_participants=1,
-        app_sequence=['Introduction'],
-        session_label='Introduction_TEST'
-    ),
+    # dict(
+    #     name='Experiment_BW',
+    #     display_name='Experiment_BW',
+    #     num_demo_participants=1,
+    #     app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
+    #     continuation_rv=0.01,
+    # ),
+    # dict(
+    #     name='Task_WTP_Sub',
+    #     display_name='Task_WTP_Sub',
+    #     num_demo_participants=1,
+    #     app_sequence=['Task_WTP'] + Task_0_list + RET_LIST,
+    #     treatment="Substitution",
+    # ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
